@@ -93,7 +93,9 @@ section {
   line-height: 0.92;
   letter-spacing: -0.01em;
   font-size: clamp(4rem, 17vw, 18rem);
-  text-shadow: 0 8px 90px rgba(0, 0, 0, 0.45);
+  /* drop-shadow (et non text-shadow) : appliqué après la découpe en
+     mots, l'ombre suit les lettres au lieu des boîtes overflow:hidden */
+  filter: drop-shadow(0 6px 26px rgba(0, 0, 0, 0.3));
 }
 .hero__sub {
   margin: clamp(1.8rem, 4vh, 3rem) auto 0;
@@ -239,7 +241,8 @@ section {
   line-height: 1.04;
   letter-spacing: -0.005em;
   font-size: clamp(2.1rem, 6.2vw, 5.4rem);
-  text-shadow: 0 6px 70px rgba(0, 0, 0, 0.4);
+  /* drop-shadow : même raison que .hero__title (mots découpés) */
+  filter: drop-shadow(0 5px 20px rgba(0, 0, 0, 0.28));
 }
 
 .word { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.14em 0; margin: -0.14em 0; }
