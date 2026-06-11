@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Cyril Arlaud — développeur web full-stack & SaaS. Conception et développement de produits web de bout en bout."
+      content="Développeur web full-stack à Marseille — React, Next.js, Node.js, React Native. Produits SaaS, fintech et mobile construits de bout en bout. Ouvert aux postes full-stack, sur place ou en full remote."
     />
     <meta name="theme-color" content="#0b0a10" />
-    <title>Cyril Arlaud — Développeur web full-stack & SaaS</title>
+    <title>Cyril Arlaud — Développeur web full-stack & SaaS · Marseille</title>
+
+    <!-- versions linguistiques (la page /en/ est générée au build) -->
+    <link rel="alternate" hreflang="fr" href="https://cyrilarlaud.com/" />
+    <link rel="alternate" hreflang="en" href="https://cyrilarlaud.com/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://cyrilarlaud.com/" />
 
     <!-- icônes -->
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
@@ -21,7 +26,7 @@
     <!-- Open Graph (LinkedIn, Slack, iMessage…) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Cyril Arlaud" />
-    <meta property="og:title" content="Cyril Arlaud — Développeur web full-stack & SaaS" />
+    <meta property="og:title" content="Cyril Arlaud — Développeur web full-stack & SaaS · Marseille" />
     <meta
       property="og:description"
       content="Produits web construits de bout en bout — SaaS, fintech, mobile. Du jeu temps réel à l'authentification forte DSP2."
@@ -47,35 +52,53 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Cyril Arlaud",
-        "jobTitle": "Développeur web full-stack",
-        "url": "https://cyrilarlaud.com/",
-        "email": "mailto:bonjour@cyrilarlaud.com",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Marseille",
-          "addressCountry": "FR"
-        },
-        "alumniOf": {
-          "@type": "EducationalOrganization",
-          "name": "Epitech — Web Academy"
-        },
-        "sameAs": [
-          "https://github.com/ArlaudCyril",
-          "https://www.linkedin.com/in/cyril-arlaud-fullstack/"
-        ],
-        "knowsAbout": [
-          "TypeScript",
-          "React",
-          "Next.js",
-          "Node.js",
-          "PostgreSQL",
-          "React Native",
-          "PHP",
-          "Symfony",
-          "SaaS",
-          "Fintech"
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://cyrilarlaud.com/#person",
+            "name": "Cyril Arlaud",
+            "jobTitle": "Développeur web full-stack",
+            "description": "Développeur web full-stack à Marseille. Produits SaaS, fintech et mobile construits de bout en bout — React, Next.js, Node.js, React Native, PHP/Symfony.",
+            "url": "https://cyrilarlaud.com/",
+            "image": "https://cyrilarlaud.com/og.jpg",
+            "email": "mailto:bonjour@cyrilarlaud.com",
+            "knowsLanguage": ["fr", "en"],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Marseille",
+              "addressCountry": "FR"
+            },
+            "alumniOf": {
+              "@type": "EducationalOrganization",
+              "name": "Epitech — Web Academy"
+            },
+            "sameAs": [
+              "https://github.com/ArlaudCyril",
+              "https://www.linkedin.com/in/cyril-arlaud-fullstack/"
+            ],
+            "knowsAbout": [
+              "TypeScript",
+              "React",
+              "Next.js",
+              "Node.js",
+              "PostgreSQL",
+              "React Native",
+              "PHP",
+              "Symfony",
+              "SaaS",
+              "Fintech",
+              "WebGL"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://cyrilarlaud.com/#website",
+            "name": "Les Heures — Cyril Arlaud",
+            "url": "https://cyrilarlaud.com/",
+            "inLanguage": ["fr-FR", "en-US"],
+            "about": { "@id": "https://cyrilarlaud.com/#person" },
+            "publisher": { "@id": "https://cyrilarlaud.com/#person" }
+          }
         ]
       }
     </script>

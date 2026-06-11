@@ -449,7 +449,8 @@ export function initStory(bg, opts = {}) {
       const img = document.createElement("img");
       img.className = "work__thumb";
       img.src = item.dataset.preview;
-      img.alt = "";
+      // alt = nom du projet (neutre vis-à-vis de la langue)
+      img.alt = item.querySelector(".work__name")?.textContent || "";
       img.loading = "lazy";
       const head = item.querySelector(".work__head");
       if (head) head.insertAdjacentElement("afterend", img);

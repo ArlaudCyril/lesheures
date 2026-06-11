@@ -13,7 +13,7 @@
 
 export const translations = {
   fr: {
-    "meta.title": "Cyril Arlaud — Développeur web full-stack & SaaS",
+    "meta.title": "Cyril Arlaud — Développeur web full-stack & SaaS · Marseille",
 
     // Sommaire latéral & navigation mobile
     "nav.about": "Origines",
@@ -96,7 +96,7 @@ export const translations = {
   },
 
   en: {
-    "meta.title": "Cyril Arlaud — Full-stack & SaaS web developer",
+    "meta.title": "Cyril Arlaud — Full-stack & SaaS web developer · Marseille",
 
     // Side contents & mobile navigation
     "nav.about": "Origins",
@@ -181,7 +181,12 @@ export const translations = {
 
 const SUPPORTED = ["fr", "en"];
 
-/** Langue initiale : préférence sauvegardée, sinon langue du navigateur. */
+/**
+ * Langue initiale : préférence sauvegardée, sinon la langue de LA PAGE
+ * (attribut lang du HTML — / est française, /en/ est anglaise).
+ * Surtout pas celle du navigateur : Googlebot rend le JS en locale
+ * en-US, l'URL française serait indexée avec le contenu anglais.
+ */
 export function getInitialLang() {
   try {
     const saved = localStorage.getItem("lang");
@@ -189,8 +194,8 @@ export function getInitialLang() {
   } catch (e) {
     /* localStorage indisponible */
   }
-  const nav = (navigator.language || "fr").toLowerCase();
-  return nav.startsWith("fr") ? "fr" : "en";
+  const page = (document.documentElement.lang || "fr").toLowerCase();
+  return page.startsWith("en") ? "en" : "fr";
 }
 
 /** Mémorise la langue choisie. */

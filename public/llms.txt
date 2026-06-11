@@ -1,0 +1,48 @@
+# Cyril Arlaud — Développeur web full-stack & SaaS (Marseille, France)
+
+> Portfolio « Les Heures » : https://cyrilarlaud.com — une traversée de la
+> lumière, de l'aube à l'aurore, où chaque chapitre raconte une facette du
+> métier. English version: https://cyrilarlaud.com/en/
+
+## Qui
+
+- Cyril Arlaud, développeur web full-stack basé à Marseille (France).
+- Reconversion : œnologie, bars, commerce, 2 ans en Australie + 2 ans au
+  Canada, puis Epitech (Web Academy). Anglais courant.
+- ~4 ans d'expérience en freelance pour le studio Ennea, dont ~2 ans en
+  parallèle pour Nova Strategies.
+- Recherche : poste full-stack (CDI) à Marseille et alentours, ou en full
+  remote. Également ouvert aux missions freelance et collaborations produit.
+- Contact : bonjour@cyrilarlaud.com · GitHub : https://github.com/ArlaudCyril
+  · LinkedIn : https://www.linkedin.com/in/cyril-arlaud-fullstack/
+
+## Stack
+
+TypeScript, React, Next.js, Node.js, PostgreSQL, Prisma, React Native/Expo,
+PHP 8 / Symfony 7, Stripe, Docker, CI/CD, Vercel/AWS/GCP, Three.js/GSAP.
+
+## Projets principaux
+
+1. **LetMeBet** (https://letmebet.io, en production) — challenges de paris
+   sportifs à capital virtuel : cotes multi-sports en temps réel (WebSocket),
+   KYC, paiements. ~100 endpoints, 40 modèles de données, 250+ tests.
+   150+ parieurs financés, 4,8/5 sur Trustpilot.
+2. **Orion** (produit interne) — CRM SaaS multitenant qui alimente LetMeBet :
+   campagnes email/in-app, séquences automatisées, paiements multi-prestataires
+   à livraison de webhooks fiabilisée. 80 modèles de données, 440+ tests,
+   SDK TypeScript publié.
+3. **Yoor** (bêta) — application bancaire mobile React Native pour les cartes
+   prépayées PCS : pilotage de cartes, virements SEPA, KYC, biométrie, wallets
+   Ethereum/Solana avec scoring AML. 60+ endpoints bancaires, 4 langues.
+4. **Module SCA** — brique d'authentification forte DSP2 pour l'écosystème
+   PCS : challenges signés ECDSA P-256, biométrie, anti-rejeu, audit immuable.
+   PHP 8.4/Symfony 7.4, architecture hexagonale, Terraform sur GCP.
+
+## About (English)
+
+Cyril Arlaud is a full-stack web developer based in Marseille, France.
+Career changer (vineyards, bars, retail, 4 years abroad in Australia and
+Canada), trained at Epitech's Web Academy, ~4 years freelancing complete
+products — SaaS, fintech, mobile — for studio Ennea and Nova Strategies.
+Looking for a full-time full-stack position (Marseille or fully remote).
+Portfolio: https://cyrilarlaud.com/en/ · Contact: bonjour@cyrilarlaud.com
