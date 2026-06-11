@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Cyril Arlaud — développeur web full-stack & SaaS. Conception et développement de produits web de bout en bout."
+    />
+    <meta name="theme-color" content="#0b0a10" />
+    <title>Cyril Arlaud — Développeur web full-stack & SaaS</title>
+
+    <!-- icônes -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+    <!-- adresse canonique (domaine cible) -->
+    <link rel="canonical" href="https://cyrilarlaud.com/" />
+
+    <!-- Open Graph (LinkedIn, Slack, iMessage…) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cyril Arlaud" />
+    <meta property="og:title" content="Cyril Arlaud — Développeur web full-stack & SaaS" />
+    <meta
+      property="og:description"
+      content="Produits web construits de bout en bout — SaaS, fintech, mobile. Du jeu temps réel à l'authentification forte DSP2."
+    />
+    <meta property="og:url" content="https://cyrilarlaud.com/" />
+    <meta property="og:image" content="https://cyrilarlaud.com/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cyril Arlaud — Développeur web full-stack & SaaS" />
+    <meta
+      name="twitter:description"
+      content="Produits web construits de bout en bout — SaaS, fintech, mobile."
+    />
+    <meta name="twitter:image" content="https://cyrilarlaud.com/og.jpg" />
+
+    <!-- données structurées -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Cyril Arlaud",
+        "jobTitle": "Développeur web full-stack",
+        "url": "https://cyrilarlaud.com/",
+        "email": "mailto:bonjour@cyrilarlaud.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Marseille",
+          "addressCountry": "FR"
+        },
+        "alumniOf": {
+          "@type": "EducationalOrganization",
+          "name": "Epitech — Web Academy"
+        },
+        "sameAs": [
+          "https://github.com/ArlaudCyril",
+          "https://www.linkedin.com/in/cyril-arlaud-fullstack/"
+        ],
+        "knowsAbout": [
+          "TypeScript",
+          "React",
+          "Next.js",
+          "Node.js",
+          "PostgreSQL",
+          "React Native",
+          "PHP",
+          "Symfony",
+          "SaaS",
+          "Fintech"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <canvas id="bg-canvas"></canvas>
+    <div class="scrim"></div>
+    <div class="grain"></div>
+
+    <!-- chrome -->
+    <div class="progress"><div class="progress__bar"></div></div>
+    <div class="wordmark">Cyril Arlaud</div>
+
+    <!-- sélecteur de langue -->
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button class="lang__opt" type="button" data-lang="fr">FR</button>
+      <span class="lang__sep" aria-hidden="true">/</span>
+      <button class="lang__opt" type="button" data-lang="en">EN</button>
+    </div>
+
+    <nav class="toc" aria-label="Sommaire">
+      <button class="toc__item" data-target="#about"><span class="toc__label" data-i18n="nav.about">Origines</span><span class="toc__tick"></span></button>
+      <button class="toc__item" data-target="#stack"><span class="toc__label" data-i18n="nav.stack">Stack</span><span class="toc__tick"></span></button>
+      <button class="toc__item" data-target="#work"><span class="toc__label" data-i18n="nav.work">Projets</span><span class="toc__tick"></span></button>
+      <button class="toc__item" data-target="#craft"><span class="toc__label" data-i18n="nav.craft">Savoir-faire</span><span class="toc__tick"></span></button>
+      <button class="toc__item" data-target="#contact"><span class="toc__label" data-i18n="nav.contact">Contact</span><span class="toc__tick"></span></button>
+    </nav>
+
+    <!-- navigation mobile : chapitre courant + overlay sommaire -->
+    <button class="mnav" type="button" aria-expanded="false" aria-controls="mnav-overlay" aria-label="Sommaire / Contents">
+      <span class="mnav__num">01</span>
+      <!-- libellé recopié du sommaire par story.js (suit langue + chapitre) -->
+      <span class="mnav__label">Origines</span>
+      <span class="mnav__icon" aria-hidden="true"></span>
+    </button>
+    <div class="mnav-overlay" id="mnav-overlay" role="dialog" aria-modal="true" aria-labelledby="mnav-title">
+      <p class="mnav-overlay__title" id="mnav-title" data-i18n="nav.title">Sommaire</p>
+      <nav class="mnav-overlay__list" aria-label="Chapitres">
+        <button class="mnav-overlay__item" data-target="#about"><span class="mnav-overlay__idx">01</span><span data-i18n="nav.about">Origines</span></button>
+        <button class="mnav-overlay__item" data-target="#stack"><span class="mnav-overlay__idx">02</span><span data-i18n="nav.stack">Stack</span></button>
+        <button class="mnav-overlay__item" data-target="#work"><span class="mnav-overlay__idx">03</span><span data-i18n="nav.work">Projets</span></button>
+        <button class="mnav-overlay__item" data-target="#craft"><span class="mnav-overlay__idx">04</span><span data-i18n="nav.craft">Savoir-faire</span></button>
+        <button class="mnav-overlay__item" data-target="#contact"><span class="mnav-overlay__idx">05</span><span data-i18n="nav.contact">Contact</span></button>
+      </nav>
+      <button class="mnav-overlay__close" type="button" aria-label="Fermer / Close">✕</button>
+    </div>
+
+    <!-- making-of : « sous le capot » -->
+    <button class="mo-toggle" type="button" aria-pressed="false">
+      <span aria-hidden="true">{ }</span>
+      <span data-i18n="mo.toggle">Sous le capot</span>
+    </button>
+    <aside class="mo-hud" hidden></aside>
+    <div class="mo-notes" hidden aria-hidden="true">
+      <span class="mo-note mo-note--progress" data-i18n="mo.note1">La barre mesure le récit — c'est elle qui pilote les couleurs du shader.</span>
+      <span class="mo-note mo-note--toc" data-i18n="mo.note2">Sommaire : Lenis scrollTo + GSAP ScrollTrigger — titres découpés mot à mot.</span>
+      <span class="mo-note mo-note--canvas" data-i18n="mo.note3">Le fond entier est un seul quad WebGL : fbm domain-warpé, déformé par la souris.</span>
+    </div>
+
+    <!-- son génératif -->
+    <button class="snd" type="button" aria-pressed="false">
+      <span class="snd__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="snd__label" data-i18n="sound.label">Son</span>
+    </button>
+
+    <!-- curseur -->
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+
+    <main>
+      <!-- OUVERTURE -->
+      <section class="hero" id="hero" data-screen-label="Ouverture">
+        <div class="hero__inner">
+          <p class="hero__eyebrow" data-i18n="hero.eyebrow">Développeur web full-stack · SaaS</p>
+          <h1 class="hero__title">Cyril Arlaud</h1>
+          <p class="hero__sub" data-i18n="hero.sub">Je conçois et développe des produits web de bout en bout — de la première maquette à l'infrastructure en production. Faites défiler : une journée dans ma façon de construire.</p>
+          <!-- rempli par hours.js : « Il est 23h04 — bonsoir. » -->
+          <p class="hero__time"></p>
+        </div>
+        <div class="scroll-hint">
+          <span>Défiler</span>
+          <span class="scroll-hint__line"></span>
+        </div>
+      </section>
+
+      <!-- 01 — L'AUBE · Origines -->
+      <section class="chapter chapter--left" id="about" data-screen-label="01 · Origines">
+        <div class="chap__num">01</div>
+        <div class="chapter__inner chap__inner">
+          <p class="chap__kicker" data-i18n="c1.kicker">Première lueur — origines</p>
+          <h2 class="chap__lead" data-i18n="c1.lead">Tout commence par un rêve d'enfant — et le long détour qui m'y a ramené.</h2>
+          <p class="chap__body" data-i18n="c1.body">Enfant, c'était déjà le plan. J'ai d'abord pris le chemin des écoliers : les vignes et l'œnologie, les bars, une boutique à gérer, deux ans en Australie puis deux au Canada. Un soir, un bot pour Dofus — écrit seul, socket par socket — a rallumé la première lueur. Passé par la Web Academy d'Epitech, je construis depuis quatre ans des produits entiers en freelance — SaaS, fintech, mobile — pour le studio Ennea et Nova Strategies.</p>
+          <p class="chap__pull" data-i18n="c1.pull">« Le bon chemin n'était pas le plus court. »</p>
+        </div>
+      </section>
+
+      <!-- 02 — LE ZÉNITH · Stack & expertise -->
+      <section class="chapter chapter--right" id="stack" data-screen-label="02 · Stack">
+        <div class="chap__num">02</div>
+        <div class="chapter__inner chap__inner">
+          <p class="chap__kicker" data-i18n="c2.kicker">Plein jour — stack & expertise</p>
+          <h2 class="chap__lead" data-i18n="c2.lead">À pleine puissance : les outils que je maîtrise pour aller vite, proprement.</h2>
+          <p class="chap__body" data-i18n="c2.body">Du front réactif au back robuste, je couvre toute la chaîne. TypeScript de bout en bout, React et Next.js sur l'interface, Node.js côté serveur, et tout l'outillage SaaS pour passer de l'idée à la facturation.</p>
+          <!-- [À PERSONNALISER] adapte / complète les technologies ci-dessous -->
+          <div class="chap__extra stack">
+            <div class="stack-group">
+              <p class="stack-group__label" data-i18n="stack.front">Interface</p>
+              <div class="stack-tags">
+                <span class="stack-tag">React</span>
+                <span class="stack-tag">Next.js</span>
+                <span class="stack-tag">TypeScript</span>
+                <span class="stack-tag">Tailwind CSS</span>
+                <span class="stack-tag">Three.js / GSAP</span>
+              </div>
+            </div>
+            <div class="stack-group">
+              <p class="stack-group__label" data-i18n="stack.back">Serveur & données</p>
+              <div class="stack-tags">
+                <span class="stack-tag">Node.js</span>
+                <span class="stack-tag">Express / NestJS</span>
+                <span class="stack-tag">PostgreSQL</span>
+                <span class="stack-tag">Prisma</span>
+                <span class="stack-tag">REST / GraphQL</span>
+              </div>
+            </div>
+            <div class="stack-group">
+              <p class="stack-group__label" data-i18n="stack.saas">SaaS & infra</p>
+              <div class="stack-tags">
+                <span class="stack-tag">Stripe</span>
+                <span class="stack-tag">Auth (OAuth / JWT)</span>
+                <span class="stack-tag">Docker</span>
+                <span class="stack-tag">CI/CD</span>
+                <span class="stack-tag">Vercel / AWS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — LE CRÉPUSCULE · Projets -->
+      <section class="chapter chapter--left" id="work" data-screen-label="03 · Projets">
+        <div class="chap__num">03</div>
+        <div class="chapter__inner chap__inner">
+          <p class="chap__kicker" data-i18n="c3.kicker">L'heure dorée — projets</p>
+          <h2 class="chap__lead" data-i18n="c3.lead">Quelques pièces dont je suis fier.</h2>
+          <p class="chap__body" data-i18n="c3.body">Une sélection de réalisations full-stack et SaaS — de la conception produit à la mise en production.</p>
+          <div class="chap__extra work">
+            <a class="work__item" href="https://letmebet.io" target="_blank" rel="noopener noreferrer" data-cursor data-preview="screens/letmebet.jpg">
+              <span class="work__head">
+                <span class="work__index">01</span>
+                <span class="work__name">LetMeBet</span>
+                <span class="work__arrow" aria-hidden="true">↗</span>
+              </span>
+              <span class="work__desc" data-i18n="work.p1.desc">Challenges de paris sportifs à capital virtuel : cotes multi-sports en temps réel par WebSocket, KYC, paiements, système de jokers. Une centaine d'endpoints, 40 modèles de données, 250+ tests — en production : 150+ parieurs financés, 4,8/5 sur Trustpilot.</span>
+              <span class="work__tags">Next.js · TypeScript · Prisma · PostgreSQL · WebSocket</span>
+              <span class="work__cta" data-i18n="work.cta">Voir le projet</span>
+            </a>
+            <div class="work__item">
+              <span class="work__head">
+                <span class="work__index">02</span>
+                <span class="work__name">Orion</span>
+              </span>
+              <span class="work__desc" data-i18n="work.p2.desc">CRM SaaS multitenant qui alimente LetMeBet : campagnes email et in-app, séquences automatisées, paiements multi-prestataires à livraison de webhooks fiabilisée. 80 modèles de données, 440+ tests, intégré aux apps clientes via un SDK TypeScript publié.</span>
+              <span class="work__tags">Next.js · Prisma · Stripe · Inngest · SDK TypeScript</span>
+              <span class="work__cta" data-i18n="work.cta2">Produit interne — démo sur demande</span>
+            </div>
+            <div class="work__item">
+              <span class="work__head">
+                <span class="work__index">03</span>
+                <span class="work__name">Yoor</span>
+              </span>
+              <span class="work__desc" data-i18n="work.p3.desc">Application bancaire mobile (React Native) pour les cartes prépayées PCS : pilotage des cartes, virements SEPA, KYC et biométrie, plus un volet crypto — wallets Ethereum/Solana avec scoring AML. 60+ endpoints bancaires intégrés, 4 langues, backend serverless dédié.</span>
+              <span class="work__tags">React Native · Expo · TypeScript · Web3 · Vercel Functions</span>
+              <span class="work__cta" data-i18n="work.cta3">App mobile en bêta — démo sur demande</span>
+            </div>
+            <div class="work__item">
+              <span class="work__head">
+                <span class="work__index">04</span>
+                <span class="work__name">Module SCA</span>
+              </span>
+              <span class="work__desc" data-i18n="work.p4.desc">Brique d'authentification forte (DSP2) pour l'écosystème PCS : challenges signés ECDSA P-256 par appareil de confiance, biométrie, anti-rejeu, audit immuable. Architecture hexagonale — 8 ports, adapters PostgreSQL/Redis — pyramide de tests, infra Terraform sur GCP.</span>
+              <span class="work__tags">PHP 8.4 · Symfony · PostgreSQL · Redis · Terraform</span>
+              <span class="work__cta" data-i18n="work.cta4">Module backend — détails sur demande</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — LA NUIT · Savoir-faire -->
+      <section class="chapter chapter--center" id="craft" data-screen-label="04 · Savoir-faire">
+        <div class="chap__num">04</div>
+        <div class="chapter__inner chap__inner">
+          <p class="chap__kicker" data-i18n="c4.kicker">Heure bleue — savoir-faire</p>
+          <h2 class="chap__lead" data-i18n="c4.lead">Dans le calme, l'architecture se dessine.</h2>
+          <p class="chap__body" data-i18n="c4.body">J'aime les problèmes profonds : modéliser des données, dessiner une API limpide, soigner les performances et l'expérience. Construire un SaaS, c'est penser au-delà de l'écran — paiements, authentification, déploiement, fiabilité.</p>
+          <p class="chap__pull" data-i18n="c4.pull">« Le meilleur code est celui qu'on n'a pas à expliquer. »</p>
+        </div>
+      </section>
+
+      <!-- 05 — L'AURORE · Et maintenant ? -->
+      <section class="chapter chapter--left" id="contact" data-screen-label="05 · Contact">
+        <div class="chap__num">05</div>
+        <div class="chapter__inner chap__inner">
+          <p class="chap__kicker" data-i18n="c5.kicker">Avant le jour — et maintenant ?</p>
+          <h2 class="chap__lead" data-i18n="c5.lead">Et si on construisait la suite, ensemble ?</h2>
+          <p class="chap__body" data-i18n="c5.body">Cap sur un poste full-stack — à Marseille et alentours, ou en full remote. Ouvert aussi aux missions freelance et aux collaborations produit. Une équipe à rejoindre, un produit à faire grandir ? Parlons-en.</p>
+          <p class="chap__pull" data-i18n="c5.pull">« Chaque fin garde, en secret, le germe d'un matin. »</p>
+        </div>
+      </section>
+
+      <!-- CLÔTURE · Contact -->
+      <section class="outro" id="outro" data-screen-label="Clôture">
+        <div class="outro__inner">
+          <p class="hero__eyebrow" data-i18n="out.eyebrow">Fin de la traversée</p>
+          <h2 class="outro__title" data-i18n="out.title">Parlons-en</h2>
+          <p class="outro__text" data-i18n="out.text">Disponible pour de nouveaux projets. Demain, la même lumière inventera d'autres couleurs.</p>
+          <div class="contact">
+            <a class="contact__link" href="mailto:bonjour@cyrilarlaud.com" data-cursor>bonjour@cyrilarlaud.com</a>
+            <a class="contact__link" href="https://github.com/ArlaudCyril" target="_blank" rel="noopener noreferrer" data-cursor>GitHub</a>
+            <a class="contact__link" href="https://www.linkedin.com/in/cyril-arlaud-fullstack/" target="_blank" rel="noopener noreferrer" data-cursor>LinkedIn</a>
+          </div>
+          <a class="outro__restart" href="#hero" data-cursor data-i18n="out.restart">↑ Recommencer</a>
+          <p class="outro__credits" data-i18n="out.credits">Conçu avec Three.js · GSAP · Lenis</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

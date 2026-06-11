@@ -1,0 +1,23 @@
+{
+  "name": "les-heures",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Les Heures — une traversée de la lumière. Expérience de scrollytelling (Three.js + GSAP + Lenis) intégrée dans Vite.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/bodoni-moda": "^5.0.0",
+    "@fontsource-variable/manrope": "^5.0.0",
+    "@fontsource/space-mono": "^5.0.0",
+    "gsap": "3.12.5",
+    "lenis": "1.1.14",
+    "three": "0.158.0"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
