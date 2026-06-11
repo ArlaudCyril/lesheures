@@ -28,12 +28,13 @@ import { initSound } from "./sound.js";
 const lang0 = getInitialLang();
 applyLang(lang0);
 
-// L'heure réelle du visiteur choisit la lumière d'ouverture.
+// L'heure réelle du visiteur choisit la lumière d'ouverture
+// (couleurs + position du soleil + étoiles).
 const heroStop = getHeroStop();
 
 const canvas = document.getElementById("bg-canvas");
 const bg = initBackground(canvas);
-if (bg) bg.setColorsImmediate(heroStop.a, heroStop.b, heroStop.c);
+if (bg) bg.setSkyImmediate(heroStop);
 const story = initStory(bg, { heroStop });
 
 const timeLine = initTimeLine();

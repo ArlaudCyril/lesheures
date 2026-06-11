@@ -13,9 +13,10 @@ const HUD_LABELS = {
     render: "rendu",
     scroll: "récit",
     time: "uTime",
+    sun: "soleil",
     colors: "uniforms couleur",
     engine: "moteur",
-    engineValue: "1 quad WebGL · 5×fbm, 6 octaves · GSAP · Lenis",
+    engineValue: "1 quad WebGL · ciel + nuages fbm éclairés · GSAP · Lenis",
     stops: ["Ouverture", "Aube", "Zénith", "Crépuscule", "Nuit", "Aurore", "Clôture"],
   },
   en: {
@@ -24,9 +25,10 @@ const HUD_LABELS = {
     render: "render",
     scroll: "story",
     time: "uTime",
+    sun: "sun",
     colors: "color uniforms",
     engine: "engine",
-    engineValue: "1 WebGL quad · 5×fbm, 6 octaves · GSAP · Lenis",
+    engineValue: "1 WebGL quad · lit fbm sky & clouds · GSAP · Lenis",
     stops: ["Opening", "Dawn", "Noon", "Dusk", "Night", "Daybreak", "Closing"],
   },
 };
@@ -68,6 +70,7 @@ export function initMakingOf(bg) {
       `<div class="mo-hud__row"><span>${d.render}</span><b>${info.width}×${info.height} @${info.dpr.toFixed(2)}x</b></div>` +
       `<div class="mo-hud__row"><span>${d.scroll}</span><b>${Math.round(p * 100)}% — ${d.stops[stop]}</b></div>` +
       `<div class="mo-hud__row"><span>${d.time}</span><b>${info.time.toFixed(1)}s</b></div>` +
+      `<div class="mo-hud__row"><span>${d.sun}</span><b>elev ${info.sun.elev.toFixed(2)} · az ${info.sun.az.toFixed(2)} · ✶ ${info.sun.stars.toFixed(2)}</b></div>` +
       `<div class="mo-hud__row mo-hud__row--colors"><span>${d.colors}</span><b>${sw}</b></div>` +
       `<div class="mo-hud__row"><span>${d.engine}</span><b>${d.engineValue}</b></div>`;
   }

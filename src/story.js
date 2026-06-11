@@ -15,18 +15,20 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 
 /* ---------------------------------------------------------
-   Palette : une couleur par étape du parcours (a=base,
-   b=lumière, c=accent). Le fond interpole entre ces arrêts.
-   Exportée pour hours.js (palette d'accueil selon l'heure).
+   Arrêts du récit : couleurs (a=ciel, b=lumière, c=accent)
+   + position du soleil (elev -1..1, az 0..1) + étoiles (0..1).
+   Le fond interpole entre ces arrêts au fil du scroll — le
+   soleil parcourt réellement son arc d'est en ouest.
+   Exporté pour hours.js (ciel d'accueil selon l'heure).
 --------------------------------------------------------- */
 export const STOPS = [
-  { a: "#1d1622", b: "#824150", c: "#13101a" }, // 0 — Ouverture
-  { a: "#e0826b", b: "#f6cf93", c: "#b65a72" }, // 1 — Origines (aube)
-  { a: "#e9c27a", b: "#f6eccf", c: "#d98a45" }, // 2 — Stack (zénith)
-  { a: "#b23a6b", b: "#e87a4e", c: "#563a8c" }, // 3 — Projets (crépuscule)
-  { a: "#161a38", b: "#2c3f7e", c: "#0a0c1e" }, // 4 — Savoir-faire (nuit)
-  { a: "#1f6b6b", b: "#6fd0c4", c: "#3a2f6e" }, // 5 — Contact (aurore)
-  { a: "#14121e", b: "#3a3550", c: "#0b0a10" }, // 6 — Clôture
+  { a: "#1d1622", b: "#824150", c: "#13101a", elev: -0.12, az: 0.18, stars: 0.55 }, // 0 — Ouverture
+  { a: "#e0826b", b: "#f6cf93", c: "#b65a72", elev: 0.14, az: 0.22, stars: 0.05 }, // 1 — Origines (aube)
+  { a: "#e9c27a", b: "#f6eccf", c: "#d98a45", elev: 0.92, az: 0.5, stars: 0 }, // 2 — Stack (zénith)
+  { a: "#b23a6b", b: "#e87a4e", c: "#563a8c", elev: 0.11, az: 0.8, stars: 0.06 }, // 3 — Projets (crépuscule)
+  { a: "#161a38", b: "#2c3f7e", c: "#0a0c1e", elev: -0.45, az: 0.62, stars: 1 }, // 4 — Savoir-faire (nuit)
+  { a: "#1f6b6b", b: "#6fd0c4", c: "#3a2f6e", elev: 0.02, az: 0.16, stars: 0.3 }, // 5 — Contact (aurore)
+  { a: "#14121e", b: "#3a3550", c: "#0b0a10", elev: -0.18, az: 0.3, stars: 0.7 }, // 6 — Clôture
 ];
 
 export function initStory(bg, opts = {}) {
@@ -44,11 +46,15 @@ export function initStory(bg, opts = {}) {
     a: new Color(s.a),
     b: new Color(s.b),
     c: new Color(s.c),
+    elev: s.elev,
+    az: s.az,
+    stars: s.stars,
   }));
 
   const tmpA = new Color();
   const tmpB = new Color();
   const tmpC = new Color();
+  const mixN = (x, y, t) => x + (y - x) * t;
 
   // Pendant un défilement programmé (sommaire, recommencer), l'inertie
   // douce laisserait le fond ~1 s dans les couleurs du mauvais chapitre :
@@ -69,7 +75,17 @@ export function initStory(bg, opts = {}) {
     tmpB.copy(s0.b).lerp(s1.b, te);
     tmpC.copy(s0.c).lerp(s1.c, te);
     const amt = performance.now() < boostUntil ? 0.22 : 0.09; // inertie : on glisse vers la cible
-    bg.blendColors(tmpA, tmpB, tmpC, amt);
+    bg.blendSky(
+      {
+        a: tmpA,
+        b: tmpB,
+        c: tmpC,
+        elev: mixN(s0.elev, s1.elev, te),
+        az: mixN(s0.az, s1.az, te),
+        stars: mixN(s0.stars, s1.stars, te),
+      },
+      amt
+    );
   }
 
   /* -------------------------------------------------------
