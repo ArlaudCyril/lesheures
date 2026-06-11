@@ -89,33 +89,45 @@ const fragmentShader = /* glsl */ `
     float dayUp = smoothstep(-0.25, 0.45, uSunElev);   // jour levé
     float golden = smoothstep(0.55, 0.06, abs(uSunElev - 0.12)); // heures dorées
 
-    // ---- ciel : dégradé vertical art-directed ----
-    float horiz = pow(1.0 - uv.y, 1.45);
-    vec3 sky = mix(uColorA * 0.92, mix(uColorA, uColorB, 0.7), horiz);
-    // diffusion chaude autour du soleil
-    sky += uColorB * exp(-sunDist * 2.1) * (0.22 + 0.3 * golden);
+    // ---- ciel : dégradé franc et lumineux, façon anime ----
+    float horiz = pow(1.0 - uv.y, 1.4);
+    vec3 sky = mix(uColorA, mix(uColorA, uColorB, 0.85), horiz);
+    // bande de brume claire à l'horizon (signature Shinkai)
+    sky = mix(sky, uColorB, pow(horiz, 6.0) * 0.22);
+    // diffusion autour du soleil — en mix (pas d'addition qui surexpose)
+    sky = mix(sky, uColorB, exp(-sunDist * 2.0) * (0.2 + 0.32 * golden));
 
-    // ---- nuages : deux couches fbm, dérive du vent + souris ----
-    vec2 wind = vec2(uTime * 0.014, uTime * 0.004) + m * 0.06 + uMouseV * 0.25;
-    vec2 q1 = p * 1.35 + wind;
-    vec2 q2 = p * 2.7 - wind * 1.6 + vec2(4.7, 9.1);
+    // ---- nuages : puffs distincts, couverture aérée ----
+    vec2 wind = vec2(uTime * 0.012, uTime * 0.0035) + m * 0.05 + uMouseV * 0.2;
+    vec2 q1 = p * 1.4 + wind;
+    vec2 q2 = p * 2.8 - wind * 1.5 + vec2(4.7, 9.1);
     float w1 = fbm(q1 + vec2(3.1, 7.7));
-    float d1 = fbm(q1 + w1 * 0.9);
-    float d2 = fbm(q2 + fbm(q2 + vec2(8.2, 1.3)) * 0.7);
-    float field = d1 * 0.62 + d2 * 0.38 + horiz * 0.06;
-    float dens = smoothstep(0.42, 0.8, field);
-    // plein midi : ciel plus dégagé
-    dens *= 1.0 - smoothstep(0.5, 0.95, uSunElev) * 0.35;
+    float d1 = fbm(q1 + w1 * 0.8);
+    float d2 = fbm(q2 + fbm(q2 + vec2(8.2, 1.3)) * 0.6);
+    float field = d1 * 0.6 + d2 * 0.4 + horiz * 0.07;
+    // silhouette nette + cœur dense : la lisibilité vient du vide
+    float cover = 1.0 - smoothstep(0.5, 0.95, uSunElev) * 0.3;
+    float dens = smoothstep(0.54, 0.67, field) * cover;
+    float core = smoothstep(0.64, 0.84, field);
 
-    // éclairage directionnel : la densité ré-échantillonnée vers le
-    // soleil donne le liseré lumineux des bords qui lui font face
+    // éclairage directionnel quantifié en 3 tons (cel shading) :
+    // la densité ré-échantillonnée vers le soleil donne la face éclairée
     vec2 toSun = (sun - p) / max(sunDist, 1e-3);
-    float dlit = fbm(q1 + toSun * 0.16 + w1 * 0.9);
-    float rim = clamp((d1 - dlit) * 2.6, 0.0, 1.0);
+    float dlit = fbm(q1 + toSun * 0.16 + w1 * 0.8);
+    float lit = clamp((d1 - dlit) * 3.2, 0.0, 1.0) * dayUp;
+    lit = floor(lit * 3.0 + 0.5) / 3.0;
 
-    vec3 cloudShadow = mix(uColorA * 0.6, uColorC, 0.4);
-    vec3 cloudLit = mix(uColorB, vec3(1.0), 0.12);
-    vec3 cloud = mix(cloudShadow, cloudLit, clamp(rim * dayUp + 0.16 * dayUp, 0.0, 1.0));
+    // corps lumineux, ombre colorée par le ciel — jamais boueuse :
+    // une ambiance plancher maintient les nuages clairs tant que le
+    // soleil est levé (l'ombre profonde n'existe qu'à la nuit)
+    vec3 cloudBase = mix(uColorB, vec3(1.0), 0.5);
+    vec3 cloudShade = mix(mix(uColorA, uColorB, 0.3), uColorC, 0.14);
+    float ambient = 0.32 * dayUp;
+    vec3 cloud = mix(
+      cloudShade,
+      cloudBase,
+      clamp(ambient + lit * 0.68 + core * 0.18 * dayUp, 0.0, 1.0)
+    );
 
     // ---- rayons crépusculaires (marche courte vers le soleil) ----
     // coût GPU encouru seulement aux heures dorées (golden ~ uniforme)
@@ -127,7 +139,7 @@ const fragmentShader = /* glsl */ `
         rp += stepv;
         ray += 1.0 - smoothstep(0.35, 0.8, fbm(rp * 1.35 + wind));
       }
-      ray = pow(ray / 6.0, 2.0) * exp(-sunDist * 1.7) * golden * 0.45;
+      ray = pow(ray / 6.0, 2.4) * exp(-sunDist * 1.8) * golden * 0.32;
     }
 
     // ---- étoiles (la nuit, au-dessus des nuages fins) ----
@@ -145,25 +157,25 @@ const fragmentShader = /* glsl */ `
 
     // ---- composition ----
     vec3 col = sky;
-    // disque + halo (soleil le jour, lueur de lune la nuit)
-    float disc = smoothstep(0.05, 0.038, sunDist);
-    float glow = exp(-sunDist * 4.6);
+    // disque net + halo doux et rond (soleil le jour, lune la nuit)
+    float disc = smoothstep(0.042, 0.035, sunDist);
+    float halo = exp(-sunDist * 7.0) * 0.45 + exp(-sunDist * 2.6) * 0.16;
     float celest = clamp(uSunElev * 2.0 + 0.7, 0.12, 1.0);
-    col += (disc * 1.15 + glow * 0.5) * mix(uColorB, vec3(1.0), 0.35) * celest;
+    col += (disc * 1.05 + halo) * mix(uColorB, vec3(1.0), 0.45) * celest;
     col += ray * uColorB;
-    col = mix(col, cloud, dens * 0.92);
+    col = mix(col, cloud, dens * 0.95);
     col += star * uStars * (1.0 - dens) * vec3(0.93, 0.96, 1.0);
-    // accent dans les creux d'ombre
-    col = mix(col, uColorC, (1.0 - rim) * dens * 0.1);
+    // accent très léger dans les creux d'ombre
+    col = mix(col, uColorC, (1.0 - lit) * dens * 0.06);
 
-    // vignette
+    // vignette aérée
     float vig = smoothstep(1.35, 0.15, length((vUv - 0.5) * vec2(uAspect, 1.0)));
-    col *= 0.8 + 0.2 * vig;
+    col *= 0.88 + 0.12 * vig;
 
-    // mode making-of : densité nuageuse nue + liseré + grille
+    // mode making-of : densité nuageuse nue + tons cel + grille
     if (uDebug > 0.001) {
       vec3 dbg = vec3(dens);
-      dbg.r += rim * 0.45;
+      dbg.r += lit * 0.45;
       dbg.b += star * 0.6 + (1.0 - dens) * 0.08;
       vec2 cellg = fract(p * 6.0);
       dbg += (step(0.985, cellg.x) + step(0.985, cellg.y)) * 0.08;
@@ -213,7 +225,7 @@ export function initBackground(canvas) {
     uColorA: { value: new Color("#16111c") },
     uColorB: { value: new Color("#5a2733") },
     uColorC: { value: new Color("#0c0a12") },
-    uGrain: { value: 0.06 },
+    uGrain: { value: 0.03 }, // grain discret : rendu net, façon anime
     uIntro: { value: 0 }, // 0 -> 1 fade-in du fond au chargement
     uDebug: { value: 0 }, // 0 -> 1 vue déconstruite (making-of)
     uSunElev: { value: 0.2 },
