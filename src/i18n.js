@@ -48,7 +48,7 @@ export const translations = {
     "c3.kicker": "L'heure dorée — projets",
     "c3.lead": "Quelques pièces dont je suis fier.",
     "c3.body":
-      "Du jeu temps réel à la fintech régulée, quatre produits construits de bout en bout : plateforme web, CRM SaaS et son SDK, app bancaire mobile, et module d'authentification forte DSP2.",
+      "Du jeu temps réel à la fintech régulée, cinq produits construits de bout en bout : plateformes grand public, CRM SaaS et son SDK, app bancaire mobile, et module d'authentification forte DSP2.",
     "work.cta": "Voir le projet",
     "work.cta2": "Produit interne — démo sur demande",
     "work.cta3": "App mobile en bêta — démo sur demande",
@@ -61,6 +61,8 @@ export const translations = {
       "Application bancaire mobile (React Native) pour les cartes prépayées PCS : pilotage des cartes, virements SEPA, KYC et biométrie, plus un volet crypto — wallets Ethereum/Solana avec scoring AML. 60+ endpoints bancaires intégrés, 4 langues, backend serverless dédié.",
     "work.p4.desc":
       "Brique d'authentification forte (DSP2) pour l'écosystème PCS : challenges signés ECDSA P-256 par appareil de confiance, biométrie, anti-rejeu, audit immuable. Architecture hexagonale — 8 ports, adapters PostgreSQL/Redis — pyramide de tests, infra Terraform sur GCP.",
+    "work.p5.desc":
+      "Plateforme d'abonnements pour créateurs de contenu : paiements récurrents (PSP Epoch), KYC et contrôle d'âge Yoti, médias protégés par URLs signées (S3), messagerie modérée, programme d'affiliation, back-office complet. 54 modèles de données, 80+ écrans, 430+ tests — en production.",
 
     // 04 — La Nuit · Savoir-faire
     "c4.kicker": "Heure bleue — savoir-faire",
@@ -131,7 +133,7 @@ export const translations = {
     "c3.kicker": "Golden hour — selected work",
     "c3.lead": "A few pieces I'm proud of.",
     "c3.body":
-      "From real-time gaming to regulated fintech, four products built end to end: a web platform, a SaaS CRM with its SDK, a mobile banking app, and a PSD2 strong-authentication module.",
+      "From real-time gaming to regulated fintech, five products built end to end: consumer platforms, a SaaS CRM with its SDK, a mobile banking app, and a PSD2 strong-authentication module.",
     "work.cta": "View project",
     "work.cta2": "Internal product — demo on request",
     "work.cta3": "Mobile app in beta — demo on request",
@@ -144,6 +146,8 @@ export const translations = {
       "Mobile banking app (React Native) for PCS prepaid cards: card controls, SEPA transfers, KYC and biometrics, plus a crypto layer — Ethereum/Solana wallets with AML scoring. 60+ banking endpoints integrated, 4 languages, dedicated serverless backend.",
     "work.p4.desc":
       "Strong Customer Authentication (PSD2) building block for the PCS ecosystem: ECDSA P-256 signed challenges from trusted devices, biometrics, anti-replay, immutable audit trail. Hexagonal architecture — 8 ports, PostgreSQL/Redis adapters — full test pyramid, Terraform infra on GCP.",
+    "work.p5.desc":
+      "Subscription platform for content creators: recurring payments (Epoch PSP), Yoti KYC and age verification, signed-URL protected media (S3), moderated messaging, affiliate program, full back-office. 54 data models, 80+ screens, 430+ tests — live in production.",
 
     // 04 — Blue hour · Craft
     "c4.kicker": "Blue hour — craft",

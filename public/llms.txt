@@ -34,7 +34,11 @@ PHP 8 / Symfony 7, Stripe, Docker, CI/CD, Vercel/AWS/GCP, Three.js/GSAP.
 3. **Yoor** (bêta) — application bancaire mobile React Native pour les cartes
    prépayées PCS : pilotage de cartes, virements SEPA, KYC, biométrie, wallets
    Ethereum/Solana avec scoring AML. 60+ endpoints bancaires, 4 langues.
-4. **Module SCA** — brique d'authentification forte DSP2 pour l'écosystème
+4. **bemore.fans** (https://bemore.fans, en production) — plateforme
+   d'abonnements pour créateurs de contenu : paiements récurrents (Epoch),
+   KYC/contrôle d'âge Yoti, médias protégés par URLs signées (S3), messagerie
+   modérée, affiliation, back-office. 54 modèles de données, 430+ tests.
+5. **Module SCA** — brique d'authentification forte DSP2 pour l'écosystème
    PCS : challenges signés ECDSA P-256, biométrie, anti-rejeu, audit immuable.
    PHP 8.4/Symfony 7.4, architecture hexagonale, Terraform sur GCP.
 
