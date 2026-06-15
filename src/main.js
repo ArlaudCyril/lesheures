@@ -16,6 +16,9 @@ import "@fontsource/space-mono/700.css";
 import "lenis/dist/lenis.css";
 import "./style.css";
 
+// --- analytics ---
+import { inject } from "@vercel/analytics";
+
 // --- contenu & moteur ---
 import { applyLang, saveLang, getInitialLang } from "./i18n.js";
 import { initBackground } from "./background.js";
@@ -23,6 +26,9 @@ import { initStory } from "./story.js";
 import { getHeroStop, initTimeLine } from "./hours.js";
 import { initMakingOf } from "./makingof.js";
 import { initSound } from "./sound.js";
+
+// Initialise Vercel Web Analytics
+inject();
 
 // Langue initiale appliquée AVANT le découpage des titres par story.js.
 const lang0 = getInitialLang();

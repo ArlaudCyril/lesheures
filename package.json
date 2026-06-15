@@ -13,6 +13,7 @@
     "@fontsource-variable/bodoni-moda": "^5.0.0",
     "@fontsource-variable/manrope": "^5.0.0",
     "@fontsource/space-mono": "^5.0.0",
+    "@vercel/analytics": "^2.0.1",
     "gsap": "3.12.5",
     "lenis": "1.1.14",
     "three": "0.158.0"
