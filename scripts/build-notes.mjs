@@ -207,9 +207,7 @@ function renderIndex(notes, preview) {
   const listContent = secondary.length
     ? secondary.map(compactCard).join('')
     : '<p class="notes-empty">Les prochaines notes paraîtront ici.</p>';
-  const robots = preview
-    ? 'noindex, nofollow'
-    : 'index, follow, max-image-preview:large';
+  const robots = 'index, follow, max-image-preview:large';
 
   return `<!DOCTYPE html>
 <html lang="fr">

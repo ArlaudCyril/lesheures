@@ -239,6 +239,7 @@ test('buildNotes generates isolated preview and public note routes', async () =>
       ]);
 
     assert.match(previewIndex, /href="\/notes\/private-notes\/"/);
+    assert.match(previewIndex, /<meta name="robots" content="index, follow/);
     assert.match(previewIndex, /Brouillon/);
     assert.match(previewIndex, /Draft &lt;notes&gt;/);
     assert.doesNotMatch(previewIndex, /Draft <notes>/);
