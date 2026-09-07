@@ -105,6 +105,9 @@ export function initStory(bg, opts = {}) {
     const tgt =
       typeof target === "string" ? document.querySelector(target) : target;
     if (!tgt) return;
+    if (typeof target === "string" && target.startsWith("#")) {
+      window.history.replaceState(null, "", target);
+    }
     boostUntil = performance.now() + 2400; // durée du voyage + marge
     if (lenis) lenis.scrollTo(tgt, { duration: 1.8 });
     else window.scrollTo({ top: tgt.offsetTop, behavior: "smooth" });
@@ -344,7 +347,10 @@ export function initStory(bg, opts = {}) {
     const mnavLabel = document.querySelector(".mnav__label");
 
     navItems.forEach((it) => {
-      it.addEventListener("click", () => scrollTo(it.dataset.target));
+      it.addEventListener("click", (event) => {
+        event.preventDefault();
+        scrollTo(it.dataset.target);
+      });
     });
 
     function onScroll() {
@@ -396,6 +402,10 @@ export function initStory(bg, opts = {}) {
 
     const closeBtn = overlay.querySelector(".mnav-overlay__close");
     const items = Array.from(overlay.querySelectorAll(".mnav-overlay__item"));
+    const backgroundNodes = Array.from(
+      document.querySelectorAll("main, .toc, .lang, .mo-toggle, .snd, .mnav, .skip-link")
+    );
+    let restoreFocus = btn;
 
     function isOpen() {
       return overlay.classList.contains("is-open");
@@ -404,20 +414,44 @@ export function initStory(bg, opts = {}) {
     function setOpen(open) {
       overlay.classList.toggle("is-open", open);
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+      overlay.setAttribute("aria-hidden", open ? "false" : "true");
       document.body.classList.toggle("nav-open", open);
+      backgroundNodes.forEach((node) => {
+        node.inert = open;
+      });
       if (lenis) open ? lenis.stop() : lenis.start();
       if (open) {
         // après application de la visibilité, sinon focus() échoue
         requestAnimationFrame(() => (items[0] || closeBtn).focus());
       } else {
-        btn.focus();
+        restoreFocus?.focus();
       }
     }
 
     btn.addEventListener("click", () => setOpen(!isOpen()));
     if (closeBtn) closeBtn.addEventListener("click", () => setOpen(false));
     window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && isOpen()) setOpen(false);
+      if (!isOpen()) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      // L'ordre suit le DOM visible du dialogue : chapitres puis fermeture.
+      const focusable = [...items, closeBtn].filter(
+        (el) => el && !el.disabled && el.offsetParent !== null
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     });
     // si la fenêtre repasse en mode sommaire latéral, on referme
     window.addEventListener("resize", () => {
@@ -425,7 +459,8 @@ export function initStory(bg, opts = {}) {
     });
 
     items.forEach((it) => {
-      it.addEventListener("click", () => {
+      it.addEventListener("click", (event) => {
+        event.preventDefault();
         setOpen(false);
         scrollTo(it.dataset.target);
       });
@@ -450,8 +485,12 @@ export function initStory(bg, opts = {}) {
       img.className = "work__thumb";
       img.src = item.dataset.preview;
       // alt = nom du projet (neutre vis-à-vis de la langue)
-      img.alt = item.querySelector(".work__name")?.textContent || "";
+      const name = item.querySelector(".work__name")?.textContent || "";
+      img.alt = document.documentElement.lang === "en"
+        ? `Preview of ${name}`
+        : `Aperçu de ${name}`;
       img.loading = "lazy";
+      img.decoding = "async";
       const head = item.querySelector(".work__head");
       if (head) head.insertAdjacentElement("afterend", img);
       else item.prepend(img);

@@ -27,6 +27,7 @@ PHP 8 / Symfony 7, Stripe, Docker, CI/CD, Vercel/AWS/GCP, Three.js/GSAP.
    sportifs à capital virtuel : cotes multi-sports en temps réel (WebSocket),
    KYC, paiements. ~100 endpoints, 40 modèles de données, 250+ tests.
    150+ parieurs financés, 4,8/5 sur Trustpilot.
+   Étude de cas : https://cyrilarlaud.com/projets/letmebet/
 2. **Orion** (produit interne) — CRM SaaS multitenant qui alimente LetMeBet :
    campagnes email/in-app, séquences automatisées, paiements multi-prestataires
    à livraison de webhooks fiabilisée. 80 modèles de données, 440+ tests,
@@ -38,6 +39,7 @@ PHP 8 / Symfony 7, Stripe, Docker, CI/CD, Vercel/AWS/GCP, Three.js/GSAP.
    d'abonnements pour créateurs de contenu : paiements récurrents (Epoch),
    KYC/contrôle d'âge Yoti, médias protégés par URLs signées (S3), messagerie
    modérée, affiliation, back-office. 54 modèles de données, 430+ tests.
+   Étude de cas : https://cyrilarlaud.com/projets/bemore-fans/
 5. **Module SCA** — brique d'authentification forte DSP2 pour l'écosystème
    PCS : challenges signés ECDSA P-256, biométrie, anti-rejeu, audit immuable.
    PHP 8.4/Symfony 7.4, architecture hexagonale, Terraform sur GCP.

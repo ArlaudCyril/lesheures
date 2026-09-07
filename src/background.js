@@ -199,19 +199,45 @@ export function initBackground(canvas) {
     return null;
   }
 
-  // reduced-motion : la peinture dérive à peine (les couleurs
-  // continuent de suivre le scroll, mais sans mouvement propre)
+  // reduced-motion : le ciel devient un rendu statique piloté par le scroll
   const prefersReduced = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
-  const timeScale = prefersReduced ? 0.12 : 1;
+  const timeScale = prefersReduced ? 0 : 1;
 
-  const renderer = new WebGLRenderer({
-    canvas,
-    antialias: false,
-    alpha: false,
-    powerPreference: "high-performance",
-  });
+  let renderer;
+  try {
+    renderer = new WebGLRenderer({
+      canvas,
+      antialias: false,
+      alpha: false,
+      powerPreference: "high-performance",
+    });
+  } catch (error) {
+    // Le contenu reste lisible si WebGL est bloqué (navigateur, GPU, mode économie).
+    canvas.classList.add("is-unavailable");
+    document.body.classList.add("webgl-fallback");
+    console.warn("[HeuresBG] WebGL indisponible, fond CSS activé", error);
+    return {
+      setColors() {},
+      blendColors() {},
+      setColorsImmediate() {},
+      blendSky() {},
+      setSkyImmediate() {},
+      setDebug() {},
+      getInfo() {
+        return {
+          fps: 0,
+          time: 0,
+          colors: ["#16111c", "#5a2733", "#0c0a12"],
+          sun: { elev: 0, az: 0, stars: 0 },
+          dpr: 1,
+          width: 0,
+          height: 0,
+        };
+      },
+    };
+  }
   renderer.setClearColor(0x000000, 1);
 
   const scene = new Scene();
@@ -275,28 +301,33 @@ export function initBackground(canvas) {
   const clock = new Clock();
   let debugTarget = 0;
   let fps = 60;
+  const renderFrame = () => renderer.render(scene, camera);
   function render() {
     const dt = Math.min(clock.getDelta(), 0.05);
     uniforms.uTime.value += dt * timeScale;
     if (dt > 0) fps += (1 / dt - fps) * 0.05; // moyenne glissante
 
-    // lissage souris
-    current.x += (target.x - current.x) * 0.06;
-    current.y += (target.y - current.y) * 0.06;
-    uniforms.uMouse.value.set(current.x, current.y);
+    if (!prefersReduced) {
+      // lissage souris
+      current.x += (target.x - current.x) * 0.06;
+      current.y += (target.y - current.y) * 0.06;
+      uniforms.uMouse.value.set(current.x, current.y);
 
-    // vitesse de la souris pour la traînée
-    const vx = (current.x - prev.x) * 4.0;
-    const vy = (current.y - prev.y) * 4.0;
-    uniforms.uMouseV.value.x += (vx - uniforms.uMouseV.value.x) * 0.1;
-    uniforms.uMouseV.value.y += (vy - uniforms.uMouseV.value.y) * 0.1;
-    prev.copy(current);
+      // vitesse de la souris pour la traînée
+      const vx = (current.x - prev.x) * 4.0;
+      const vy = (current.y - prev.y) * 4.0;
+      uniforms.uMouseV.value.x += (vx - uniforms.uMouseV.value.x) * 0.1;
+      uniforms.uMouseV.value.y += (vy - uniforms.uMouseV.value.y) * 0.1;
+      prev.copy(current);
 
-    // fondu doux vers/depuis la vue making-of
-    uniforms.uDebug.value += (debugTarget - uniforms.uDebug.value) * 0.06;
+      // fondu doux vers/depuis la vue making-of
+      uniforms.uDebug.value += (debugTarget - uniforms.uDebug.value) * 0.06;
+    } else {
+      uniforms.uDebug.value = debugTarget;
+    }
 
-    renderer.render(scene, camera);
-    requestAnimationFrame(render);
+    renderFrame();
+    if (!prefersReduced) requestAnimationFrame(render);
   }
   render();
 
@@ -308,7 +339,8 @@ export function initBackground(canvas) {
     uniforms.uIntro.value = e * e * (3 - 2 * e); // smoothstep
     if (e < 1) requestAnimationFrame(intro);
   }
-  requestAnimationFrame(intro);
+  if (prefersReduced) uniforms.uIntro.value = 1;
+  else requestAnimationFrame(intro);
 
   // ---- API publique ----
   const _a = new Color();
@@ -325,6 +357,7 @@ export function initBackground(canvas) {
       uniforms.uColorA.value.lerp(_a, 1);
       uniforms.uColorB.value.lerp(_b, 1);
       uniforms.uColorC.value.lerp(_c, 1);
+      if (prefersReduced) renderFrame();
     },
     // mélange progressif (appelé chaque frame depuis le scroll)
     blendColors(a, b, c, amt) {
@@ -334,11 +367,13 @@ export function initBackground(canvas) {
       uniforms.uColorA.value.lerp(_a, amt);
       uniforms.uColorB.value.lerp(_b, amt);
       uniforms.uColorC.value.lerp(_c, amt);
+      if (prefersReduced) renderFrame();
     },
     setColorsImmediate(a, b, c) {
       uniforms.uColorA.value.set(a);
       uniforms.uColorB.value.set(b);
       uniforms.uColorC.value.set(c);
+      if (prefersReduced) renderFrame();
     },
     // ---- ciel vivant : couleurs + soleil + étoiles d'un coup ----
     blendSky(stop, amt) {
@@ -346,16 +381,19 @@ export function initBackground(canvas) {
       uniforms.uSunElev.value = lerpN(uniforms.uSunElev.value, stop.elev, amt);
       uniforms.uSunAz.value = lerpN(uniforms.uSunAz.value, stop.az, amt);
       uniforms.uStars.value = lerpN(uniforms.uStars.value, stop.stars, amt);
+      if (prefersReduced) renderFrame();
     },
     setSkyImmediate(stop) {
       this.setColorsImmediate(stop.a, stop.b, stop.c);
       uniforms.uSunElev.value = stop.elev;
       uniforms.uSunAz.value = stop.az;
       uniforms.uStars.value = stop.stars;
+      if (prefersReduced) renderFrame();
     },
     // ---- making-of ----
     setDebug(on) {
       debugTarget = on ? 1 : 0;
+      if (prefersReduced) renderFrame();
     },
     getInfo() {
       return {

@@ -20,7 +20,7 @@ import "./style.css";
 import { inject } from "@vercel/analytics";
 
 // --- contenu & moteur ---
-import { applyLang, saveLang, getInitialLang } from "./i18n.js";
+import { applyLang, getInitialLang } from "./i18n.js";
 import { initBackground } from "./background.js";
 import { initStory } from "./story.js";
 import { getHeroStop, initTimeLine } from "./hours.js";
@@ -55,26 +55,11 @@ function markActive(lang) {
   langBox.querySelectorAll(".lang__opt").forEach((b) => {
     const active = b.dataset.lang === lang;
     b.classList.toggle("is-active", active);
-    b.setAttribute("aria-pressed", active ? "true" : "false");
+    if (active) b.setAttribute("aria-current", "page");
+    else b.removeAttribute("aria-current");
   });
 }
 markActive(lang0);
-
-function switchLang(lang) {
-  if (!lang || lang === document.documentElement.lang) return;
-  applyLang(lang); // réécrit le contenu (réinitialise les mots découpés)
-  saveLang(lang);
-  markActive(lang);
-  story.rebuild(); // re-découpe + reconstruit les révélations
-  timeLine.update(); // « Il est 23h04 — bonsoir. » dans la bonne langue
-}
-
-if (langBox) {
-  langBox.addEventListener("click", (e) => {
-    const opt = e.target.closest(".lang__opt");
-    if (opt) switchLang(opt.dataset.lang);
-  });
-}
 
 // --- recommencer en douceur ---
 const restart = document.querySelector(".outro__restart");

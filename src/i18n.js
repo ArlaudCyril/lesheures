@@ -15,6 +15,13 @@ export const translations = {
   fr: {
     "meta.title": "Cyril Arlaud — Développeur web full-stack & SaaS · Marseille",
 
+    "nav.skip": "Aller au contenu",
+    "nav.language": "Langue",
+    "nav.contents": "Sommaire",
+    "nav.open": "Ouvrir le sommaire",
+    "nav.chapters": "Chapitres",
+    "nav.close": "Fermer le sommaire",
+
     // Sommaire latéral & navigation mobile
     "nav.about": "Origines",
     "nav.stack": "Stack",
@@ -27,6 +34,11 @@ export const translations = {
     "hero.eyebrow": "Développeur web full-stack · SaaS",
     "hero.sub":
       "Je conçois et développe des produits web de bout en bout — de la première maquette à l'infrastructure en production. Faites défiler : une journée dans ma façon de construire.",
+    "hero.meta": "Marseille · Télétravail · Ouvert à un poste full-stack",
+    "hero.ctaWork": "Voir les projets",
+    "hero.ctaContact": "Me contacter",
+    "hero.actions": "Actions principales",
+    "hero.scroll": "Défiler",
 
     // 01 — L'Aube · Origines
     "c1.kicker": "Première lueur — origines",
@@ -49,10 +61,13 @@ export const translations = {
     "c3.lead": "Quelques pièces dont je suis fier.",
     "c3.body":
       "Du jeu temps réel à la fintech régulée, cinq produits construits de bout en bout : plateformes grand public, CRM SaaS et son SDK, app bancaire mobile, et module d'authentification forte DSP2.",
-    "work.cta": "Voir le projet",
+    "work.cta": "Lire l’étude de cas",
+    "work.visit": "Visiter le produit ↗",
     "work.cta2": "Produit interne — démo sur demande",
     "work.cta3": "App mobile en bêta — démo sur demande",
     "work.cta4": "Module backend — détails sur demande",
+    "contact.email": "Écrire à Cyril",
+    "contact.details": "Coordonnées",
     "work.p1.desc":
       "Challenges de paris sportifs à capital virtuel : cotes multi-sports en temps réel par WebSocket, KYC, paiements, système de jokers. Une centaine d'endpoints, 40 modèles de données, 250+ tests — en production : 150+ parieurs financés, 4,8/5 sur Trustpilot.",
     "work.p2.desc":
@@ -100,6 +115,13 @@ export const translations = {
   en: {
     "meta.title": "Cyril Arlaud — Full-stack & SaaS web developer · Marseille",
 
+    "nav.skip": "Skip to content",
+    "nav.language": "Language",
+    "nav.contents": "Contents",
+    "nav.open": "Open contents",
+    "nav.chapters": "Chapters",
+    "nav.close": "Close contents",
+
     // Side contents & mobile navigation
     "nav.about": "Origins",
     "nav.stack": "Stack",
@@ -112,6 +134,11 @@ export const translations = {
     "hero.eyebrow": "Full-stack web developer · SaaS",
     "hero.sub":
       "I design and build web products end to end — from the first mockup to production infrastructure. Scroll on: a day inside the way I build.",
+    "hero.meta": "Marseille · Remote · Open to a full-stack role",
+    "hero.ctaWork": "View selected work",
+    "hero.ctaContact": "Get in touch",
+    "hero.actions": "Main actions",
+    "hero.scroll": "Scroll",
 
     // 01 — Dawn · Origins
     "c1.kicker": "First light — origins",
@@ -134,10 +161,13 @@ export const translations = {
     "c3.lead": "A few pieces I'm proud of.",
     "c3.body":
       "From real-time gaming to regulated fintech, five products built end to end: consumer platforms, a SaaS CRM with its SDK, a mobile banking app, and a PSD2 strong-authentication module.",
-    "work.cta": "View project",
+    "work.cta": "Read the case study",
+    "work.visit": "Visit the product ↗",
     "work.cta2": "Internal product — demo on request",
     "work.cta3": "Mobile app in beta — demo on request",
     "work.cta4": "Backend module — details on request",
+    "contact.email": "Email Cyril",
+    "contact.details": "Contact details",
     "work.p1.desc":
       "Sports-betting challenges with virtual capital: real-time multi-sport odds over WebSocket, KYC, payments, a joker system. About a hundred endpoints, 40 data models, 250+ tests — live in production: 150+ funded bettors, 4.8/5 on Trustpilot.",
     "work.p2.desc":
@@ -192,12 +222,9 @@ const SUPPORTED = ["fr", "en"];
  * en-US, l'URL française serait indexée avec le contenu anglais.
  */
 export function getInitialLang() {
-  try {
-    const saved = localStorage.getItem("lang");
-    if (SUPPORTED.includes(saved)) return saved;
-  } catch (e) {
-    /* localStorage indisponible */
-  }
+  // L'URL et le HTML pré-rendu sont la source de vérité : une préférence
+  // locale ne doit jamais transformer /en/ en page française pour un robot
+  // ou après un partage de lien.
   const page = (document.documentElement.lang || "fr").toLowerCase();
   return page.startsWith("en") ? "en" : "fr";
 }
@@ -224,5 +251,9 @@ export function applyLang(lang) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const value = dict[el.dataset.i18n];
     if (value != null) el.textContent = value;
+  });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+    const value = dict[el.dataset.i18nAriaLabel];
+    if (value != null) el.setAttribute("aria-label", value);
   });
 }

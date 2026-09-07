@@ -26,6 +26,15 @@ for (const [key, value] of Object.entries(translations.en)) {
   html = html.replace(re, `$1${esc(value).replace(/\$/g, "$$$$")}`);
 }
 
+/* ---- attributs accessibles : aria-labels bilingues ---- */
+for (const [key, value] of Object.entries(translations.en)) {
+  const re = new RegExp(
+    `(data-i18n-aria-label="${key.replace(/\./g, "\\.")}"[^>]*aria-label=")[^"]*(")`,
+    "g"
+  );
+  html = html.replace(re, `$1${esc(value).replace(/\$/g, "$$$$")}$2`);
+}
+
 /* ---- head : langue, titre, descriptions, canonique, OG ---- */
 const EN_TITLE = translations.en["meta.title"];
 const EN_DESC =
@@ -72,25 +81,43 @@ html = html
 /* ---- chemins relatifs : la page vit un niveau plus bas ---- */
 html = html
   .replaceAll('"./', '"../')
-  .replaceAll('data-preview="screens/', 'data-preview="../screens/');
+  .replaceAll('data-preview="screens/', 'data-preview="../screens/')
+  .replaceAll('href="/projets/letmebet/"', 'href="/en/projets/letmebet/"')
+  .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"');
 
 mkdirSync(dist + "en", { recursive: true });
 writeFileSync(dist + "en/index.html", html);
 
 /* ---- sitemap avec alternates hreflang ---- */
-const today = new Date().toISOString().slice(0, 10);
-const alt = `
-    <xhtml:link rel="alternate" hreflang="fr" href="${SITE}/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="${SITE}/en/"/>`;
+const alternates = (fr, en) => `
+    <xhtml:link rel="alternate" hreflang="fr" href="${fr}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="${en}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${fr}"/>`;
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>${SITE}/</loc>
-    <lastmod>${today}</lastmod>${alt}
+    ${alternates(`${SITE}/`, `${SITE}/en/`)}
   </url>
   <url>
     <loc>${SITE}/en/</loc>
-    <lastmod>${today}</lastmod>${alt}
+    ${alternates(`${SITE}/`, `${SITE}/en/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/letmebet/</loc>
+    ${alternates(`${SITE}/projets/letmebet/`, `${SITE}/en/projets/letmebet/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/letmebet/</loc>
+    ${alternates(`${SITE}/projets/letmebet/`, `${SITE}/en/projets/letmebet/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/bemore-fans/</loc>
+    ${alternates(`${SITE}/projets/bemore-fans/`, `${SITE}/en/projets/bemore-fans/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/bemore-fans/</loc>
+    ${alternates(`${SITE}/projets/bemore-fans/`, `${SITE}/en/projets/bemore-fans/`)}
   </url>
 </urlset>
 `;
