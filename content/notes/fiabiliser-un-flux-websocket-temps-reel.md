@@ -14,7 +14,7 @@ updatedAt:
 
 ## La décision en une phrase
 
-Traiter le WebSocket comme un transport faillible et reconstruire autour de lui un état vérifiable, avec synchronisation initiale, fraîcheur visible et reprise contrôlée.
+Traiter le WebSocket comme un transport faillible : garder un état de connexion explicite, appliquer les publications reçues avec mesure et prévoir une reprise progressive quand le réseau se coupe.
 
 ## Le contexte
 
@@ -32,27 +32,25 @@ Cette position full-stack était utile parce que les symptômes se manifestent s
 
 ## Les choix qui comptent
 
-Le premier choix est de commencer par un état de référence. À l’ouverture de l’écran ou après une interruption, le client récupère une vue cohérente avant d’appliquer les mises à jour suivantes. Les événements servent à faire évoluer cette base ; ils portent une version ou un curseur que le client peut comparer, et les messages reçus pendant la synchronisation sont mis en attente ou rejoués. Si un doute subsiste sur la continuité, une nouvelle synchronisation vaut mieux qu’une correction locale hasardeuse.
+Le premier choix est de distinguer l’état initial des publications qui arrivent ensuite. À l’ouverture de l’écran, le client récupère une vue de départ, puis applique les mises à jour reçues par le transport temps réel. Un rafraîchissement périodique fournit un point de contrôle supplémentaire : si les publications ne suffisent plus, le produit peut repartir d’une donnée plus récente au lieu de laisser l’écran vieillir en silence.
 
-Le deuxième choix est de séparer le transport du domaine. La couche WebSocket sait se connecter, se fermer, reprendre et décoder un message. Une couche suivante vérifie la forme et transforme ce message en opération métier. L’interface consomme enfin un état déjà interprété. Cette séparation permet de tester une mise à jour sans réseau et une reconnexion sans avoir à rendre tout l’écran.
+Le deuxième choix est de séparer le transport du domaine. La couche temps réel sait se connecter, se fermer, reprendre et transmettre une publication. Une couche suivante transforme ce message en donnée métier, tandis que l’interface consomme un état déjà interprété. Cette séparation permet de modifier l’écran sans déplacer la logique de connexion et de traiter un rafraîchissement périodique à part.
 
-Le troisième choix est de rendre la fraîcheur explicite. L’application distingue au minimum une connexion en cours, un état synchronisé et une situation dégradée. Elle peut conserver la dernière valeur connue si elle reste utile, mais elle indique qu’elle n’est peut-être plus actuelle et bloque les actions qui exigent une donnée fraîche. Une valeur ancienne clairement signalée est plus honnête qu’un écran qui semble fonctionner normalement.
+Le troisième choix est de rendre la connexion observable. L’application conserve un indicateur de connexion et l’utilise pour savoir si elle peut continuer à recevoir des publications. Elle peut aussi conserver la dernière valeur connue pendant une coupure ; cette décision doit rester visible dans l’expérience afin que l’utilisateur ne confonde pas une donnée conservée avec une donnée fraîche.
 
-La reprise doit également rester mesurée. Les tentatives sont espacées par un délai plafonné et légèrement décalées pour éviter qu’un grand nombre de clients se reconnectent au même instant. Au retour de la connexion, le client vérifie son état au lieu de supposer que tous les événements intermédiaires seront rejoués.
-
-Enfin, les tests portent sur les incidents, pas seulement sur le chemin heureux : interruption pendant une mise à jour, message répété, ordre différent, retour après mise en veille et donnée qui cesse d’évoluer. Ces scénarios décrivent mieux la fiabilité perçue qu’un simple test d’ouverture de connexion.
+Enfin, la reprise s’appuie sur des délais progressifs, avec une borne pour éviter une boucle de reconnexions trop agressive. Le client ne suppose pas que le transport est toujours disponible ; il peut repartir d’un rafraîchissement quand la connexion revient. Cette règle simple est plus facile à expliquer et à maintenir qu’une série de reprises dispersées dans les composants.
 
 ## Ce que cela a changé
 
-Le flux devient un système dont on peut expliquer l’état. L’équipe peut distinguer une indisponibilité du transport, une resynchronisation en cours et une donnée refusée par le domaine. L’interface dispose de règles claires pour informer l’utilisateur et désactiver une action lorsque sa condition de validité n’est plus garantie.
+Le flux devient un système dont on peut expliquer l’état. Cette organisation fournit un cadre pour distinguer une indisponibilité du transport, un rafraîchissement en cours et une donnée refusée par le domaine. Elle permet aussi de définir des règles claires pour informer l’utilisateur et désactiver une action lorsque sa condition de validité n’est plus garantie.
 
 Cette approche ajoute quelques états et demande davantage de tests, mais elle évite de disperser des reprises ponctuelles dans les composants. Elle améliore aussi les échanges entre produit et technique : on peut décider ce qui reste consultable en mode dégradé, ce qui doit être masqué et ce qui exige une confirmation fraîche.
 
 ## Ce que je ferais ensuite
 
-Je compléterais la boucle avec des indicateurs centrés sur l’expérience : durée avant synchronisation, fréquence des reprises et âge des données au moment d’une action. Ces signaux aideraient à repérer une dégradation avant qu’elle ne ressemble à un simple problème d’interface.
+Je compléterais la boucle avec des indicateurs centrés sur l’expérience : durée avant synchronisation, fréquence des reprises et âge des données au moment d’une action. J’ajouterais aussi une version ou un curseur aux publications, avec une mise en attente ou un rejeu pendant une synchronisation, afin de détecter explicitement un trou dans la séquence.
 
-Je maintiendrais aussi une matrice de tests réseau courte mais réaliste, exécutée sur les parcours essentiels. Le but serait de vérifier régulièrement que la stratégie reste valable quand l’application évolue, en particulier lorsque de nouveaux sports, écrans ou types de messages enrichissent le flux.
+Je maintiendrais enfin une matrice de tests réseau courte mais réaliste, couvrant l’interruption pendant une mise à jour, les messages répétés ou désordonnés, le retour après mise en veille et la donnée qui cesse d’évoluer. Le but serait de vérifier régulièrement que la stratégie reste valable quand l’application évolue, en particulier lorsque de nouveaux sports, écrans ou types de messages enrichissent le flux.
 
 ### En parler
 

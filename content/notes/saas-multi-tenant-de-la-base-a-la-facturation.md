@@ -38,7 +38,7 @@ Le deuxième choix est de modéliser les états du domaine avant ceux des presta
 
 Le troisième choix concerne le SDK. Je le considère comme une interface publique du produit, même lorsqu’il sert d’abord à une autre application de la même équipe. Ses fonctions portent des noms métier, ses entrées sont étroites et ses réponses décrivent les erreurs que l’appelant peut réellement traiter. Les détails de stockage ou de transport restent côté serveur. Cette discipline force aussi l’API à assumer un contrat clair.
 
-Enfin, la facturation ne doit pas être confondue avec l’accès à une fonctionnalité. Le produit conserve le cycle de l’intention, de la confirmation, de l’échec ou du renouvellement dans un état métier explicite ; le prestataire de paiement fournit des événements qui font évoluer cet état. Cette séparation permet de gérer une confirmation tardive, une relance ou une interruption sans répandre des règles de paiement dans tous les écrans.
+Enfin, la facturation ne doit pas être confondue avec l’accès à une fonctionnalité. Le produit conserve le cycle de l’intention, de la confirmation, de l’échec ou du renouvellement dans un état métier explicite, rattaché à l’organisation concernée ; le prestataire de paiement fournit des événements qui font évoluer cet état. Cette séparation permet de gérer une confirmation tardive, une relance ou une interruption sans répandre des règles de paiement dans tous les écrans.
 
 ## Ce que cela a changé
 
