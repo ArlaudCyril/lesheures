@@ -36,13 +36,13 @@ Le premier choix est de distinguer l’état initial des publications qui arrive
 
 Le deuxième choix est de séparer le transport du domaine. La couche temps réel sait se connecter, se fermer, reprendre et transmettre une publication. Une couche suivante transforme ce message en donnée métier, tandis que l’interface consomme un état déjà interprété. Cette séparation permet de modifier l’écran sans déplacer la logique de connexion et de traiter un rafraîchissement périodique à part.
 
-Le troisième choix est de rendre la connexion observable. L’application conserve un indicateur de connexion et l’utilise pour savoir si elle peut continuer à recevoir des publications. Elle peut aussi conserver la dernière valeur connue pendant une coupure ; cette décision doit rester visible dans l’expérience afin que l’utilisateur ne confonde pas une donnée conservée avec une donnée fraîche.
+Le troisième choix est de garder la connexion observable au niveau du transport. La couche temps réel conserve un indicateur de disponibilité pour suivre si elle reçoit encore des publications, au lieu de disperser cette logique dans les composants. Si l’interface conserve la dernière valeur connue pendant une coupure, elle devra signaler clairement sa fraîcheur afin que l’utilisateur ne la confonde pas avec une donnée actuelle.
 
-Enfin, la reprise s’appuie sur des délais progressifs, avec une borne pour éviter une boucle de reconnexions trop agressive. Le client ne suppose pas que le transport est toujours disponible ; il peut repartir d’un rafraîchissement quand la connexion revient. Cette règle simple est plus facile à expliquer et à maintenir qu’une série de reprises dispersées dans les composants.
+Enfin, la reprise s’appuie sur des délais progressifs, avec une borne pour éviter une boucle de reconnexions trop agressive. Un rafraîchissement périodique peut corriger un écart après une reconnexion, sans supposer que chaque publication intermédiaire a été reçue. Cette règle simple est plus facile à expliquer et à maintenir qu’une série de reprises dispersées dans les composants.
 
 ## Ce que cela a changé
 
-Le flux devient un système dont on peut expliquer l’état. Cette organisation fournit un cadre pour distinguer une indisponibilité du transport, un rafraîchissement en cours et une donnée refusée par le domaine. Elle permet aussi de définir des règles claires pour informer l’utilisateur et désactiver une action lorsque sa condition de validité n’est plus garantie.
+Le flux devient un système dont on peut documenter l’état. Cette organisation fournit un cadre pour distinguer une indisponibilité du transport, un rafraîchissement en cours et une donnée refusée par le domaine. Elle facilite ensuite la définition de règles claires pour informer l’utilisateur et désactiver une action lorsque sa condition de validité n’est plus garantie.
 
 Cette approche ajoute quelques états et demande davantage de tests, mais elle évite de disperser des reprises ponctuelles dans les composants. Elle améliore aussi les échanges entre produit et technique : on peut décider ce qui reste consultable en mode dégradé, ce qui doit être masqué et ce qui exige une confirmation fraîche.
 
