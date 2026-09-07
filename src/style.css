@@ -461,11 +461,16 @@ section {
   top: 1.8rem;
   right: 10rem;
   z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.7rem 0.8rem;
   color: var(--paper);
   font: 0.7rem/1 Manrope, Arial, sans-serif;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .notes-link:hover,
