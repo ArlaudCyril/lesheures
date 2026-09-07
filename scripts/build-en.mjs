@@ -8,12 +8,33 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { translations } from "../src/i18n.js";
+import { loadNotes } from "./notes.mjs";
 
 const SITE = "https://cyrilarlaud.com";
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
+const notesDirectory = fileURLToPath(
+  new URL("../content/notes/", import.meta.url)
+);
 
 const esc = (s) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const escapeXml = (value) =>
+  String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+
+const escapeLlmsText = (value) =>
+  String(value ?? "")
+    .replace(/\\/g, "\\\\")
+    .replace(/([`*_\[\]{}()#+!|])/g, "\\$1")
+    .replace(/^-(?=\s)/, "\\-")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 
 let html = readFileSync(dist + "index.html", "utf8");
 
@@ -94,10 +115,36 @@ mkdirSync(dist + "en", { recursive: true });
 writeFileSync(dist + "en/index.html", html);
 
 /* ---- sitemap avec alternates hreflang ---- */
+const publishedNotes = (await loadNotes(notesDirectory))
+  .filter((note) => note.meta.status === "published")
+  .sort((left, right) =>
+    left.meta.slug < right.meta.slug
+      ? -1
+      : left.meta.slug > right.meta.slug
+        ? 1
+        : 0
+  );
+
 const alternates = (fr, en) => `
     <xhtml:link rel="alternate" hreflang="fr" href="${fr}"/>
     <xhtml:link rel="alternate" hreflang="en" href="${en}"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="${fr}"/>`;
+
+const noteEntries = publishedNotes
+  .map((note) => {
+    const url = escapeXml(`${SITE}/notes/${note.meta.slug}/`);
+    const lastmod = note.meta.updatedAt
+      ? `\n    <lastmod>${escapeXml(note.meta.updatedAt)}</lastmod>`
+      : "";
+
+    return `  <url>
+    <loc>${url}</loc>${lastmod}
+    <xhtml:link rel="alternate" hreflang="fr" href="${url}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${url}"/>
+  </url>`;
+  })
+  .join("\n");
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
@@ -123,9 +170,50 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <url>
     <loc>${SITE}/en/projets/bemore-fans/</loc>
     ${alternates(`${SITE}/projets/bemore-fans/`, `${SITE}/en/projets/bemore-fans/`)}
-  </url>
+  </url>${noteEntries ? `\n${noteEntries}` : ""}
 </urlset>
 `;
 writeFileSync(dist + "sitemap.xml", sitemap);
 
-console.log("✓ dist/en/index.html + dist/sitemap.xml générés");
+/* ---- llms.txt : remplacer seulement le bloc de notes généré ---- */
+const llmsPath = dist + "llms.txt";
+const llmsStartMarker = "<!-- GENERATED_NOTES_START -->";
+const llmsEndMarker = "<!-- GENERATED_NOTES_END -->";
+const llms = readFileSync(llmsPath, "utf8");
+const llmsStart = llms.indexOf(llmsStartMarker);
+const llmsEnd = llms.indexOf(llmsEndMarker);
+
+if (
+  llmsStart === -1 ||
+  llmsEnd === -1 ||
+  llmsEnd < llmsStart + llmsStartMarker.length ||
+  llms.indexOf(llmsStartMarker, llmsStart + llmsStartMarker.length) !== -1 ||
+  llms.indexOf(llmsEndMarker, llmsEnd + llmsEndMarker.length) !== -1
+) {
+  throw new Error("Le bloc de notes généré de dist/llms.txt est invalide");
+}
+
+const llmsNotes = publishedNotes
+  .map((note) => {
+    const url = `${SITE}/notes/${note.meta.slug}/`;
+
+    return `### ${escapeLlmsText(note.meta.title)}
+
+${escapeLlmsText(note.meta.description)}
+
+${url}`;
+  })
+  .join("\n\n");
+
+const llmsContentStart = llmsStart + llmsStartMarker.length;
+const generatedLlmsBlock = `\n${llmsNotes}${llmsNotes ? "\n" : ""}`;
+const generatedLlms =
+  llms.slice(0, llmsContentStart) +
+  generatedLlmsBlock +
+  llms.slice(llmsEnd);
+
+writeFileSync(llmsPath, generatedLlms);
+
+console.log(
+  "✓ dist/en/index.html + dist/sitemap.xml + dist/llms.txt générés"
+);
