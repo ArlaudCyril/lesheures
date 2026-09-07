@@ -247,6 +247,8 @@ test('buildNotes generates isolated preview and public note routes', async () =>
 
     assert.match(previewIndex, /href="\/notes\/private-notes\/"/);
     assert.match(previewIndex, /<meta name="robots" content="index, follow/);
+    assert.match(previewIndex, /og:image:width" content="1200"/);
+    assert.match(previewIndex, /og:image:height" content="630"/);
     assert.match(previewIndex, /Brouillon/);
     assert.match(previewIndex, /Draft &lt;notes&gt;/);
     assert.doesNotMatch(previewIndex, /Draft <notes>/);
@@ -305,6 +307,29 @@ test('buildNotes generates isolated preview and public note routes', async () =>
     assert.equal(
       await readFile(join(outsideOutputDir, 'sentinel.txt'), 'utf8'),
       'untouched',
+    );
+
+    const symlinkRootDir = join(temporaryRoot, 'symlink-root-dist');
+    const outsideRootDir = join(temporaryRoot, 'outside-root');
+    await mkdir(join(outsideRootDir, 'notes'), { recursive: true });
+    await writeFile(
+      join(outsideRootDir, 'notes', 'sentinel.txt'),
+      'untouched root',
+    );
+    await symlink(outsideRootDir, symlinkRootDir, 'dir');
+    await assert.rejects(
+      () =>
+        buildNotes({
+          contentDir,
+          distDir: symlinkRootDir,
+          publicDir,
+          preview: true,
+        }),
+      /refusing to build notes through a symlink/i,
+    );
+    assert.equal(
+      await readFile(join(outsideRootDir, 'notes', 'sentinel.txt'), 'utf8'),
+      'untouched root',
     );
 
     const unsafeContentDir = join(temporaryRoot, 'unsafe-content');

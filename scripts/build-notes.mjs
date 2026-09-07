@@ -14,6 +14,8 @@ import { escapeHtml, loadNotes, renderMarkdown } from './notes.mjs';
 const SITE_URL = 'https://cyrilarlaud.com';
 const IMAGE_WIDTH = 1280;
 const IMAGE_HEIGHT = 800;
+const OG_WIDTH = 1200;
+const OG_HEIGHT = 630;
 
 function absoluteUrl(pathname) {
   return new URL(pathname, SITE_URL).href;
@@ -125,6 +127,8 @@ function pageHead({
   imageAlt,
   robots,
   type = 'website',
+  imageWidth = IMAGE_WIDTH,
+  imageHeight = IMAGE_HEIGHT,
   structuredData = [],
 }) {
   const canonical = absoluteUrl(pathname);
@@ -154,8 +158,8 @@ function pageHead({
     <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:url" content="${escapeHtml(canonical)}" />
     <meta property="og:image" content="${escapeHtml(imageUrl)}" />
-    <meta property="og:image:width" content="${IMAGE_WIDTH}" />
-    <meta property="og:image:height" content="${IMAGE_HEIGHT}" />
+    <meta property="og:image:width" content="${imageWidth}" />
+    <meta property="og:image:height" content="${imageHeight}" />
     <meta property="og:image:alt" content="${escapeHtml(imageAlt)}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(title)}" />
@@ -220,6 +224,8 @@ function renderIndex(notes, preview) {
     pathname: '/notes/',
     imageAlt: 'Notes techniques de Cyril Arlaud',
     robots,
+    imageWidth: OG_WIDTH,
+    imageHeight: OG_HEIGHT,
   })}
   </head>
   <body>
@@ -379,7 +385,26 @@ function renderNote(note) {
 }
 
 async function prepareNotesDistDir(distDir) {
-  await mkdir(distDir, { recursive: true });
+  try {
+    const existingDist = await lstat(distDir);
+
+    if (existingDist.isSymbolicLink()) {
+      throw new Error(
+        `Refusing to build notes through a symlink: ${distDir}`,
+      );
+    }
+
+    if (!existingDist.isDirectory()) {
+      throw new Error(`Notes output root is not a directory: ${distDir}`);
+    }
+  } catch (error) {
+    if (error?.code === 'ENOENT') {
+      await mkdir(distDir, { recursive: true });
+    } else {
+      throw error;
+    }
+  }
+
   const notesDistDir = join(distDir, 'notes');
 
   try {
