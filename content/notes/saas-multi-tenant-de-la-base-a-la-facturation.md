@@ -18,7 +18,7 @@ Faire du tenant un contexte explicite à chaque étape — requête, règle mét
 
 ## Le contexte
 
-Orion est présenté dans mon portfolio comme un CRM SaaS multi-tenant qui alimente LetMeBet. Le produit réunit des campagnes email et in-app, des séquences automatisées, plusieurs moyens de paiement et une intégration dans les applications clientes au moyen d’un SDK TypeScript.
+Orion est un CRM SaaS multi-tenant qui alimente LetMeBet. Le produit réunit des campagnes email et in-app, des séquences automatisées, plusieurs moyens de paiement et une intégration dans les applications clientes au moyen d’un SDK TypeScript.
 
 Ce type de plateforme concentre une difficulté qui apparaît rarement dans une maquette : une même action traverse plusieurs frontières. Une campagne appartient à une organisation, cible ses utilisateurs, déclenche une livraison chez un prestataire et doit rester compréhensible depuis l’interface d’administration. Un paiement suit lui aussi un parcours asynchrone avant de produire un état exploitable par le produit.
 
@@ -32,13 +32,13 @@ Je cherchais un équilibre entre une architecture assez stricte pour protéger l
 
 ## Les choix qui comptent
 
-Le premier choix est de résoudre le tenant à l’entrée du système, depuis un contexte authentifié, puis de le transmettre explicitement jusqu’à l’accès aux données. Les opérations métier reçoivent ce contexte ; elles ne le reconstruisent pas à partir d’un identifiant fourni par l’écran. Les filtres de lecture et d’écriture deviennent ainsi une propriété attendue de chaque accès, et non une convention implicite.
+Le premier choix est de résoudre le tenant à l’entrée du système, depuis un contexte authentifié, puis de le transmettre explicitement jusqu’à l’accès aux données. Les opérations métier reçoivent ce contexte ; elles ne le reconstruisent pas à partir d’un identifiant fourni par l’écran. Les tables et requêtes portent cette frontière d’isolation, et les filtres de lecture et d’écriture deviennent une propriété attendue de chaque accès, plutôt qu’une convention implicite.
 
 Le deuxième choix est de modéliser les états du domaine avant ceux des prestataires. Une campagne peut être préparée, planifiée, en cours ou terminée sans exposer dans tout le produit le vocabulaire d’un service de livraison. Un paiement suit la même logique : le domaine conserve une histoire compréhensible, tandis qu’un adaptateur traduit les événements externes. Cette frontière rend le changement de prestataire moins envahissant et permet de traiter les retours répétés sans appliquer deux fois le même effet métier.
 
 Le troisième choix concerne le SDK. Je le considère comme une interface publique du produit, même lorsqu’il sert d’abord à une autre application de la même équipe. Ses fonctions portent des noms métier, ses entrées sont étroites et ses réponses décrivent les erreurs que l’appelant peut réellement traiter. Les détails de stockage ou de transport restent côté serveur. Cette discipline force aussi l’API à assumer un contrat clair.
 
-Enfin, la facturation ne doit pas être confondue avec l’accès à une fonctionnalité. Le produit décide ce qu’une organisation peut utiliser à partir d’un état métier explicite ; le prestataire de paiement fournit des événements qui font évoluer cet état. Cette séparation permet de gérer une confirmation tardive, une relance ou une interruption sans répandre des règles de paiement dans tous les écrans.
+Enfin, la facturation ne doit pas être confondue avec l’accès à une fonctionnalité. Le produit conserve le cycle de l’intention, de la confirmation, de l’échec ou du renouvellement dans un état métier explicite ; le prestataire de paiement fournit des événements qui font évoluer cet état. Cette séparation permet de gérer une confirmation tardive, une relance ou une interruption sans répandre des règles de paiement dans tous les écrans.
 
 ## Ce que cela a changé
 

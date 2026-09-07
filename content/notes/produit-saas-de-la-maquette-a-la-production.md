@@ -20,7 +20,7 @@ Construire très tôt une tranche complète du produit, de l’intention utilisa
 
 Une maquette permet de discuter vite d’un parcours, mais elle ne montre ni les états intermédiaires, ni les contraintes de données, ni le comportement d’un paiement asynchrone. À l’autre bout du projet, une infrastructure prête à recevoir du trafic ne garantit pas que le produit réponde au bon problème. Le risque d’un SaaS est de développer ces couches séparément et de découvrir tard qu’elles ne racontent pas la même histoire.
 
-LetMeBet illustre ce travail transversal. Le produit associe une expérience de challenges sportifs à capital virtuel, des données en temps réel, un parcours de KYC et des paiements. Le portfolio public présente une réalisation menée de la conception produit à la mise en production, avec une contribution sur l’interface, le serveur et les données.
+LetMeBet illustre ce travail transversal. Le produit associe une expérience de challenges sportifs à capital virtuel, des données en temps réel, un parcours de KYC et des paiements. J’ai contribué à sa conception produit, son interface, son serveur, ses données et son passage en production.
 
 Pour un client, l’enjeu dépasse la livraison d’écrans. Il faut transformer une idée en décisions vérifiables, montrer régulièrement un produit utilisable et garder assez de souplesse pour apprendre sans réécrire toute la fondation.
 
