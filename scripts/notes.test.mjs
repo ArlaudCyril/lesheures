@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
+
+import { buildNotes } from './build-notes.mjs';
 
 import {
   escapeHtml,
@@ -160,4 +162,125 @@ test('escapeHtml escapes values before they are interpolated into generated HTML
     escapeHtml(`Tom & "Ada" <team> 'notes'`),
     'Tom &amp; &quot;Ada&quot; &lt;team&gt; &#39;notes&#39;',
   );
+});
+
+test('buildNotes generates isolated preview and public note routes', async () => {
+  const temporaryRoot = await mkdtemp(join(tmpdir(), 'portfolio-notes-build-'));
+  const contentDir = join(temporaryRoot, 'content', 'notes');
+  const publicDir = join(temporaryRoot, 'public');
+  const previewDistDir = join(temporaryRoot, 'preview-dist');
+  const publicDistDir = join(temporaryRoot, 'public-dist');
+
+  try {
+    await Promise.all([
+      mkdir(contentDir, { recursive: true }),
+      mkdir(join(publicDir, 'images'), { recursive: true }),
+    ]);
+    await writeFile(join(publicDir, 'images', 'launch.webp'), 'test image');
+
+    const draft = validFrontmatter
+      .replace('slug: launch-notes', 'slug: private-notes')
+      .replace('title: "Launch notes"', 'title: "Draft <notes>"')
+      .replace('status: published', 'status: draft')
+      .replace('featured: true', 'featured: false')
+      .replace('publishedAt: 2026-09-07', 'publishedAt:');
+
+    const published = validFrontmatter.replace(
+      'title: "Launch notes"',
+      'title: "Launch </script><script>alert(1)</script>"',
+    );
+
+    await Promise.all([
+      writeFile(
+        join(contentDir, 'draft.md'),
+        `${draft}\n\n## Draft body\n\nPrivate draft.\n`,
+      ),
+      writeFile(
+        join(contentDir, 'published.md'),
+        `${published}\n\n## Published body\n\nPublic note.\n`,
+      ),
+    ]);
+
+    await buildNotes({
+      contentDir,
+      distDir: previewDistDir,
+      publicDir,
+      preview: true,
+    });
+    await buildNotes({
+      contentDir,
+      distDir: publicDistDir,
+      publicDir,
+      preview: false,
+    });
+
+    const [
+      previewIndex,
+      publicIndex,
+      draftPage,
+      publicDraftPage,
+      publishedPage,
+    ] =
+      await Promise.all([
+        readFile(join(previewDistDir, 'notes', 'index.html'), 'utf8'),
+        readFile(join(publicDistDir, 'notes', 'index.html'), 'utf8'),
+        readFile(
+          join(previewDistDir, 'notes', 'private-notes', 'index.html'),
+          'utf8',
+        ),
+        readFile(
+          join(publicDistDir, 'notes', 'private-notes', 'index.html'),
+          'utf8',
+        ),
+        readFile(
+          join(publicDistDir, 'notes', 'launch-notes', 'index.html'),
+          'utf8',
+        ),
+      ]);
+
+    assert.match(previewIndex, /href="\/notes\/private-notes\/"/);
+    assert.match(previewIndex, /Brouillon/);
+    assert.match(previewIndex, /Draft &lt;notes&gt;/);
+    assert.doesNotMatch(previewIndex, /Draft <notes>/);
+    assert.doesNotMatch(publicIndex, /\/notes\/private-notes\//);
+
+    assert.match(draftPage, /<meta name="robots" content="noindex, nofollow"/);
+    assert.match(draftPage, /Brouillon/);
+    assert.doesNotMatch(draftPage, /BlogPosting|BreadcrumbList/);
+    assert.match(
+      publicDraftPage,
+      /<meta name="robots" content="noindex, nofollow"/,
+    );
+
+    assert.match(publishedPage, /<meta name="robots" content="index, follow/);
+    assert.match(publishedPage, /rel="canonical"/);
+    assert.match(publishedPage, /BlogPosting/);
+    assert.match(publishedPage, /BreadcrumbList/);
+    assert.match(publishedPage, /<img[^>]+width="1280"[^>]+height="800"/);
+    assert.doesNotMatch(publishedPage, /<\/script><script>/);
+    assert.match(publishedPage, /\\u003c\/script\\u003e\\u003cscript\\u003e/);
+
+    const unsafeContentDir = join(temporaryRoot, 'unsafe-content');
+    await mkdir(unsafeContentDir);
+    await Promise.all([
+      writeFile(join(temporaryRoot, 'outside.webp'), 'outside public'),
+      writeFile(
+        join(unsafeContentDir, 'unsafe.md'),
+        `${draft.replace('/images/launch.webp', '/../outside.webp')}\n\nBody.\n`,
+      ),
+    ]);
+
+    await assert.rejects(
+      () =>
+        buildNotes({
+          contentDir: unsafeContentDir,
+          distDir: join(temporaryRoot, 'unsafe-dist'),
+          publicDir,
+          preview: true,
+        }),
+      /image path escapes the public directory/i,
+    );
+  } finally {
+    await rm(temporaryRoot, { recursive: true, force: true });
+  }
 });
