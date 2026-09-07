@@ -1,5 +1,12 @@
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import {
+  mkdir,
+  mkdtemp,
+  readFile,
+  rm,
+  symlink,
+  writeFile,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -260,6 +267,45 @@ test('buildNotes generates isolated preview and public note routes', async () =>
     assert.match(publishedPage, /<img[^>]+width="1280"[^>]+height="800"/);
     assert.doesNotMatch(publishedPage, /<\/script><script>/);
     assert.match(publishedPage, /\\u003c\/script\\u003e\\u003cscript\\u003e/);
+
+    await mkdir(join(publicDistDir, 'notes', 'retired-note'), {
+      recursive: true,
+    });
+    await writeFile(
+      join(publicDistDir, 'notes', 'retired-note', 'index.html'),
+      'retired',
+    );
+    await buildNotes({
+      contentDir,
+      distDir: publicDistDir,
+      publicDir,
+      preview: false,
+    });
+    await assert.rejects(
+      () => readFile(join(publicDistDir, 'notes', 'retired-note', 'index.html')),
+      { code: 'ENOENT' },
+    );
+
+    const symlinkDistDir = join(temporaryRoot, 'symlink-dist');
+    const outsideOutputDir = join(temporaryRoot, 'outside-output');
+    await mkdir(symlinkDistDir);
+    await mkdir(outsideOutputDir);
+    await writeFile(join(outsideOutputDir, 'sentinel.txt'), 'untouched');
+    await symlink(outsideOutputDir, join(symlinkDistDir, 'notes'), 'dir');
+    await assert.rejects(
+      () =>
+        buildNotes({
+          contentDir,
+          distDir: symlinkDistDir,
+          publicDir,
+          preview: true,
+        }),
+      /refusing to build notes through a symlink/i,
+    );
+    assert.equal(
+      await readFile(join(outsideOutputDir, 'sentinel.txt'), 'utf8'),
+      'untouched',
+    );
 
     const unsafeContentDir = join(temporaryRoot, 'unsafe-content');
     await mkdir(unsafeContentDir);

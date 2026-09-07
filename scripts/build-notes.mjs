@@ -1,6 +1,8 @@
 import {
+  lstat,
   mkdir,
   realpath,
+  rm,
   stat,
   writeFile,
 } from 'node:fs/promises';
@@ -376,6 +378,32 @@ function renderNote(note) {
 `;
 }
 
+async function prepareNotesDistDir(distDir) {
+  await mkdir(distDir, { recursive: true });
+  const notesDistDir = join(distDir, 'notes');
+
+  try {
+    const existing = await lstat(notesDistDir);
+
+    if (existing.isSymbolicLink()) {
+      throw new Error(
+        `Refusing to build notes through a symlink: ${notesDistDir}`,
+      );
+    }
+
+    if (!existing.isDirectory()) {
+      throw new Error(`Notes output path is not a directory: ${notesDistDir}`);
+    }
+
+    await rm(notesDistDir, { recursive: true, force: true });
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+  }
+
+  await mkdir(notesDistDir, { recursive: true });
+  return notesDistDir;
+}
+
 export async function buildNotes({
   contentDir,
   distDir,
@@ -389,8 +417,7 @@ export async function buildNotes({
   const notes = await loadNotes(contentDir);
   await Promise.all(notes.map((note) => assertPublicImage(publicDir, note)));
 
-  const notesDistDir = join(distDir, 'notes');
-  await mkdir(notesDistDir, { recursive: true });
+  const notesDistDir = await prepareNotesDistDir(distDir);
   await writeFile(join(notesDistDir, 'index.html'), renderIndex(notes, preview));
 
   await Promise.all(
