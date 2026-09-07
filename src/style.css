@@ -484,6 +484,7 @@ section {
 
 .outro__notes,
 .mnav-overlay__notes {
+  color: var(--cream);
   text-underline-offset: 0.3em;
 }
 
