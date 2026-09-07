@@ -71,7 +71,7 @@ function validateNote(note) {
   for (const field of REQUIRED_FIELDS) {
     if (
       !Object.hasOwn(meta, field) ||
-      meta[field] === null ||
+      meta[field] == null ||
       (typeof meta[field] === 'string' && meta[field].length === 0)
     ) {
       throw new Error(`Missing required frontmatter field "${field}" in ${label}`);

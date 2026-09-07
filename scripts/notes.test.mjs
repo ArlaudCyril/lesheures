@@ -26,36 +26,64 @@ publishedAt: 2026-09-07
 updatedAt: 2026-09-08
 ---`;
 
+const validMeta = {
+  slug: 'launch-notes',
+  title: 'Launch notes',
+  description: 'What changed',
+  eyebrow: 'Product',
+  audience: 'recruitment',
+  project: 'Portfolio',
+  status: 'published',
+  featured: true,
+  image: '/images/launch.webp',
+  publishedAt: '2026-09-07',
+  updatedAt: '2026-09-08',
+};
+
 test('parseNote parses valid frontmatter scalars and preserves the Markdown body', () => {
   const source = `${validFrontmatter}\n\n# Hello\n\nA short note.\n`;
 
   const note = parseNote(source, '/content/notes/launch-notes.md');
 
-  assert.deepEqual(note.meta, {
-    slug: 'launch-notes',
-    title: 'Launch notes',
-    description: 'What changed',
-    eyebrow: 'Product',
-    audience: 'recruitment',
-    project: 'Portfolio',
-    status: 'published',
-    featured: true,
-    image: '/images/launch.webp',
-    publishedAt: '2026-09-07',
-    updatedAt: '2026-09-08',
-  });
+  assert.deepEqual(note.meta, validMeta);
   assert.equal(note.body, '# Hello\n\nA short note.\n');
   assert.equal(note.filePath, '/content/notes/launch-notes.md');
 });
 
 test('validateNotes rejects duplicate slugs', () => {
-  const first = parseNote(`${validFrontmatter}\n\nFirst`, 'first.md');
-  const second = parseNote(`${validFrontmatter}\n\nSecond`, 'second.md');
+  const first = { meta: { ...validMeta }, body: 'First', filePath: 'first.md' };
+  const second = { meta: { ...validMeta }, body: 'Second', filePath: 'second.md' };
 
   assert.throws(
     () => validateNotes([first, second]),
     /duplicate slug "launch-notes".*second\.md/i,
   );
+});
+
+test('validateNotes rejects missing, undefined, null, and empty required fields', async (t) => {
+  const invalidValues = [
+    ['missing', Symbol('missing')],
+    ['undefined', undefined],
+    ['null', null],
+    ['empty', ''],
+  ];
+
+  for (const [label, value] of invalidValues) {
+    await t.test(label, () => {
+      const meta = { ...validMeta };
+
+      if (label === 'missing') {
+        delete meta.title;
+      } else {
+        meta.title = value;
+      }
+
+      assert.throws(
+        () => validateNotes([{ meta, body: '', filePath: `${label}.md` }]),
+        new RegExp(`required frontmatter field "title".*${label}\\.md`, 'i'),
+      );
+    });
+  }
 });
 
 test('loadNotes reads only Markdown files in sorted file-name order', async (t) => {
@@ -82,20 +110,30 @@ test('loadNotes reads only Markdown files in sorted file-name order', async (t) 
   );
 });
 
-test('parseNote requires publishedAt for published notes', () => {
-  const source = `${validFrontmatter.replace('\npublishedAt: 2026-09-07', '')}\n\nBody`;
-
+test('validateNotes requires publishedAt for published notes', () => {
   assert.throws(
-    () => parseNote(source, 'missing-date.md'),
+    () =>
+      validateNotes([
+        {
+          meta: { ...validMeta, publishedAt: undefined },
+          body: '',
+          filePath: 'missing-date.md',
+        },
+      ]),
     /publishedAt.*published.*missing-date\.md/i,
   );
 });
 
-test('parseNote rejects an invalid slug', () => {
-  const source = `${validFrontmatter.replace('slug: launch-notes', 'slug: Launch_notes')}\n\nBody`;
-
+test('validateNotes rejects an invalid slug', () => {
   assert.throws(
-    () => parseNote(source, 'invalid-slug.md'),
+    () =>
+      validateNotes([
+        {
+          meta: { ...validMeta, slug: 'Launch_notes' },
+          body: '',
+          filePath: 'invalid-slug.md',
+        },
+      ]),
     /invalid slug.*invalid-slug\.md/i,
   );
 });
