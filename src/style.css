@@ -2,6 +2,8 @@
   --cream: #f4ece0;
   --cream-dim: rgba(244, 236, 224, 0.82);
   --cream-faint: rgba(244, 236, 224, 0.52);
+  --paper: var(--cream);
+  --accent: #e0826b;
   --ink: #0b0a10;
   --serif: "Bodoni Moda Variable", serif;
   --sans: "Manrope Variable", system-ui, sans-serif;
@@ -452,6 +454,39 @@ section {
   text-transform: uppercase;
   color: var(--cream-dim);
   mix-blend-mode: difference;
+}
+
+.notes-link {
+  position: fixed;
+  top: 1.8rem;
+  right: 10rem;
+  z-index: 20;
+  color: var(--paper);
+  font: 0.7rem/1 Manrope, Arial, sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.notes-link:hover,
+.notes-link:focus-visible,
+.outro__notes:hover,
+.outro__notes:focus-visible,
+.mnav-overlay__notes:hover,
+.mnav-overlay__notes:focus-visible {
+  color: var(--accent);
+}
+
+.outro__notes,
+.mnav-overlay__notes {
+  text-underline-offset: 0.3em;
+}
+
+@media (max-width: 800px) {
+  .notes-link {
+    top: 1.25rem;
+    right: 5.5rem;
+  }
 }
 
 /* ---- sommaire latéral ---- */
@@ -1023,8 +1058,11 @@ body.nav-open { overflow: hidden; }
   .lang__opt,
   .work__item,
   .contact__link,
+  .notes-link,
+  .outro__notes,
   .mnav,
   .mnav-overlay__item,
+  .mnav-overlay__notes,
   .mnav-overlay__close,
   .mo-toggle,
   .snd { cursor: pointer; }

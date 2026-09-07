@@ -85,6 +85,11 @@ html = html
   .replaceAll('href="/projets/letmebet/"', 'href="/en/projets/letmebet/"')
   .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"');
 
+/* Les notes restent françaises tant qu'aucune traduction relue n'existe. */
+if (!html.includes('href="/notes/"') || html.includes('href="/en/notes/"')) {
+  throw new Error("Les liens Notes anglais doivent conserver la route /notes/");
+}
+
 mkdirSync(dist + "en", { recursive: true });
 writeFileSync(dist + "en/index.html", html);
 
