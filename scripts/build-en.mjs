@@ -38,7 +38,7 @@ const escapeLlmsText = (value) =>
   String(value ?? "")
     .replace(/\r?\n/g, " ")
     .replace(/\\/g, "\\\\")
-    .replace(/([`*_\[\]{}()#+.!|~=>-])/g, "\\$1")
+    .replace(/([`*_\[\]{}()#+.!|~=-])/g, "\\$1")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
