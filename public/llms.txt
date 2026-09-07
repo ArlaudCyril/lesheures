@@ -44,6 +44,11 @@ PHP 8 / Symfony 7, Stripe, Docker, CI/CD, Vercel/AWS/GCP, Three.js/GSAP.
    PCS : challenges signés ECDSA P-256, biométrie, anti-rejeu, audit immuable.
    PHP 8.4/Symfony 7.4, architecture hexagonale, Terraform sur GCP.
 
+## Notes techniques
+
+<!-- GENERATED_NOTES_START -->
+<!-- GENERATED_NOTES_END -->
+
 ## About (English)
 
 Cyril Arlaud is a full-stack web developer based in Marseille, France.

@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/build-en.mjs",
+    "build": "vite build && node scripts/build-notes.mjs && node scripts/build-en.mjs",
+    "build:preview": "vite build && node scripts/build-notes.mjs --preview && node scripts/build-en.mjs",
+    "test:notes": "node --test scripts/notes.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -16,6 +18,7 @@
     "@vercel/analytics": "^2.0.1",
     "gsap": "3.12.5",
     "lenis": "1.1.14",
+    "marked": "^18.0.11",
     "three": "0.158.0"
   },
   "devDependencies": {

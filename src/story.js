@@ -402,8 +402,11 @@ export function initStory(bg, opts = {}) {
 
     const closeBtn = overlay.querySelector(".mnav-overlay__close");
     const items = Array.from(overlay.querySelectorAll(".mnav-overlay__item"));
-    const backgroundNodes = Array.from(
-      document.querySelectorAll("main, .toc, .lang, .mo-toggle, .snd, .mnav, .skip-link")
+    const notesItem = overlay.querySelector(".mnav-overlay__notes");
+    const inertCandidates = Array.from(
+      document.querySelectorAll(
+        "main, .toc, .lang, .mo-toggle, .snd, .mnav, .skip-link, .notes-link, .outro__notes, .mnav-overlay__notes"
+      )
     );
     let restoreFocus = btn;
 
@@ -416,8 +419,10 @@ export function initStory(bg, opts = {}) {
       btn.setAttribute("aria-expanded", open ? "true" : "false");
       overlay.setAttribute("aria-hidden", open ? "false" : "true");
       document.body.classList.toggle("nav-open", open);
-      backgroundNodes.forEach((node) => {
-        node.inert = open;
+      inertCandidates.forEach((node) => {
+        // Le lien Notes du dialogue reste actionnable ; ses équivalents en
+        // arrière-plan suivent l'inertie du reste de la page.
+        node.inert = open && !overlay.contains(node);
       });
       if (lenis) open ? lenis.stop() : lenis.start();
       if (open) {
@@ -439,7 +444,7 @@ export function initStory(bg, opts = {}) {
       }
       if (e.key !== "Tab") return;
       // L'ordre suit le DOM visible du dialogue : chapitres puis fermeture.
-      const focusable = [...items, closeBtn].filter(
+      const focusable = [...items, notesItem, closeBtn].filter(
         (el) => el && !el.disabled && el.offsetParent !== null
       );
       if (!focusable.length) return;

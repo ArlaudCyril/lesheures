@@ -21,6 +21,7 @@ export const translations = {
     "nav.open": "Ouvrir le sommaire",
     "nav.chapters": "Chapitres",
     "nav.close": "Fermer le sommaire",
+    "nav.notes": "Notes",
 
     // Sommaire latéral & navigation mobile
     "nav.about": "Origines",
@@ -121,6 +122,7 @@ export const translations = {
     "nav.open": "Open contents",
     "nav.chapters": "Chapters",
     "nav.close": "Close contents",
+    "nav.notes": "Notes",
 
     // Side contents & mobile navigation
     "nav.about": "Origins",
