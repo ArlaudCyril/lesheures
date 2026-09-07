@@ -2,10 +2,17 @@
    LES HEURES — génération de la page anglaise pré-rendue
    Lancé après `vite build` : transforme dist/index.html en
    dist/en/index.html à partir du dictionnaire i18n (textes,
-   balises head, chemins d'assets), et écrit dist/sitemap.xml
-   avec la date du build. Une seule source de vérité : i18n.js.
+   balises head, chemins d'assets), et écrit les fichiers de
+   découverte (sitemap.xml, llms.txt). Une seule source de vérité : i18n.js.
    ============================================================ */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import {
+  mkdirSync,
+  readFileSync,
+  renameSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
+import { randomUUID } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { translations } from "../src/i18n.js";
 import { loadNotes } from "./notes.mjs";
@@ -29,12 +36,36 @@ const escapeXml = (value) =>
 
 const escapeLlmsText = (value) =>
   String(value ?? "")
+    .replace(/\r?\n/g, " ")
     .replace(/\\/g, "\\\\")
-    .replace(/([`*_\[\]{}()#+!|])/g, "\\$1")
-    .replace(/^-(?=\s)/, "\\-")
+    .replace(/([`*_\[\]{}()#+.!|~=>-])/g, "\\$1")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+
+function writeArtifactsAtomically(artifacts) {
+  const staged = [];
+
+  try {
+    artifacts.forEach(({ path, contents }) => {
+      const temporaryPath = `${path}.tmp-${randomUUID()}`;
+      writeFileSync(temporaryPath, contents, { encoding: "utf8", flag: "wx" });
+      staged.push({ path, temporaryPath });
+    });
+
+    staged.forEach(({ path, temporaryPath }) => {
+      renameSync(temporaryPath, path);
+    });
+  } finally {
+    staged.forEach(({ temporaryPath }) => {
+      try {
+        unlinkSync(temporaryPath);
+      } catch (error) {
+        if (error?.code !== "ENOENT") throw error;
+      }
+    });
+  }
+}
 
 let html = readFileSync(dist + "index.html", "utf8");
 
@@ -111,9 +142,6 @@ if (!html.includes('href="/notes/"') || html.includes('href="/en/notes/"')) {
   throw new Error("Les liens Notes anglais doivent conserver la route /notes/");
 }
 
-mkdirSync(dist + "en", { recursive: true });
-writeFileSync(dist + "en/index.html", html);
-
 /* ---- sitemap avec alternates hreflang ---- */
 const publishedNotes = (await loadNotes(notesDirectory))
   .filter((note) => note.meta.status === "published")
@@ -173,8 +201,6 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   </url>${noteEntries ? `\n${noteEntries}` : ""}
 </urlset>
 `;
-writeFileSync(dist + "sitemap.xml", sitemap);
-
 /* ---- llms.txt : remplacer seulement le bloc de notes généré ---- */
 const llmsPath = dist + "llms.txt";
 const llmsStartMarker = "<!-- GENERATED_NOTES_START -->";
@@ -212,7 +238,12 @@ const generatedLlms =
   generatedLlmsBlock +
   llms.slice(llmsEnd);
 
-writeFileSync(llmsPath, generatedLlms);
+mkdirSync(dist + "en", { recursive: true });
+writeArtifactsAtomically([
+  { path: dist + "en/index.html", contents: html },
+  { path: dist + "sitemap.xml", contents: sitemap },
+  { path: llmsPath, contents: generatedLlms },
+]);
 
 console.log(
   "✓ dist/en/index.html + dist/sitemap.xml + dist/llms.txt générés"
