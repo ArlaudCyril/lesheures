@@ -5,10 +5,10 @@ description: Concevoir un flux rapide qui reste lisible, testable et capable de 
 eyebrow: Recrutement · Temps réel
 audience: recruitment
 project: LetMeBet
-status: draft
+status: published
 featured: false
 image: /screens/letmebet.jpg
-publishedAt:
+publishedAt: 2026-09-08
 updatedAt:
 ---
 
