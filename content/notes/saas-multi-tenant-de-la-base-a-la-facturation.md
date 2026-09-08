@@ -5,10 +5,10 @@ description: Les décisions qui permettent de faire évoluer un produit SaaS mul
 eyebrow: Recrutement · Architecture SaaS
 audience: recruitment
 project: Orion
-status: draft
+status: published
 featured: true
 image: /screens/letmebet.jpg
-publishedAt:
+publishedAt: 2026-09-08
 updatedAt:
 ---
 

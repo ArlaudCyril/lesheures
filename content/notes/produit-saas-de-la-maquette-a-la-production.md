@@ -5,10 +5,10 @@ description: Une méthode concrète pour relier cadrage, interface, données, pa
 eyebrow: Freelance · Produit SaaS
 audience: freelance
 project: LetMeBet
-status: draft
+status: published
 featured: false
 image: /screens/bemorefans.jpg
-publishedAt:
+publishedAt: 2026-09-08
 updatedAt:
 ---
 
