@@ -55,6 +55,11 @@ h1 { max-width: 14ch; margin: 0; font-size: clamp(4rem, 11vw, 9rem); font-style:
 .case-content p { max-width: 42rem; margin: 0 0 1.2rem; color: var(--muted); }
 .case-content ul, .case-content ol { max-width: 42rem; margin: 1.5rem 0 0; padding-left: 1.2rem; color: var(--muted); }
 .case-content ol li + li { margin-top: 1rem; }
+.case-flow { max-width: 42rem; margin: 1.5rem 0; padding: 1rem 1.25rem; border: 1px solid var(--line); border-radius: 0.75rem; }
+.case-flow figcaption, .case-flow strong { color: var(--paper); font-weight: 600; }
+.case-flow ol { margin-top: 1rem; }
+.case-flow li + li { padding-top: 1rem; border-top: 1px solid var(--line); }
+.case-flow li::marker { color: var(--accent); }
 .case-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
 .case-button { display: inline-flex; min-height: 2.8rem; align-items: center; padding: 0.7rem 1rem; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .case-button:hover, .case-button:focus-visible { border-color: var(--paper); background: rgba(244, 236, 224, 0.1); }

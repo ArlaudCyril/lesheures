@@ -37,6 +37,8 @@ PHP 8 / Symfony 7, Stripe, Docker, CI/CD, Vercel/AWS/GCP, Three.js/GSAP.
 3. **Yoor** (bêta) — application bancaire mobile React Native pour les cartes
    prépayées PCS : pilotage de cartes, virements SEPA, KYC, biométrie, wallets
    Ethereum/Solana avec scoring AML. 60+ endpoints bancaires, 4 langues.
+   Étude de cas : https://cyrilarlaud.com/projets/yoor/
+   Case study: https://cyrilarlaud.com/en/projets/yoor/
 4. **bemore.fans** (https://bemore.fans, en production) — plateforme
    d'abonnements pour créateurs de contenu : paiements récurrents (Epoch),
    KYC/contrôle d'âge Yoti, médias protégés par URLs signées (S3), messagerie

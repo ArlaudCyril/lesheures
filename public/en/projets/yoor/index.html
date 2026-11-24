@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="How Cyril Arlaud integrated PCS transaction history into Yoor, a React Native mobile banking app." />
+    <link rel="canonical" href="https://cyrilarlaud.com/en/projets/yoor/" />
+    <link rel="alternate" hreflang="fr" href="https://cyrilarlaud.com/projets/yoor/" />
+    <link rel="alternate" hreflang="en" href="https://cyrilarlaud.com/en/projets/yoor/" />
+    <link rel="alternate" hreflang="x-default" href="https://cyrilarlaud.com/projets/yoor/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://cyrilarlaud.com/en/projets/yoor/" />
+    <meta property="og:title" content="Yoor · Transaction history — Cyril Arlaud" />
+    <meta property="og:description" content="From the PCS banking API to the transaction history screen in Yoor’s React Native app." />
+    <meta property="og:image" content="https://cyrilarlaud.com/og.jpg" />
+    <title>Yoor · Transaction history — Cyril Arlaud</title>
+    <link rel="stylesheet" href="../../../case-study.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"CreativeWork","name":"Yoor · Transaction history","url":"https://cyrilarlaud.com/en/projets/yoor/","inLanguage":"en","author":{"@type":"Person","name":"Cyril Arlaud","url":"https://cyrilarlaud.com/"},"description":"From the PCS banking API to the transaction history screen in Yoor’s React Native app."}
+    </script>
+  </head>
+  <body>
+    <div class="case-shell">
+      <nav class="case-nav" aria-label="Case study navigation">
+        <a href="/en/#work">← Projects</a>
+        <a href="/projets/yoor/" lang="fr" hreflang="fr">Français</a>
+      </nav>
+      <main>
+        <header class="case-hero">
+          <p class="case-kicker">Case study · Mobile</p>
+          <h1>Yoor</h1>
+          <p class="case-intro">A React Native mobile banking app for managing a PCS prepaid card and reviewing transactions on a phone.</p>
+        </header>
+        <section class="case-content">
+          <h2>My role</h2>
+          <div>
+            <p>I worked on the React Native and Expo app and its integration with PCS banking services. For transaction history, I revised how the app fetches transactions and interprets the API responses.</p>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Reviewing transactions</h2>
+          <div>
+            <p>The banking API can return different fields and labels depending on the transaction. I centralized the conversion in the app’s transaction service so the interface uses the same fields to display a card payment or a top-up.</p>
+            <figure class="case-flow">
+              <figcaption>From the PCS API to the mobile screen</figcaption>
+              <ol>
+                <li><strong>PCS history.</strong> When the cardholder opens their history, the app fetches wallet transactions for the requested period.</li>
+                <li><strong>Transaction service.</strong> The app maps the response to a common format with an amount, currency, direction and status.</li>
+                <li><strong>React Native screen.</strong> The cardholder can find a completed card payment or a pending top-up in the same list.</li>
+              </ol>
+            </figure>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>What I verified</h2>
+          <div>
+            <p>Automated tests check that an approved card payment maps to a completed debit, a waiting top-up maps to a pending credit, and the history request sends the expected wallet and date range.</p>
+            <p>These tests simulate the API responses. End-to-end testing on a phone remained pending after the fixes.</p>
+            <div class="case-actions">
+              <a class="case-button" href="/en/#work">← Back to projects</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

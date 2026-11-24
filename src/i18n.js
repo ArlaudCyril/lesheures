@@ -68,6 +68,7 @@ export const translations = {
     "work.visit": "Visiter le produit ↗",
     "work.cta2": "Produit interne — démo sur demande",
     "work.cta3": "App mobile en bêta — démo sur demande",
+    "work.yoor.case": "Lire l’étude de cas Yoor",
     "contact.email": "Écrire à Cyril",
     "contact.details": "Coordonnées",
     "work.p1.desc":
@@ -170,6 +171,7 @@ export const translations = {
     "work.visit": "Visit the product ↗",
     "work.cta2": "Internal product — demo on request",
     "work.cta3": "Mobile app in beta — demo on request",
+    "work.yoor.case": "Read the Yoor case study",
     "contact.email": "Email Cyril",
     "contact.details": "Contact details",
     "work.p1.desc":
