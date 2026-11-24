@@ -297,45 +297,22 @@ export function initStory(bg, opts = {}) {
   }
 
   /* -------------------------------------------------------
-     Hero — initialisé une seule fois (le nom ne change pas
-     de langue, on conserve donc ses mots découpés).
+     Hero — le profil et les liens sont visibles dès l'ouverture.
   ------------------------------------------------------- */
   function initHeroOnce() {
     const hero = document.querySelector(".hero");
-    if (!hero) return;
-    if (prefersReduced) return; // contenu visible sans mise en scène
+    if (!hero || prefersReduced) return;
 
-    const title = document.querySelector(".hero__title");
-    const heroWords = title ? splitWords(title) : [];
-    gsap.set(heroWords, { yPercent: 115 });
-
-    const ht = gsap.timeline({ delay: 0.5 });
-    ht.from(".hero__eyebrow", {
+    gsap.from(".hero .scroll-hint", {
       opacity: 0,
-      y: 20,
+      delay: 0.9,
       duration: 1,
       ease: "power2.out",
-    })
-      .to(
-        heroWords,
-        { yPercent: 0, duration: 1.4, ease: "expo.out", stagger: 0.08 },
-        "-=0.5"
-      )
-      .from(
-        ".hero__sub",
-        { opacity: 0, y: 24, duration: 1.1, ease: "power2.out" },
-        "-=0.8"
-      )
-      .from(
-        ".scroll-hint",
-        { opacity: 0, duration: 1, ease: "power2.out" },
-        "-=0.5"
-      );
+    });
 
     // le hero s'éloigne en scrollant
     gsap.to(".hero__inner", {
       yPercent: -18,
-      opacity: 0.25,
       ease: "none",
       scrollTrigger: {
         trigger: ".hero",
@@ -356,7 +333,7 @@ export function initStory(bg, opts = {}) {
     /** @type {NodeListOf<HTMLElement>} */
     const sections = document.querySelectorAll("main > .chapter");
     /** @type {NodeListOf<HTMLAnchorElement>} */
-    const chapterLinks = document.querySelectorAll(".toc__item, .hero__action");
+    const chapterLinks = document.querySelectorAll(".toc__item, .hero__action[href^='#']");
 
     const mnavNum = document.querySelector(".mnav__num");
     const mnavLabel = document.querySelector(".mnav__label");

@@ -112,7 +112,11 @@ section {
 }
 
 /* ---- HERO ---- */
-.hero { align-items: center; justify-content: center; text-align: center; }
+.hero {
+  justify-content: center;
+  padding-block: clamp(3.5rem, 10svh, 8rem);
+  text-align: center;
+}
 .hero__inner {
   position: relative;
   z-index: 1;
@@ -123,18 +127,25 @@ section {
 .outro__inner::before {
   content: "";
   position: absolute;
-  inset: -3rem -5rem;
   z-index: -1;
   pointer-events: none;
+}
+.hero__inner::before {
+  inset: -7rem -13rem;
+  background: radial-gradient(ellipse closest-side, rgba(11, 10, 16, 0.76) 65%, transparent);
+}
+.outro__inner::before {
+  inset: -3rem -5rem;
   background: radial-gradient(closest-side, rgba(8, 7, 12, 0.3), rgba(8, 7, 12, 0));
 }
 .hero__eyebrow {
-  font-family: var(--mono);
-  font-size: clamp(0.7rem, 1.1vw, 0.85rem);
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: var(--cream);
-  margin-bottom: clamp(1.4rem, 3vh, 2.4rem);
+  margin-bottom: clamp(0.8rem, 2.4svh, 1.8rem);
+  font-family: var(--sans);
+  font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  text-wrap: balance;
 }
 .hero__title {
   font-family: var(--serif);
@@ -142,19 +153,14 @@ section {
   font-style: italic;
   line-height: 0.92;
   letter-spacing: -0.01em;
-  font-size: clamp(4rem, 14vw, 15rem);
-  /* drop-shadow (et non text-shadow) : appliqué après la découpe en
-     mots, l'ombre suit les lettres au lieu des boîtes overflow:hidden */
-  filter: drop-shadow(0 6px 26px rgba(0, 0, 0, 0.3));
+  font-size: clamp(3rem, min(12vw, 23svh), 13rem);
+  text-shadow: 0 6px 26px rgba(0, 0, 0, 0.3);
 }
 .hero__sub {
-  margin: clamp(1.35rem, 3vh, 2.3rem) auto 0;
+  margin: clamp(0.9rem, 2.5svh, 2rem) auto 0;
   max-width: 36rem;
-  font-size: clamp(1rem, 1.5vw, 1.28rem);
-  font-weight: 300;
-  line-height: 1.65;
-  color: rgba(244, 236, 224, 0.9);
-  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.5;
 }
 /* ligne d'accueil temporelle (« Il est 23h04 — bonsoir. ») */
 .hero__time {
@@ -266,6 +272,19 @@ section {
   60%, 100% { top: 110%; }
 }
 
+@media (max-height: 720px) {
+  .hero .scroll-hint { display: none; }
+}
+
+@media (max-height: 440px) {
+  .hero { padding-block: 3.25rem 4.25rem; }
+  .hero__title { font-size: clamp(2.6rem, 14svh, 4.25rem); }
+  .hero__eyebrow { margin-bottom: 0.55rem; }
+  .hero__sub { margin-top: 0.5rem; line-height: 1.35; }
+  .hero__meta, .hero__actions { margin-top: 0.45rem; }
+  .hero__time { display: none; }
+}
+
 /* ---- CHAPITRES ---- */
 .chapter__inner {
   position: relative;
@@ -349,7 +368,7 @@ section {
   line-height: 1.04;
   letter-spacing: -0.005em;
   font-size: clamp(2.1rem, 6.2vw, 5.4rem);
-  /* drop-shadow : même raison que .hero__title (mots découpés) */
+  /* L'ombre suit les lettres des mots découpés. */
   filter: drop-shadow(0 5px 20px rgba(0, 0, 0, 0.28));
 }
 
@@ -383,6 +402,14 @@ section {
 /* ---- OUTRO ---- */
 .outro { align-items: center; justify-content: center; text-align: center; }
 .outro__inner { position: relative; max-width: 60rem; isolation: isolate; }
+.outro__eyebrow {
+  font-family: var(--mono);
+  font-size: clamp(0.7rem, 1.1vw, 0.85rem);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: clamp(1.4rem, 3vh, 2.4rem);
+}
 .outro__title {
   font-family: var(--serif);
   font-style: italic;
@@ -541,8 +568,10 @@ section {
   flex: none;
 }
 .toc__item:hover .toc__label,
+.toc__item:focus-visible .toc__label,
 .toc__item.is-active .toc__label { opacity: 1; transform: translateX(0); }
-.toc__item:hover { color: var(--cream-dim); }
+.toc__item:hover,
+.toc__item:focus-visible { color: var(--cream-dim); }
 .toc__item.is-active { color: var(--cream); }
 .toc__item.is-active .toc__tick { width: 46px; background: var(--cream); }
 

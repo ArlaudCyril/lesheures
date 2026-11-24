@@ -32,12 +32,12 @@ export const translations = {
     "nav.title": "Sommaire",
 
     // Ouverture
-    "hero.eyebrow": "Développeur web full-stack · SaaS",
+    "hero.eyebrow": "Développeur full-stack orienté backend · Web & mobile",
     "hero.sub":
-      "Je conçois et développe des produits web de bout en bout — de la première maquette à l'infrastructure en production. Faites défiler : une journée dans ma façon de construire.",
-    "hero.meta": "Marseille · Télétravail · Ouvert à un poste full-stack",
-    "hero.ctaWork": "Voir les réalisations",
-    "hero.ctaContact": "Me contacter",
+      "Je développe des API sécurisées, des applications bancaires mobiles et des outils de support fondés sur l’IA agentique.",
+    "hero.meta": "Marseille · Télétravail · Recherche un CDI",
+    "hero.ctaWork": "Voir mes réalisations",
+    "hero.ctaCv": "Voir mon CV",
     "hero.actions": "Actions principales",
     "hero.scroll": "Défiler",
 
@@ -135,12 +135,12 @@ export const translations = {
     "nav.title": "Contents",
 
     // Opening
-    "hero.eyebrow": "Full-stack web developer · SaaS",
+    "hero.eyebrow": "Backend-focused full-stack developer · Web & mobile",
     "hero.sub":
-      "I design and build web products end to end — from the first mockup to production infrastructure. Scroll on: a day inside the way I build.",
-    "hero.meta": "Marseille · Remote · Open to a full-stack role",
+      "I build secure APIs, mobile banking apps and support tools powered by agentic AI.",
+    "hero.meta": "Marseille · Remote · Seeking a permanent role",
     "hero.ctaWork": "View selected work",
-    "hero.ctaContact": "Get in touch",
+    "hero.ctaCv": "View my CV",
     "hero.actions": "Main actions",
     "hero.scroll": "Scroll",
 
