@@ -139,7 +139,8 @@ html = html
   .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"')
   .replaceAll('href="/projets/orion/"', 'href="/en/projets/orion/"')
   .replaceAll('href="/projets/yoor/"', 'href="/en/projets/yoor/"')
-  .replaceAll('href="/projets/pcs/"', 'href="/en/projets/pcs/"');
+  .replaceAll('href="/projets/pcs/"', 'href="/en/projets/pcs/"')
+  .replaceAll('href="/projets/hora-essence/"', 'href="/en/projets/hora-essence/"');
 
 /* Les notes restent françaises tant qu'aucune traduction relue n'existe. */
 if (!html.includes('href="/notes/"') || html.includes('href="/en/notes/"')) {
@@ -234,6 +235,14 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <url>
     <loc>${SITE}/en/projets/pcs/</loc>
     ${alternates(`${SITE}/projets/pcs/`, `${SITE}/en/projets/pcs/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/hora-essence/</loc>
+    ${alternates(`${SITE}/projets/hora-essence/`, `${SITE}/en/projets/hora-essence/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/hora-essence/</loc>
+    ${alternates(`${SITE}/projets/hora-essence/`, `${SITE}/en/projets/hora-essence/`)}
   </url>${noteEntries ? `\n${noteEntries}` : ""}
 </urlset>
 `;

@@ -61,7 +61,7 @@ export const translations = {
     "c3.kicker": "L'heure dorée — projets",
     "c3.lead": "Quelques pièces dont je suis fier.",
     "c3.body":
-      "Du jeu temps réel à la fintech régulée, cinq produits construits de bout en bout : plateformes grand public, CRM SaaS et son SDK, app bancaire mobile, et module d'authentification forte DSP2.",
+      "Du jeu en temps réel à la fintech régulée et à la photographie, une sélection de plateformes, d’applications et de sites que j’ai contribué à construire.",
     "work.cta": "Lire l’étude de cas",
     "work.letmebet.platform": "Plateforme web",
     "work.letmebet.support": "Agent de support",
@@ -70,6 +70,7 @@ export const translations = {
     "work.cta3": "App mobile en bêta — démo sur demande",
     "work.orion.case": "Lire l’étude de cas Orion",
     "work.yoor.case": "Lire l’étude de cas Yoor",
+    "work.hora.case": "Lire l’étude de cas Hora Essence",
     "contact.email": "Écrire à Cyril",
     "contact.details": "Coordonnées",
     "work.p1.desc":
@@ -82,6 +83,8 @@ export const translations = {
       "Authentification forte pour les cartes prépayées PCS. Le service vérifie qu’une opération sensible a été confirmée depuis un appareil de confiance.",
     "work.p5.desc":
       "Plateforme d'abonnements pour créateurs de contenu : paiements récurrents (PSP Epoch), KYC et contrôle d'âge Yoti, médias protégés par URLs signées (S3), messagerie modérée, programme d'affiliation, back-office complet. 54 modèles de données, 80+ écrans, 430+ tests — en production.",
+    "work.p6.desc":
+      "Site photo bilingue avec un carrousel plein écran et des transitions qui dévoilent chaque image.",
 
     // 04 — La Nuit · Savoir-faire
     "c4.kicker": "Heure bleue — savoir-faire",
@@ -165,7 +168,7 @@ export const translations = {
     "c3.kicker": "Golden hour — selected work",
     "c3.lead": "A few pieces I'm proud of.",
     "c3.body":
-      "From real-time gaming to regulated fintech, five products built end to end: consumer platforms, a SaaS CRM with its SDK, a mobile banking app, and a PSD2 strong-authentication module.",
+      "From real-time gaming to regulated fintech and photography, a selection of platforms, apps and websites I helped build.",
     "work.cta": "Read the case study",
     "work.letmebet.platform": "Web platform",
     "work.letmebet.support": "Support agent",
@@ -174,6 +177,7 @@ export const translations = {
     "work.cta3": "Mobile app in beta — demo on request",
     "work.orion.case": "Read the Orion case study",
     "work.yoor.case": "Read the Yoor case study",
+    "work.hora.case": "Read the Hora Essence case study",
     "contact.email": "Email Cyril",
     "contact.details": "Contact details",
     "work.p1.desc":
@@ -186,6 +190,8 @@ export const translations = {
       "Strong customer authentication for PCS prepaid cards. The service verifies that a sensitive operation was confirmed on a trusted device.",
     "work.p5.desc":
       "Subscription platform for content creators: recurring payments (Epoch PSP), Yoti KYC and age verification, signed-URL protected media (S3), moderated messaging, affiliate program, full back-office. 54 data models, 80+ screens, 430+ tests — live in production.",
+    "work.p6.desc":
+      "A bilingual photography site with a full-screen carousel and transitions that reveal each image.",
 
     // 04 — Blue hour · Craft
     "c4.kicker": "Blue hour — craft",

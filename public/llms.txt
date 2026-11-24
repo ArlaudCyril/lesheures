@@ -51,6 +51,10 @@ PHP 8 / Symfony 7, Stripe, Docker, CI/CD, Vercel/AWS/GCP, Three.js/GSAP.
    depuis un appareil de confiance et protégées contre le rejeu.
    Étude de cas : https://cyrilarlaud.com/projets/pcs/
    Case study: https://cyrilarlaud.com/en/projets/pcs/
+6. **Hora Essence** (https://www.horaessence.com/) — site photo bilingue
+   avec un carrousel plein écran en React et des transitions animées avec GSAP.
+   Étude de cas : https://cyrilarlaud.com/projets/hora-essence/
+   Case study: https://cyrilarlaud.com/en/projets/hora-essence/
 
 ## Notes techniques
 
