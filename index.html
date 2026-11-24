@@ -7,10 +7,10 @@
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
       name="description"
-      content="Développeur web full-stack à Marseille — React, Next.js, Node.js, React Native. Produits SaaS, fintech et mobile construits de bout en bout. Ouvert aux postes full-stack, sur place ou en full remote."
+      content="Développeur full-stack orienté backend à Marseille. Je développe des API sécurisées, des applications web et mobiles et des outils de support avec des agents IA."
     />
     <meta name="theme-color" content="#0b0a10" />
-    <title>Cyril Arlaud — Développeur web full-stack & SaaS · Marseille</title>
+    <title>Cyril Arlaud — Développeur full-stack backend, web et mobile</title>
 
     <!-- versions linguistiques (la page /en/ est générée au build) -->
     <link rel="alternate" hreflang="fr" href="https://cyrilarlaud.com/" />
@@ -28,28 +28,29 @@
     <!-- Open Graph (LinkedIn, Slack, iMessage…) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Cyril Arlaud" />
-    <meta property="og:title" content="Cyril Arlaud — Développeur web full-stack & SaaS · Marseille" />
+    <meta property="og:title" content="Cyril Arlaud — Développeur full-stack backend, web et mobile" />
     <meta
       property="og:description"
-      content="Produits web construits de bout en bout — SaaS, fintech, mobile. Du jeu temps réel à l'authentification forte DSP2."
+      content="Développeur full-stack orienté backend à Marseille. Je développe des API sécurisées, des applications web et mobiles et des outils de support avec des agents IA."
     />
     <meta property="og:url" content="https://cyrilarlaud.com/" />
     <meta property="og:image" content="https://cyrilarlaud.com/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Cyril Arlaud — Les Heures, portfolio de développeur web full-stack" />
+    <meta property="og:image:alt" content="Cyril Arlaud, développeur full-stack orienté backend, web et mobile, sur le ciel de l’aube" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:locale:alternate" content="en_US" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Cyril Arlaud — Développeur web full-stack & SaaS" />
+    <meta name="twitter:title" content="Cyril Arlaud — Développeur full-stack backend, web et mobile" />
     <meta
       name="twitter:description"
-      content="Produits web construits de bout en bout — SaaS, fintech, mobile."
+      content="Développeur full-stack orienté backend à Marseille. Je développe des API sécurisées, des applications web et mobiles et des outils de support avec des agents IA."
     />
     <meta name="twitter:image" content="https://cyrilarlaud.com/og.jpg" />
+    <meta name="twitter:image:alt" content="Cyril Arlaud, développeur full-stack orienté backend, web et mobile, sur le ciel de l’aube" />
 
     <!-- données structurées -->
     <script type="application/ld+json">
@@ -60,8 +61,8 @@
             "@type": "Person",
             "@id": "https://cyrilarlaud.com/#person",
             "name": "Cyril Arlaud",
-            "jobTitle": "Développeur web full-stack",
-            "description": "Développeur web full-stack à Marseille. Produits SaaS, fintech et mobile construits de bout en bout — React, Next.js, Node.js, React Native, PHP/Symfony.",
+            "jobTitle": "Développeur full-stack orienté backend · Web et mobile",
+            "description": "Développeur full-stack orienté backend à Marseille. Je développe des API sécurisées, des applications web et mobiles et des outils de support avec des agents IA.",
             "url": "https://cyrilarlaud.com/",
             "image": "https://cyrilarlaud.com/og.jpg",
             "email": "mailto:bonjour@cyrilarlaud.com",
@@ -114,15 +115,15 @@
 
     <!-- chrome -->
     <div class="progress" aria-hidden="true"><div class="progress__bar"></div></div>
-    <div class="wordmark">Cyril Arlaud</div>
-    <a class="notes-link" href="/notes/" data-i18n="nav.notes">Notes</a>
-
-    <!-- sélecteur de langue -->
-    <nav class="lang" data-i18n-aria-label="nav.language" aria-label="Langue / Language">
-      <a class="lang__opt" href="/" data-lang="fr" lang="fr">FR</a>
-      <span class="lang__sep" aria-hidden="true">/</span>
-      <a class="lang__opt" href="/en/" data-lang="en" lang="en">EN</a>
-    </nav>
+    <header class="site-header">
+      <div class="wordmark">Cyril Arlaud</div>
+      <a class="notes-link" href="/notes/" data-i18n="nav.notes">Notes</a>
+      <nav class="lang" data-i18n-aria-label="nav.language" aria-label="Langue / Language">
+        <a class="lang__opt" href="/" data-lang="fr" lang="fr">FR</a>
+        <span class="lang__sep" aria-hidden="true">/</span>
+        <a class="lang__opt" href="/en/" data-lang="en" lang="en">EN</a>
+      </nav>
+    </header>
 
     <nav class="toc" data-i18n-aria-label="nav.contents" aria-label="Sommaire / Contents">
       <a class="toc__item" href="#work"><span class="toc__label" data-i18n="nav.work">Réalisations</span><span class="toc__tick" aria-hidden="true"></span></a>
@@ -176,14 +177,14 @@
 
     <main id="main-content" tabindex="-1">
       <!-- OUVERTURE -->
-      <section class="hero" id="hero" data-screen-label="Ouverture">
+      <section class="hero" id="hero" tabindex="-1" data-screen-label="Ouverture">
         <div class="hero__inner">
           <p class="hero__eyebrow" data-i18n="hero.eyebrow">Développeur full-stack orienté backend · Web &amp; mobile</p>
           <h1 class="hero__title">Cyril Arlaud</h1>
           <p class="hero__sub" data-i18n="hero.sub">Je développe des API sécurisées, des applications bancaires mobiles et des outils de support fondés sur l’IA agentique.</p>
           <p class="hero__meta" data-i18n="hero.meta">Marseille · Télétravail · Recherche un CDI</p>
           <div class="hero__actions" role="group" data-i18n-aria-label="hero.actions" aria-label="Actions principales">
-            <a class="hero__action hero__action--primary" href="#work" data-cursor data-i18n="hero.ctaWork">Voir mes réalisations</a>
+            <a class="hero__action hero__action--primary" id="hero-work-link" href="#work" data-cursor data-i18n="hero.ctaWork">Voir mes réalisations</a>
             <a class="hero__action" href="%BASE_URL%CV-Cyril-Arlaud-Fullstack-Clair.pdf" hreflang="fr" type="application/pdf" data-cursor data-i18n="hero.ctaCv">Voir mon CV</a>
           </div>
           <!-- rempli par hours.js : « Il est 23h04 — bonsoir. » -->

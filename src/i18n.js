@@ -13,7 +13,7 @@
 
 export const translations = {
   fr: {
-    "meta.title": "Cyril Arlaud — Développeur web full-stack & SaaS · Marseille",
+    "meta.title": "Cyril Arlaud — Développeur full-stack backend, web et mobile",
 
     "nav.skip": "Aller au contenu",
     "nav.language": "Langue",
@@ -116,7 +116,7 @@ export const translations = {
   },
 
   en: {
-    "meta.title": "Cyril Arlaud — Full-stack & SaaS web developer · Marseille",
+    "meta.title": "Cyril Arlaud — Full-stack developer · Backend, web and mobile",
 
     "nav.skip": "Skip to content",
     "nav.language": "Language",

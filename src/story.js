@@ -102,13 +102,19 @@ export function initStory(bg, opts = {}) {
     });
   }
 
-  function scrollTo(target, { addHistoryEntry = false } = {}) {
+  function scrollTo(target, { returnFocusId } = {}) {
     const tgt =
       typeof target === "string" ? document.querySelector(target) : target;
     if (!tgt) return;
     if (typeof target === "string" && target.startsWith("#") && target !== window.location.hash) {
-      if (addHistoryEntry) window.history.pushState(null, "", target);
-      else window.history.replaceState(null, "", target);
+      const nextState = { ...window.history.state, storyFocusId: tgt.id };
+      if (returnFocusId) {
+        // Le retour doit ramener le clavier au lien qui a lancé le défilement.
+        window.history.replaceState({ ...nextState, storyFocusId: returnFocusId }, "");
+        window.history.pushState(nextState, "", target);
+      } else {
+        window.history.replaceState(nextState, "", target);
+      }
     }
     tgt.focus({ preventScroll: true });
     boostUntil = performance.now() + 2400; // durée du voyage + marge
@@ -129,12 +135,16 @@ export function initStory(bg, opts = {}) {
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
-    window.addEventListener("popstate", () => {
-      if (lenis.isScrolling !== "smooth") return;
+  }
+  window.addEventListener("popstate", ({ state }) => {
+    if (lenis?.isScrolling === "smooth") {
       lenis.stop();
       lenis.start();
-    });
-  }
+    }
+    if (state?.storyFocusId) {
+      document.getElementById(state.storyFocusId)?.focus({ preventScroll: true });
+    }
+  });
 
   /* -------------------------------------------------------
      Découpe des titres en mots (révélation masquée)
@@ -342,7 +352,7 @@ export function initStory(bg, opts = {}) {
       link.addEventListener("click", (event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
-        scrollTo(link.hash, { addHistoryEntry: link.classList.contains("hero__action") });
+        scrollTo(link.hash, { returnFocusId: link.classList.contains("hero__action") ? link.id : undefined });
       });
     });
 

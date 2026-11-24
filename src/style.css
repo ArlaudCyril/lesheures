@@ -1,10 +1,10 @@
 :root {
   --cream: #f4ece0;
-  --cream-dim: rgba(244, 236, 224, 0.82);
+  --cream-dim: #e6ddd1;
   --cream-faint: rgba(244, 236, 224, 0.52);
   --paper: var(--cream);
-  --accent: #e0826b;
   --ink: #0b0a10;
+  --text-backdrop: rgba(11, 10, 16, 0.78);
   --serif: "Bodoni Moda Variable", serif;
   --sans: "Manrope Variable", system-ui, sans-serif;
   --mono: "Space Mono", monospace;
@@ -70,6 +70,7 @@ body.webgl-fallback {
   z-index: 1;
   pointer-events: none;
   background:
+    linear-gradient(180deg, rgba(11, 10, 16, 0.86), rgba(11, 10, 16, 0.68) 4.5rem, transparent 8.5rem),
     radial-gradient(140% 120% at 50% 50%, transparent 38%, rgba(8, 7, 12, 0.55) 100%),
     linear-gradient(180deg, rgba(8, 7, 12, 0.28) 0%, transparent 22%, transparent 78%, rgba(8, 7, 12, 0.4) 100%);
 }
@@ -124,6 +125,7 @@ section {
   isolation: isolate;
 }
 .hero__inner::before,
+.chapter__inner::before,
 .outro__inner::before {
   content: "";
   position: absolute;
@@ -132,11 +134,14 @@ section {
 }
 .hero__inner::before {
   inset: -7rem -13rem;
-  background: radial-gradient(ellipse closest-side, rgba(11, 10, 16, 0.76) 65%, transparent);
+  background: radial-gradient(ellipse closest-side, var(--text-backdrop) 86%, transparent);
 }
+.chapter__inner::before,
 .outro__inner::before {
-  inset: -3rem -5rem;
-  background: radial-gradient(closest-side, rgba(8, 7, 12, 0.3), rgba(8, 7, 12, 0));
+  inset: -2.75rem -3.25rem;
+  border-radius: 4rem;
+  background: var(--text-backdrop);
+  filter: blur(1.5rem);
 }
 .hero__eyebrow {
   margin-bottom: clamp(0.8rem, 2.4svh, 1.8rem);
@@ -257,6 +262,11 @@ section {
   position: relative;
   overflow: hidden;
 }
+.scroll-hint > span:first-child {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: var(--text-backdrop);
+}
 .scroll-hint__line::after {
   content: "";
   position: absolute;
@@ -321,24 +331,6 @@ section {
 .chapter--right .chap__num { text-align: left; left: -0.05em; }
 .chapter--center .chap__num { opacity: 0.08; }
 
-/* halo d'ombre local derrière le bloc de texte : remonte le contraste
-   sur le fond peint et les traits du numéral, sans bord visible */
-.chapter__inner::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -5rem -7rem;
-  /* closest-side : le fondu atteint zéro exactement aux bords de la
-     boîte — aucune coupe visible sur le fond peint */
-  background: radial-gradient(
-    closest-side,
-    rgba(8, 7, 12, 0.42),
-    rgba(8, 7, 12, 0.16) 62%,
-    rgba(8, 7, 12, 0) 100%
-  );
-  pointer-events: none;
-}
-
 .chap__kicker {
   font-family: var(--mono);
   font-size: clamp(0.7rem, 1vw, 0.82rem);
@@ -379,7 +371,7 @@ section {
   margin-top: clamp(1.6rem, 4vh, 2.8rem);
   max-width: 34rem;
   font-size: clamp(1.02rem, 1.45vw, 1.3rem);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
   color: var(--cream-dim);
   text-shadow: 0 2px 28px rgba(0, 0, 0, 0.55);
@@ -396,7 +388,6 @@ section {
   font-weight: 400;
   font-size: clamp(1.15rem, 2vw, 1.7rem);
   color: var(--cream);
-  opacity: 0.82;
 }
 
 /* ---- OUTRO ---- */
@@ -421,7 +412,7 @@ section {
 .outro__text {
   margin: clamp(1.6rem, 4vh, 2.6rem) auto 0;
   max-width: 32rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
   color: var(--cream-dim);
   font-size: clamp(1rem, 1.4vw, 1.25rem);
@@ -452,7 +443,7 @@ section {
   font-size: 0.68rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--cream-faint);
+  color: var(--cream-dim);
 }
 
 /* ---- CHROME : barre de progression ---- */
@@ -474,25 +465,34 @@ section {
   will-change: transform;
 }
 
-/* ---- wordmark ---- */
-.wordmark {
+/* ---- en-tête ---- */
+.site-header {
   position: fixed;
-  top: clamp(1.6rem, 3vh, 2.4rem);
-  left: clamp(1.6rem, 4vw, 3rem);
-  z-index: 40;
+  top: clamp(0.8rem, 1.6vh, 1.2rem);
+  inset-inline: clamp(1.6rem, 4vw, 3rem);
+  z-index: 41;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  column-gap: clamp(0.375rem, 2vw, 1.75rem);
+  pointer-events: none;
+}
+.site-header a { pointer-events: auto; }
+
+@media (max-width: 360px) {
+  .site-header { inset-inline: 1rem; }
+}
+
+.wordmark {
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--cream-dim);
-  mix-blend-mode: difference;
+  color: var(--cream);
+  white-space: nowrap;
 }
 
 .notes-link {
-  position: fixed;
-  top: 1.8rem;
-  right: 10rem;
-  z-index: 20;
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
@@ -511,20 +511,15 @@ section {
 .outro__notes:focus-visible,
 .mnav-overlay__notes:hover,
 .mnav-overlay__notes:focus-visible {
-  color: var(--accent);
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
 }
 
 .outro__notes,
 .mnav-overlay__notes {
   color: var(--cream);
   text-underline-offset: 0.3em;
-}
-
-@media (max-width: 800px) {
-  .notes-link {
-    top: 1.25rem;
-    right: 8rem;
-  }
 }
 
 /* ---- sommaire latéral ---- */
@@ -548,14 +543,16 @@ section {
   font-size: 0.68rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--cream-faint);
   text-decoration: none;
-  transition: color 0.5s;
   background: none;
   border: none;
 }
 .toc__label {
   opacity: 0;
+  padding: 0.24rem 0.5rem;
+  border-radius: 999px;
+  background: var(--text-backdrop);
+  color: var(--cream);
   transform: translateX(8px);
   transition: opacity 0.5s, transform 0.5s, color 0.5s;
   white-space: nowrap;
@@ -563,16 +560,14 @@ section {
 .toc__tick {
   width: 26px;
   height: 1px;
-  background: var(--cream-faint);
+  background: var(--cream-dim);
+  box-shadow: 0 0 0 1px var(--text-backdrop);
   transition: width 0.5s, background 0.5s;
   flex: none;
 }
 .toc__item:hover .toc__label,
 .toc__item:focus-visible .toc__label,
 .toc__item.is-active .toc__label { opacity: 1; transform: translateX(0); }
-.toc__item:hover,
-.toc__item:focus-visible { color: var(--cream-dim); }
-.toc__item.is-active { color: var(--cream); }
 .toc__item.is-active .toc__tick { width: 46px; background: var(--cream); }
 
 /* ---- curseur personnalisé ---- */
@@ -625,7 +620,7 @@ button:focus-visible {
   align-items: center;
   gap: 0.55rem;
   padding: 0.6rem 1rem;
-  background: rgba(11, 10, 16, 0.62);
+  background: var(--text-backdrop);
   border: 1px solid rgba(244, 236, 224, 0.62);
   border-radius: 100px;
   color: var(--cream);
@@ -650,7 +645,7 @@ body.is-mo .mo-toggle { color: var(--cream); border-color: var(--cream); }
   z-index: 46;
   width: min(340px, calc(100vw - 3rem));
   padding: 0.95rem 1.1rem;
-  background: rgba(11, 10, 16, 0.74);
+  background: var(--text-backdrop);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--cream-faint);
@@ -672,7 +667,7 @@ body.is-mo .mo-toggle { color: var(--cream); border-color: var(--cream); }
   gap: 1rem;
   padding: 0.18rem 0;
 }
-.mo-hud__row span { color: var(--cream-faint); flex: none; }
+.mo-hud__row span { color: var(--cream-dim); flex: none; }
 .mo-hud__row b { font-weight: 400; text-align: right; }
 .mo-hud__swatch {
   display: inline-block;
@@ -690,7 +685,7 @@ body.is-mo .mo-toggle { color: var(--cream); border-color: var(--cream); }
   z-index: 44;
   max-width: 250px;
   padding: 0.5rem 0.7rem;
-  background: rgba(11, 10, 16, 0.6);
+  background: var(--text-backdrop);
   border-left: 1px solid var(--cream-dim);
   border-radius: 0 6px 6px 0;
   font-family: var(--mono);
@@ -741,7 +736,7 @@ body.sound-on .snd__bars i:nth-child(3) { animation-delay: 0.5s; }
   padding: 0.85rem 1.35rem;
   border: 1px solid rgba(244, 236, 224, 0.65);
   border-radius: 100px;
-  background: rgba(11, 10, 16, 0.55);
+  background: var(--text-backdrop);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: var(--cream);
@@ -751,7 +746,7 @@ body.sound-on .snd__bars i:nth-child(3) { animation-delay: 0.5s; }
   text-transform: uppercase;
   cursor: none;
 }
-.mnav__num { color: var(--cream-faint); }
+.mnav__num { color: var(--cream-dim); }
 .mnav__icon {
   position: relative;
   width: 13px;
@@ -798,7 +793,7 @@ body.nav-open { overflow: hidden; }
   font-size: 0.7rem;
   letter-spacing: 0.36em;
   text-transform: uppercase;
-  color: var(--cream-faint);
+  color: var(--cream-dim);
 }
 .mnav-overlay__list {
   display: flex;
@@ -835,7 +830,7 @@ body.nav-open { overflow: hidden; }
   font-style: normal;
   font-size: 0.7rem;
   letter-spacing: 0.18em;
-  color: var(--cream-faint);
+  color: var(--cream-dim);
 }
 .mnav-overlay__close {
   position: absolute;
@@ -890,17 +885,12 @@ body.nav-open { overflow: hidden; }
 
 /* ---- sélecteur de langue ---- */
 .lang {
-  position: fixed;
-  top: clamp(1.6rem, 3vh, 2.4rem);
-  right: clamp(1.6rem, 4vw, 3rem);
-  z-index: 41;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.18em;
-  mix-blend-mode: difference;
 }
 .lang__opt {
   display: inline-block;
@@ -910,13 +900,17 @@ body.nav-open { overflow: hidden; }
   cursor: none;
   font: inherit;
   letter-spacing: inherit;
-  color: var(--cream-faint);
+  color: var(--cream-dim);
   text-decoration: none;
   transition: color 0.4s;
 }
-.lang__opt:hover { color: var(--cream-dim); }
-.lang__opt.is-active { color: var(--cream); }
-.lang__sep { color: var(--cream-faint); }
+.lang__opt:hover { color: var(--cream); }
+.lang__opt.is-active {
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+.lang__sep { color: var(--cream-dim); }
 
 /* ---- stack (chapitre Crépuscule) ---- */
 .chap__extra { margin-top: clamp(1.6rem, 4vh, 2.6rem); }
@@ -930,7 +924,7 @@ body.nav-open { overflow: hidden; }
   font-size: 0.66rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--cream-faint);
+  color: var(--cream-dim);
   margin-bottom: 0.7rem;
 }
 .stack-tags {
@@ -955,8 +949,15 @@ body.nav-open { overflow: hidden; }
   width: 100%;
   max-width: 62rem;
 }
+/* Chaque carte a déjà son propre fond. Le halo ne suit que le titre. */
+#work .chapter__inner::before {
+  bottom: auto;
+  right: auto;
+  width: min(42rem, calc(100% + 6.5rem));
+  height: clamp(10rem, 16vw, 14rem);
+}
 @media (min-width: 1100px) and (pointer: fine) {
-  #work { padding-right: max(var(--gut), 13rem); }
+  #work, .chapter--right { padding-right: max(var(--gut), 15rem); }
 }
 .work {
   display: grid;

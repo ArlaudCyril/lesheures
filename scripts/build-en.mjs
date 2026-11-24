@@ -90,9 +90,9 @@ for (const [key, value] of Object.entries(translations.en)) {
 /* ---- head : langue, titre, descriptions, canonique, OG ---- */
 const EN_TITLE = translations.en["meta.title"];
 const EN_DESC =
-  "Full-stack web developer in Marseille, France — React, Next.js, Node.js, React Native. SaaS, fintech and mobile products built end to end. Open to full-stack roles, on-site or fully remote.";
-const EN_OG_DESC =
-  "Web products built end to end — SaaS, fintech, mobile. From real-time gaming to PSD2 strong authentication.";
+  "Backend-focused full-stack developer in Marseille. I build secure APIs, web and mobile apps, and support tools powered by AI agents.";
+const EN_IMAGE_ALT =
+  "Cyril Arlaud, backend-focused full-stack developer for web and mobile, against a dawn sky";
 
 html = html
   .replace('<html lang="fr">', '<html lang="en">')
@@ -112,11 +112,12 @@ html = html
   )
   .replace(
     /(property="og:description"\s+content=")[^"]*(")/,
-    `$1${esc(EN_OG_DESC)}$2`
+    `$1${esc(EN_DESC)}$2`
   )
+  .replaceAll(`content="${SITE}/og.jpg"`, `content="${SITE}/og-en.jpg"`)
   .replace(
-    /(property="og:image:alt" content=")[^"]*(")/,
-    "$1Cyril Arlaud — Les Heures, full-stack web developer portfolio$2"
+    /((?:property="og:image:alt"|name="twitter:image:alt") content=")[^"]*(")/g,
+    `$1${esc(EN_IMAGE_ALT)}$2`
   )
   .replace('content="fr_FR"', 'content="__SWAP__"')
   .replace('content="en_US"', 'content="fr_FR"')
@@ -127,8 +128,10 @@ html = html
   )
   .replace(
     /(name="twitter:description"\s+content=")[^"]*(")/,
-    `$1${esc(EN_OG_DESC)}$2`
-  );
+    `$1${esc(EN_DESC)}$2`
+  )
+  .replace(/("jobTitle": )"[^"]*"/, (_, prefix) => prefix + JSON.stringify(translations.en["hero.eyebrow"]))
+  .replace(/("description": )"[^"]*"/, (_, prefix) => prefix + JSON.stringify(EN_DESC));
 
 /* ---- chemins relatifs : la page vit un niveau plus bas ---- */
 html = html
