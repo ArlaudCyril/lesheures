@@ -106,6 +106,7 @@ function projectHref(project) {
   const routes = new Map([
     ['letmebet', '/projets/letmebet/'],
     ['bemore.fans', '/projets/bemore-fans/'],
+    ['orion', '/projets/orion/'],
   ]);
 
   return routes.get(String(project).toLowerCase()) ?? '/#work';

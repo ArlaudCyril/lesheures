@@ -137,6 +137,7 @@ html = html
   .replaceAll('href="/projets/letmebet/"', 'href="/en/projets/letmebet/"')
   .replaceAll('href="/projets/letmebet-support/"', 'href="/en/projets/letmebet-support/"')
   .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"')
+  .replaceAll('href="/projets/orion/"', 'href="/en/projets/orion/"')
   .replaceAll('href="/projets/yoor/"', 'href="/en/projets/yoor/"')
   .replaceAll('href="/projets/pcs/"', 'href="/en/projets/pcs/"');
 
@@ -209,6 +210,14 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <url>
     <loc>${SITE}/en/projets/bemore-fans/</loc>
     ${alternates(`${SITE}/projets/bemore-fans/`, `${SITE}/en/projets/bemore-fans/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/orion/</loc>
+    ${alternates(`${SITE}/projets/orion/`, `${SITE}/en/projets/orion/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/orion/</loc>
+    ${alternates(`${SITE}/projets/orion/`, `${SITE}/en/projets/orion/`)}
   </url>
   <url>
     <loc>${SITE}/projets/yoor/</loc>

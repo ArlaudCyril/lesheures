@@ -34,6 +34,8 @@ PHP 8 / Symfony 7, Stripe, Docker, CI/CD, Vercel/AWS/GCP, Three.js/GSAP.
    campagnes email/in-app, séquences automatisées, paiements multi-prestataires
    à livraison de webhooks fiabilisée. 80 modèles de données, 440+ tests,
    SDK TypeScript publié.
+   Étude de cas : https://cyrilarlaud.com/projets/orion/
+   Case study: https://cyrilarlaud.com/en/projets/orion/
 3. **Yoor** (bêta) — application bancaire mobile React Native pour les cartes
    prépayées PCS : pilotage de cartes, virements SEPA, KYC, biométrie, wallets
    Ethereum/Solana avec scoring AML. 60+ endpoints bancaires, 4 langues.
