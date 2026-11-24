@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="How Cyril Arlaud connected tenant isolation in Orion to its API and TypeScript SDK contracts." />
+    <link rel="canonical" href="https://cyrilarlaud.com/en/projets/orion/" />
+    <link rel="alternate" hreflang="fr" href="https://cyrilarlaud.com/projets/orion/" />
+    <link rel="alternate" hreflang="en" href="https://cyrilarlaud.com/en/projets/orion/" />
+    <link rel="alternate" hreflang="x-default" href="https://cyrilarlaud.com/projets/orion/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://cyrilarlaud.com/en/projets/orion/" />
+    <meta property="og:title" content="Orion · Tenant context from server to SDK — Cyril Arlaud" />
+    <meta property="og:description" content="Tracing the authenticated tenant from the API call to data access in a multi-tenant SaaS CRM." />
+    <meta property="og:image" content="https://cyrilarlaud.com/og.jpg" />
+    <title>Orion · Tenant context from server to SDK — Cyril Arlaud</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="../../../case-study.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"CreativeWork","name":"Orion · Tenant context from server to SDK","url":"https://cyrilarlaud.com/en/projets/orion/","inLanguage":"en","author":{"@type":"Person","name":"Cyril Arlaud","url":"https://cyrilarlaud.com/"},"description":"Tracing the authenticated tenant from the API call to data access in a multi-tenant SaaS CRM."}
+    </script>
+  </head>
+  <body>
+    <div class="case-shell">
+      <nav class="case-nav" aria-label="Case study navigation">
+        <a href="/en/#work">← Work</a>
+        <a href="/projets/orion/" lang="fr" hreflang="fr">Français</a>
+      </nav>
+      <main>
+        <header class="case-hero">
+          <p class="case-kicker">Case study · SaaS architecture</p>
+          <h1>Orion</h1>
+          <p class="case-intro">A multi-tenant SaaS CRM that powers email and in-app campaigns for LetMeBet. Client applications integrate with Orion through a TypeScript SDK.</p>
+        </header>
+        <section class="case-content">
+          <h2>My role</h2>
+          <div>
+            <p>I worked on data modelling, API contracts, the admin interface, and client application integration. My SDK work covered the operations available to integrators and the errors they can handle.</p>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Tenant context</h2>
+          <div>
+            <p>In Orion, each campaign belongs to a customer organisation, or tenant. I made the tenant an explicit part of the server context. The API identifies the organisation from the authenticated context and passes it through to business operations and data access.</p>
+            <figure class="case-flow">
+              <figcaption>What happens when an app lists campaigns</figcaption>
+              <ol>
+                <li><strong>Client application.</strong> It requests a list of campaigns from the API through the TypeScript SDK.</li>
+                <li><strong>Orion API.</strong> It identifies the organisation from the authenticated context and passes it to the business operation.</li>
+                <li><strong>Data access.</strong> The query returns campaigns belonging to that organisation.</li>
+              </ol>
+            </figure>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>What changed</h2>
+          <div>
+            <p>Two organisations can make the same call and each receive their own campaigns. When adding a search filter, I can trace the tenant from the API call to the query and check that the filter applies within the organisation’s scope. Storage changes stay on the server as long as the SDK contract stays the same.</p>
+            <div class="case-actions">
+              <a class="case-button case-button--primary" href="/notes/saas-multi-tenant-de-la-base-a-la-facturation/" hreflang="fr">Read the multi-tenant architecture note (in French)</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

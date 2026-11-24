@@ -28,21 +28,33 @@ PHP 8 / Symfony 7, Stripe, Docker, CI/CD, Vercel/AWS/GCP, Three.js/GSAP.
    KYC, paiements. ~100 endpoints, 40 modèles de données, 250+ tests.
    150+ parieurs financés, 4,8/5 sur Trustpilot.
    Étude de cas : https://cyrilarlaud.com/projets/letmebet/
+   Agent de support Claire : https://cyrilarlaud.com/projets/letmebet-support/
+   Support agent case study: https://cyrilarlaud.com/en/projets/letmebet-support/
 2. **Orion** (produit interne) — CRM SaaS multitenant qui alimente LetMeBet :
    campagnes email/in-app, séquences automatisées, paiements multi-prestataires
    à livraison de webhooks fiabilisée. 80 modèles de données, 440+ tests,
    SDK TypeScript publié.
+   Étude de cas : https://cyrilarlaud.com/projets/orion/
+   Case study: https://cyrilarlaud.com/en/projets/orion/
 3. **Yoor** (bêta) — application bancaire mobile React Native pour les cartes
    prépayées PCS : pilotage de cartes, virements SEPA, KYC, biométrie, wallets
    Ethereum/Solana avec scoring AML. 60+ endpoints bancaires, 4 langues.
+   Étude de cas : https://cyrilarlaud.com/projets/yoor/
+   Case study: https://cyrilarlaud.com/en/projets/yoor/
 4. **bemore.fans** (https://bemore.fans, en production) — plateforme
    d'abonnements pour créateurs de contenu : paiements récurrents (Epoch),
    KYC/contrôle d'âge Yoti, médias protégés par URLs signées (S3), messagerie
    modérée, affiliation, back-office. 54 modèles de données, 430+ tests.
    Étude de cas : https://cyrilarlaud.com/projets/bemore-fans/
-5. **Module SCA** — brique d'authentification forte DSP2 pour l'écosystème
-   PCS : challenges signés ECDSA P-256, biométrie, anti-rejeu, audit immuable.
-   PHP 8.4/Symfony 7.4, architecture hexagonale, Terraform sur GCP.
+5. **PCS · SCA** — service d’authentification forte pour les cartes prépayées
+   PCS, conçu et développé en PHP/Symfony. Les confirmations sont signées
+   depuis un appareil de confiance et protégées contre le rejeu.
+   Étude de cas : https://cyrilarlaud.com/projets/pcs/
+   Case study: https://cyrilarlaud.com/en/projets/pcs/
+6. **Hora Essence** (https://www.horaessence.com/) — site photo bilingue
+   avec un carrousel plein écran en React et des transitions animées avec GSAP.
+   Étude de cas : https://cyrilarlaud.com/projets/hora-essence/
+   Case study: https://cyrilarlaud.com/en/projets/hora-essence/
 
 ## Notes techniques
 

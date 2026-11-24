@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Comment Cyril Arlaud a relié l’isolation des organisations dans Orion aux contrats de l’API et du SDK TypeScript." />
+    <link rel="canonical" href="https://cyrilarlaud.com/projets/orion/" />
+    <link rel="alternate" hreflang="fr" href="https://cyrilarlaud.com/projets/orion/" />
+    <link rel="alternate" hreflang="en" href="https://cyrilarlaud.com/en/projets/orion/" />
+    <link rel="alternate" hreflang="x-default" href="https://cyrilarlaud.com/projets/orion/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content="https://cyrilarlaud.com/projets/orion/" />
+    <meta property="og:title" content="Orion · Le contexte tenant du serveur au SDK — Cyril Arlaud" />
+    <meta property="og:description" content="Suivre l’organisation authentifiée de l’appel API jusqu’aux données dans un CRM SaaS multi-tenant." />
+    <meta property="og:image" content="https://cyrilarlaud.com/og.jpg" />
+    <title>Orion · Le contexte tenant du serveur au SDK — Cyril Arlaud</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="../../case-study.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"CreativeWork","name":"Orion · Le contexte tenant du serveur au SDK","url":"https://cyrilarlaud.com/projets/orion/","inLanguage":"fr","author":{"@type":"Person","name":"Cyril Arlaud","url":"https://cyrilarlaud.com/"},"description":"Suivre l’organisation authentifiée de l’appel API jusqu’aux données dans un CRM SaaS multi-tenant."}
+    </script>
+  </head>
+  <body>
+    <div class="case-shell">
+      <nav class="case-nav" aria-label="Navigation de l’étude de cas">
+        <a href="/#work">← Réalisations</a>
+        <a href="/en/projets/orion/" lang="en" hreflang="en">English</a>
+      </nav>
+      <main>
+        <header class="case-hero">
+          <p class="case-kicker">Étude de cas · Architecture SaaS</p>
+          <h1>Orion</h1>
+          <p class="case-intro">Un CRM SaaS multi-tenant qui alimente LetMeBet avec des campagnes email et in-app. Les applications clientes s’intègrent à Orion via un SDK TypeScript.</p>
+        </header>
+        <section class="case-content">
+          <h2>Mon rôle</h2>
+          <div>
+            <p>J’ai travaillé sur la modélisation des données, les contrats d’API, l’interface d’administration et l’intégration avec les applications clientes. Mon travail sur le SDK couvrait les opérations exposées aux intégrateurs et les erreurs qu’ils peuvent traiter.</p>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Le contexte tenant</h2>
+          <div>
+            <p>Dans Orion, chaque campagne appartient à une organisation cliente, ou tenant. Côté serveur, j’ai fait du tenant un contexte explicite. L’API identifie l’organisation à partir du contexte authentifié, puis transmet cette information aux opérations métier et à l’accès aux données.</p>
+            <figure class="case-flow">
+              <figcaption>Exemple d’une liste de campagnes</figcaption>
+              <ol>
+                <li><strong>Application cliente.</strong> Elle demande une liste de campagnes à l’API via le SDK TypeScript.</li>
+                <li><strong>API Orion.</strong> Elle détermine l’organisation à partir du contexte authentifié et la transmet à l’opération métier.</li>
+                <li><strong>Accès aux données.</strong> La requête limite les résultats aux campagnes de cette organisation.</li>
+              </ol>
+            </figure>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Ce que ça change</h2>
+          <div>
+            <p>Deux organisations peuvent faire le même appel et recevoir chacune leurs propres campagnes. Pour ajouter un filtre de recherche, je peux suivre le tenant de l’API jusqu’à la requête et vérifier que le filtre s’applique dans le périmètre de l’organisation. Une évolution du stockage reste côté serveur tant que le contrat exposé par le SDK reste le même.</p>
+            <div class="case-actions">
+              <a class="case-button case-button--primary" href="/notes/saas-multi-tenant-de-la-base-a-la-facturation/">Lire la note sur l’architecture multi-tenant</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

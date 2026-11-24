@@ -44,7 +44,7 @@ if (bg) bg.setSkyImmediate(heroStop);
 const story = initStory(bg, { heroStop });
 
 const timeLine = initTimeLine();
-initMakingOf(bg);
+initMakingOf(bg, story.getStopPosition);
 initSound();
 
 // --- sélecteur de langue ---

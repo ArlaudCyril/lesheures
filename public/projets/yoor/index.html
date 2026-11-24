@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Comment Cyril Arlaud a intégré l’historique des transactions PCS dans l’application mobile React Native Yoor." />
+    <link rel="canonical" href="https://cyrilarlaud.com/projets/yoor/" />
+    <link rel="alternate" hreflang="fr" href="https://cyrilarlaud.com/projets/yoor/" />
+    <link rel="alternate" hreflang="en" href="https://cyrilarlaud.com/en/projets/yoor/" />
+    <link rel="alternate" hreflang="x-default" href="https://cyrilarlaud.com/projets/yoor/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content="https://cyrilarlaud.com/projets/yoor/" />
+    <meta property="og:title" content="Yoor · Historique des transactions — Cyril Arlaud" />
+    <meta property="og:description" content="De l’API bancaire PCS à l’historique des transactions dans l’app React Native Yoor." />
+    <meta property="og:image" content="https://cyrilarlaud.com/og.jpg" />
+    <title>Yoor · Historique des transactions — Cyril Arlaud</title>
+    <link rel="stylesheet" href="../../case-study.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"CreativeWork","name":"Yoor · Historique des transactions","url":"https://cyrilarlaud.com/projets/yoor/","inLanguage":"fr","author":{"@type":"Person","name":"Cyril Arlaud","url":"https://cyrilarlaud.com/"},"description":"De l’API bancaire PCS à l’historique des transactions dans l’app React Native Yoor."}
+    </script>
+  </head>
+  <body>
+    <div class="case-shell">
+      <nav class="case-nav" aria-label="Navigation de l’étude de cas">
+        <a href="/#work">← Réalisations</a>
+        <a href="/en/projets/yoor/" lang="en" hreflang="en">English</a>
+      </nav>
+      <main>
+        <header class="case-hero">
+          <p class="case-kicker">Étude de cas · Mobile</p>
+          <h1>Yoor</h1>
+          <p class="case-intro">Une application bancaire React Native pour gérer une carte prépayée PCS et consulter ses opérations depuis son téléphone.</p>
+        </header>
+        <section class="case-content">
+          <h2>Mon rôle</h2>
+          <div>
+            <p>J’ai travaillé sur l’application React Native et Expo et sur son intégration avec les services bancaires PCS. Pour l’historique des transactions, j’ai repris la récupération des opérations et la façon dont l’application interprète les réponses de l’API.</p>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Consulter ses opérations</h2>
+          <div>
+            <p>L’API bancaire peut renvoyer des champs et des libellés différents selon l’opération. J’ai centralisé leur conversion dans le service de transactions de l’application, afin que l’interface utilise les mêmes champs pour présenter un paiement ou un rechargement.</p>
+            <figure class="case-flow">
+              <figcaption>De l’API PCS à l’écran mobile</figcaption>
+              <ol>
+                <li><strong>Historique PCS.</strong> À l’ouverture de l’historique, l’app récupère les opérations du portefeuille pour la période demandée.</li>
+                <li><strong>Service de transactions.</strong> L’app convertit la réponse en un format commun avec un montant, une devise, un sens et un statut.</li>
+                <li><strong>Écran React Native.</strong> Le titulaire repère un paiement par carte terminé ou un rechargement en attente dans la même liste.</li>
+              </ol>
+            </figure>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Ce que j’ai vérifié</h2>
+          <div>
+            <p>Les tests automatisés vérifient qu’un paiement approuvé devient un débit au statut « terminé », qu’un rechargement en attente devient un crédit au statut « en attente » et que la requête d’historique transmet le portefeuille et la période attendus.</p>
+            <p>Ces tests simulent les réponses de l’API. Après les correctifs, la validation de bout en bout sur téléphone restait à faire.</p>
+            <div class="case-actions">
+              <a class="case-button" href="/#work">← Retour aux réalisations</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

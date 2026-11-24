@@ -90,9 +90,9 @@ for (const [key, value] of Object.entries(translations.en)) {
 /* ---- head : langue, titre, descriptions, canonique, OG ---- */
 const EN_TITLE = translations.en["meta.title"];
 const EN_DESC =
-  "Full-stack web developer in Marseille, France — React, Next.js, Node.js, React Native. SaaS, fintech and mobile products built end to end. Open to full-stack roles, on-site or fully remote.";
-const EN_OG_DESC =
-  "Web products built end to end — SaaS, fintech, mobile. From real-time gaming to PSD2 strong authentication.";
+  "Backend-focused full-stack developer in Marseille. I build secure APIs, web and mobile apps, and support tools powered by AI agents.";
+const EN_IMAGE_ALT =
+  "Cyril Arlaud, backend-focused full-stack developer for web and mobile, against a dawn sky";
 
 html = html
   .replace('<html lang="fr">', '<html lang="en">')
@@ -112,11 +112,12 @@ html = html
   )
   .replace(
     /(property="og:description"\s+content=")[^"]*(")/,
-    `$1${esc(EN_OG_DESC)}$2`
+    `$1${esc(EN_DESC)}$2`
   )
+  .replaceAll(`content="${SITE}/og.jpg"`, `content="${SITE}/og-en.jpg"`)
   .replace(
-    /(property="og:image:alt" content=")[^"]*(")/,
-    "$1Cyril Arlaud — Les Heures, full-stack web developer portfolio$2"
+    /((?:property="og:image:alt"|name="twitter:image:alt") content=")[^"]*(")/g,
+    `$1${esc(EN_IMAGE_ALT)}$2`
   )
   .replace('content="fr_FR"', 'content="__SWAP__"')
   .replace('content="en_US"', 'content="fr_FR"')
@@ -127,15 +128,21 @@ html = html
   )
   .replace(
     /(name="twitter:description"\s+content=")[^"]*(")/,
-    `$1${esc(EN_OG_DESC)}$2`
-  );
+    `$1${esc(EN_DESC)}$2`
+  )
+  .replace(/("jobTitle": )"[^"]*"/, (_, prefix) => prefix + JSON.stringify(translations.en["hero.eyebrow"]))
+  .replace(/("description": )"[^"]*"/, (_, prefix) => prefix + JSON.stringify(EN_DESC));
 
 /* ---- chemins relatifs : la page vit un niveau plus bas ---- */
 html = html
   .replaceAll('"./', '"../')
-  .replaceAll('data-preview="screens/', 'data-preview="../screens/')
   .replaceAll('href="/projets/letmebet/"', 'href="/en/projets/letmebet/"')
-  .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"');
+  .replaceAll('href="/projets/letmebet-support/"', 'href="/en/projets/letmebet-support/"')
+  .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"')
+  .replaceAll('href="/projets/orion/"', 'href="/en/projets/orion/"')
+  .replaceAll('href="/projets/yoor/"', 'href="/en/projets/yoor/"')
+  .replaceAll('href="/projets/pcs/"', 'href="/en/projets/pcs/"')
+  .replaceAll('href="/projets/hora-essence/"', 'href="/en/projets/hora-essence/"');
 
 /* Les notes restent françaises tant qu'aucune traduction relue n'existe. */
 if (!html.includes('href="/notes/"') || html.includes('href="/en/notes/"')) {
@@ -192,12 +199,52 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     ${alternates(`${SITE}/projets/letmebet/`, `${SITE}/en/projets/letmebet/`)}
   </url>
   <url>
+    <loc>${SITE}/projets/letmebet-support/</loc>
+    ${alternates(`${SITE}/projets/letmebet-support/`, `${SITE}/en/projets/letmebet-support/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/letmebet-support/</loc>
+    ${alternates(`${SITE}/projets/letmebet-support/`, `${SITE}/en/projets/letmebet-support/`)}
+  </url>
+  <url>
     <loc>${SITE}/projets/bemore-fans/</loc>
     ${alternates(`${SITE}/projets/bemore-fans/`, `${SITE}/en/projets/bemore-fans/`)}
   </url>
   <url>
     <loc>${SITE}/en/projets/bemore-fans/</loc>
     ${alternates(`${SITE}/projets/bemore-fans/`, `${SITE}/en/projets/bemore-fans/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/orion/</loc>
+    ${alternates(`${SITE}/projets/orion/`, `${SITE}/en/projets/orion/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/orion/</loc>
+    ${alternates(`${SITE}/projets/orion/`, `${SITE}/en/projets/orion/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/yoor/</loc>
+    ${alternates(`${SITE}/projets/yoor/`, `${SITE}/en/projets/yoor/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/yoor/</loc>
+    ${alternates(`${SITE}/projets/yoor/`, `${SITE}/en/projets/yoor/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/pcs/</loc>
+    ${alternates(`${SITE}/projets/pcs/`, `${SITE}/en/projets/pcs/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/pcs/</loc>
+    ${alternates(`${SITE}/projets/pcs/`, `${SITE}/en/projets/pcs/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/hora-essence/</loc>
+    ${alternates(`${SITE}/projets/hora-essence/`, `${SITE}/en/projets/hora-essence/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/hora-essence/</loc>
+    ${alternates(`${SITE}/projets/hora-essence/`, `${SITE}/en/projets/hora-essence/`)}
   </url>${noteEntries ? `\n${noteEntries}` : ""}
 </urlset>
 `;

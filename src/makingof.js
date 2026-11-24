@@ -33,7 +33,7 @@ const HUD_LABELS = {
   },
 };
 
-export function initMakingOf(bg) {
+export function initMakingOf(bg, getStopPosition) {
   const btn = document.querySelector(".mo-toggle");
   const hud = document.querySelector(".mo-hud");
   const notes = document.querySelector(".mo-notes");
@@ -57,7 +57,7 @@ export function initMakingOf(bg) {
     const d = dict();
     const info = bg.getInfo();
     const p = progressNow();
-    const stop = Math.min(6, Math.round(p * 6));
+    const stop = Math.max(0, Math.min(d.stops.length - 1, Math.round(getStopPosition())));
     const sw = info.colors
       .map(
         (c) =>

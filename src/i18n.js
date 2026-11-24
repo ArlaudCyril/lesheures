@@ -13,7 +13,7 @@
 
 export const translations = {
   fr: {
-    "meta.title": "Cyril Arlaud — Développeur web full-stack & SaaS · Marseille",
+    "meta.title": "Cyril Arlaud — Développeur full-stack backend, web et mobile",
 
     "nav.skip": "Aller au contenu",
     "nav.language": "Langue",
@@ -26,59 +26,58 @@ export const translations = {
     // Sommaire latéral & navigation mobile
     "nav.about": "Origines",
     "nav.stack": "Stack",
-    "nav.work": "Projets",
+    "nav.work": "Réalisations",
     "nav.craft": "Savoir-faire",
     "nav.contact": "Contact",
     "nav.title": "Sommaire",
 
     // Ouverture
-    "hero.eyebrow": "Développeur web full-stack · SaaS",
+    "hero.eyebrow": "Développeur full-stack orienté backend · Web & mobile",
     "hero.sub":
-      "Je conçois et développe des produits web de bout en bout — de la première maquette à l'infrastructure en production. Faites défiler : une journée dans ma façon de construire.",
-    "hero.meta": "Marseille · Télétravail · Ouvert à un poste full-stack",
-    "hero.ctaWork": "Voir les projets",
-    "hero.ctaContact": "Me contacter",
+      "Je développe des API sécurisées, des applications bancaires mobiles et des outils de support fondés sur l’IA agentique.",
+    "hero.meta": "Marseille · Télétravail · Recherche un CDI",
+    "hero.ctaWork": "Voir mes réalisations",
+    "hero.ctaCv": "Voir mon CV",
     "hero.actions": "Actions principales",
     "hero.scroll": "Défiler",
 
-    // 01 — L'Aube · Origines
-    "c1.kicker": "Première lueur — origines",
-    "c1.lead": "Tout commence par un rêve d'enfant — et le long détour qui m'y a ramené.",
-    "c1.body":
-      "Enfant, c'était déjà le plan. J'ai d'abord pris le chemin des écoliers : les vignes et l'œnologie, les bars, une boutique à gérer, deux ans en Australie puis deux au Canada. Un soir, un bot pour Dofus — écrit seul, socket par socket — a rallumé la première lueur. Passé par la Web Academy d'Epitech, je construis depuis quatre ans des produits entiers en freelance — SaaS, fintech, mobile — pour le studio Ennea et Nova Strategies.",
-    "c1.pull": "« Le bon chemin n'était pas le plus court. »",
+    // 01 — L'Aube · Réalisations
+    "work.kicker": "Première lueur",
+    "work.pcs.category": "Backend · Fintech",
+    "work.pcs.desc":
+      "Un service d’authentification forte qui vérifie la confirmation d’une opération sensible depuis un appareil de confiance.",
+    "work.support.category": "IA agentique",
+    "work.support.name": "LetMeBet · Agent de support",
+    "work.support.desc":
+      "Un agent qui prépare des réponses à partir de la base de connaissances et signale les dossiers à reprendre par l’équipe.",
+    "work.yoor.category": "Mobile",
+    "work.yoor.desc":
+      "Une application React Native pour gérer des cartes prépayées et effectuer des virements SEPA.",
+    "work.orion.category": "SaaS",
+    "work.orion.desc":
+      "Un CRM multitenant pour automatiser les campagnes et intégrer plusieurs prestataires de paiement.",
+    "work.bemore.category": "Full-stack · En production",
+    "work.bemore.desc":
+      "Une plateforme d’abonnements avec paiements récurrents, vérification d’identité et médias protégés.",
+    "work.hora.category": "Front-end",
+    "work.hora.desc":
+      "Un site photo bilingue avec un carrousel plein écran et des transitions GSAP.",
 
-    // 02 — Le Zénith · Stack & expertise
-    "c2.kicker": "Plein jour — stack & expertise",
-    "c2.lead": "À pleine puissance : les outils que je maîtrise pour aller vite, proprement.",
+    // 02 — Le Zénith · Origines
+    "c2.kicker": "Plein jour — origines",
+    "c2.lead": "Tout commence par un rêve d'enfant — et le long détour qui m'y a ramené.",
     "c2.body":
+      "Enfant, c'était déjà le plan. J'ai d'abord pris le chemin des écoliers : les vignes et l'œnologie, les bars, une boutique à gérer, deux ans en Australie puis deux au Canada. Un soir, un bot pour Dofus — écrit seul, socket par socket — a rallumé la première lueur. Passé par la Web Academy d'Epitech, je construis depuis quatre ans des produits entiers en freelance — SaaS, fintech, mobile — pour le studio Ennea et Nova Strategies.",
+    "c2.pull": "« Le bon chemin n'était pas le plus court. »",
+
+    // 03 — Le Crépuscule · Stack & expertise
+    "c3.kicker": "L'heure dorée — stack & expertise",
+    "c3.lead": "Les outils que je maîtrise pour construire de bout en bout.",
+    "c3.body":
       "Du front réactif au back robuste, je couvre toute la chaîne. TypeScript de bout en bout, React et Next.js sur l'interface, Node.js côté serveur, et tout l'outillage SaaS pour passer de l'idée à la facturation.",
     "stack.front": "Interface",
     "stack.back": "Serveur & données",
     "stack.saas": "SaaS & infra",
-
-    // 03 — Le Crépuscule · Projets
-    "c3.kicker": "L'heure dorée — projets",
-    "c3.lead": "Quelques pièces dont je suis fier.",
-    "c3.body":
-      "Du jeu temps réel à la fintech régulée, cinq produits construits de bout en bout : plateformes grand public, CRM SaaS et son SDK, app bancaire mobile, et module d'authentification forte DSP2.",
-    "work.cta": "Lire l’étude de cas",
-    "work.visit": "Visiter le produit ↗",
-    "work.cta2": "Produit interne — démo sur demande",
-    "work.cta3": "App mobile en bêta — démo sur demande",
-    "work.cta4": "Module backend — détails sur demande",
-    "contact.email": "Écrire à Cyril",
-    "contact.details": "Coordonnées",
-    "work.p1.desc":
-      "Challenges de paris sportifs à capital virtuel : cotes multi-sports en temps réel par WebSocket, KYC, paiements, système de jokers. Une centaine d'endpoints, 40 modèles de données, 250+ tests — en production : 150+ parieurs financés, 4,8/5 sur Trustpilot.",
-    "work.p2.desc":
-      "CRM SaaS multitenant qui alimente LetMeBet : campagnes email et in-app, séquences automatisées, paiements multi-prestataires à livraison de webhooks fiabilisée. 80 modèles de données, 440+ tests, intégré aux apps clientes via un SDK TypeScript publié.",
-    "work.p3.desc":
-      "Application bancaire mobile (React Native) pour les cartes prépayées PCS : pilotage des cartes, virements SEPA, KYC et biométrie, plus un volet crypto — wallets Ethereum/Solana avec scoring AML. 60+ endpoints bancaires intégrés, 4 langues, backend serverless dédié.",
-    "work.p4.desc":
-      "Brique d'authentification forte (DSP2) pour l'écosystème PCS : challenges signés ECDSA P-256 par appareil de confiance, biométrie, anti-rejeu, audit immuable. Architecture hexagonale — 8 ports, adapters PostgreSQL/Redis — pyramide de tests, infra Terraform sur GCP.",
-    "work.p5.desc":
-      "Plateforme d'abonnements pour créateurs de contenu : paiements récurrents (PSP Epoch), KYC et contrôle d'âge Yoti, médias protégés par URLs signées (S3), messagerie modérée, programme d'affiliation, back-office complet. 54 modèles de données, 80+ écrans, 430+ tests — en production.",
 
     // 04 — La Nuit · Savoir-faire
     "c4.kicker": "Heure bleue — savoir-faire",
@@ -94,6 +93,9 @@ export const translations = {
       "Cap sur un poste full-stack — à Marseille et alentours, ou en full remote. Ouvert aussi aux missions freelance et aux collaborations produit. Une équipe à rejoindre, un produit à faire grandir ? Parlons-en.",
     "c5.pull": "« Chaque fin garde, en secret, le germe d'un matin. »",
 
+    "contact.email": "Écrire à Cyril",
+    "contact.details": "Coordonnées",
+
     // Clôture · Contact
     "out.eyebrow": "Fin de la traversée",
     "out.title": "Parlons-en",
@@ -105,7 +107,7 @@ export const translations = {
     // Making-of & son
     "mo.toggle": "Sous le capot",
     "mo.note1":
-      "La barre mesure le récit — c'est elle qui pilote les couleurs du shader.",
+      "La barre suit le défilement. Les couleurs du ciel se fondent d’un chapitre au suivant.",
     "mo.note2":
       "Sommaire : Lenis scrollTo + GSAP ScrollTrigger — titres découpés mot à mot.",
     "mo.note3":
@@ -114,7 +116,7 @@ export const translations = {
   },
 
   en: {
-    "meta.title": "Cyril Arlaud — Full-stack & SaaS web developer · Marseille",
+    "meta.title": "Cyril Arlaud — Full-stack developer · Backend, web and mobile",
 
     "nav.skip": "Skip to content",
     "nav.language": "Language",
@@ -127,59 +129,58 @@ export const translations = {
     // Side contents & mobile navigation
     "nav.about": "Origins",
     "nav.stack": "Stack",
-    "nav.work": "Work",
+    "nav.work": "Selected work",
     "nav.craft": "Craft",
     "nav.contact": "Contact",
     "nav.title": "Contents",
 
     // Opening
-    "hero.eyebrow": "Full-stack web developer · SaaS",
+    "hero.eyebrow": "Backend-focused full-stack developer · Web & mobile",
     "hero.sub":
-      "I design and build web products end to end — from the first mockup to production infrastructure. Scroll on: a day inside the way I build.",
-    "hero.meta": "Marseille · Remote · Open to a full-stack role",
+      "I build secure APIs, mobile banking apps and support tools powered by agentic AI.",
+    "hero.meta": "Marseille · Remote · Seeking a permanent role",
     "hero.ctaWork": "View selected work",
-    "hero.ctaContact": "Get in touch",
+    "hero.ctaCv": "View my CV",
     "hero.actions": "Main actions",
     "hero.scroll": "Scroll",
 
-    // 01 — Dawn · Origins
-    "c1.kicker": "First light — origins",
-    "c1.lead": "It starts with a childhood dream — and the long way back to it.",
-    "c1.body":
-      "As a kid, that was already the plan. I took the scenic route first: vineyards and oenology, bars, a shop to run, two years in Australia, two more in Canada. Then one night, a bot for the MMO Dofus — written alone, socket by socket — lit the first spark again. Trained at Epitech's Web Academy, I've spent the last four years building complete products as a freelancer — SaaS, fintech, mobile — for studio Ennea and Nova Strategies.",
-    "c1.pull": "“The right road wasn't the shortest one.”",
+    // 01 — Dawn · Selected work
+    "work.kicker": "First light",
+    "work.pcs.category": "Backend · Fintech",
+    "work.pcs.desc":
+      "A strong customer authentication service that checks whether a sensitive operation was confirmed on a trusted device.",
+    "work.support.category": "Agentic AI",
+    "work.support.name": "LetMeBet · Support agent",
+    "work.support.desc":
+      "An agent that drafts replies from the knowledge base and flags cases the support team needs to take over.",
+    "work.yoor.category": "Mobile",
+    "work.yoor.desc":
+      "A React Native app for managing prepaid cards and making SEPA transfers.",
+    "work.orion.category": "SaaS",
+    "work.orion.desc":
+      "A multitenant CRM for automating campaigns and integrating multiple payment providers.",
+    "work.bemore.category": "Full-stack · Live in production",
+    "work.bemore.desc":
+      "A subscription platform with recurring payments, identity checks and protected media.",
+    "work.hora.category": "Front-end",
+    "work.hora.desc":
+      "A bilingual photography site with a full-screen carousel and GSAP transitions.",
 
-    // 02 — High noon · Stack & expertise
-    "c2.kicker": "High noon — stack & expertise",
-    "c2.lead": "At full power: the tools I master to move fast, cleanly.",
+    // 02 — High noon · Origins
+    "c2.kicker": "High noon — origins",
+    "c2.lead": "It starts with a childhood dream — and the long way back to it.",
     "c2.body":
+      "As a kid, that was already the plan. I took the scenic route first: vineyards and oenology, bars, a shop to run, two years in Australia, two more in Canada. Then one night, a bot for the MMO Dofus — written alone, socket by socket — lit the first spark again. Trained at Epitech's Web Academy, I've spent the last four years building complete products as a freelancer — SaaS, fintech, mobile — for studio Ennea and Nova Strategies.",
+    "c2.pull": "“The right road wasn't the shortest one.”",
+
+    // 03 — Golden hour · Stack & expertise
+    "c3.kicker": "Golden hour — stack & expertise",
+    "c3.lead": "The tools I use to build products end to end.",
+    "c3.body":
       "From a reactive front-end to a robust back-end, I cover the whole chain. TypeScript end to end, React and Next.js on the interface, Node.js on the server, and all the SaaS tooling to go from idea to billing.",
     "stack.front": "Front-end",
     "stack.back": "Back-end & data",
     "stack.saas": "SaaS & infra",
-
-    // 03 — Golden hour · Work
-    "c3.kicker": "Golden hour — selected work",
-    "c3.lead": "A few pieces I'm proud of.",
-    "c3.body":
-      "From real-time gaming to regulated fintech, five products built end to end: consumer platforms, a SaaS CRM with its SDK, a mobile banking app, and a PSD2 strong-authentication module.",
-    "work.cta": "Read the case study",
-    "work.visit": "Visit the product ↗",
-    "work.cta2": "Internal product — demo on request",
-    "work.cta3": "Mobile app in beta — demo on request",
-    "work.cta4": "Backend module — details on request",
-    "contact.email": "Email Cyril",
-    "contact.details": "Contact details",
-    "work.p1.desc":
-      "Sports-betting challenges with virtual capital: real-time multi-sport odds over WebSocket, KYC, payments, a joker system. About a hundred endpoints, 40 data models, 250+ tests — live in production: 150+ funded bettors, 4.8/5 on Trustpilot.",
-    "work.p2.desc":
-      "Multitenant SaaS CRM powering LetMeBet: email and in-app campaigns, automated sequences, multi-provider payments with reliable webhook delivery. 80 data models, 440+ tests, integrated into client apps through a published TypeScript SDK.",
-    "work.p3.desc":
-      "Mobile banking app (React Native) for PCS prepaid cards: card controls, SEPA transfers, KYC and biometrics, plus a crypto layer — Ethereum/Solana wallets with AML scoring. 60+ banking endpoints integrated, 4 languages, dedicated serverless backend.",
-    "work.p4.desc":
-      "Strong Customer Authentication (PSD2) building block for the PCS ecosystem: ECDSA P-256 signed challenges from trusted devices, biometrics, anti-replay, immutable audit trail. Hexagonal architecture — 8 ports, PostgreSQL/Redis adapters — full test pyramid, Terraform infra on GCP.",
-    "work.p5.desc":
-      "Subscription platform for content creators: recurring payments (Epoch PSP), Yoti KYC and age verification, signed-URL protected media (S3), moderated messaging, affiliate program, full back-office. 54 data models, 80+ screens, 430+ tests — live in production.",
 
     // 04 — Blue hour · Craft
     "c4.kicker": "Blue hour — craft",
@@ -195,6 +196,9 @@ export const translations = {
       "Aiming for a full-stack position — in or around Marseille, or fully remote. Also open to freelance work and product collaborations. A team to join, a product to grow? Let's talk.",
     "c5.pull": "“Every ending secretly holds the seed of a morning.”",
 
+    "contact.email": "Email Cyril",
+    "contact.details": "Contact details",
+
     // Closing · Contact
     "out.eyebrow": "End of the journey",
     "out.title": "Let's talk",
@@ -206,7 +210,7 @@ export const translations = {
     // Making-of & sound
     "mo.toggle": "Under the hood",
     "mo.note1":
-      "This bar measures the story — it drives the shader's colours.",
+      "The bar tracks scrolling. The sky blends from one chapter’s colours to the next.",
     "mo.note2":
       "Contents: Lenis scrollTo + GSAP ScrollTrigger — titles split word by word.",
     "mo.note3":

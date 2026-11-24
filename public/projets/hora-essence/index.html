@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Comment Cyril Arlaud a développé le carrousel photo plein écran de Hora Essence et ses transitions avec React et GSAP." />
+    <link rel="canonical" href="https://cyrilarlaud.com/projets/hora-essence/" />
+    <link rel="alternate" hreflang="fr" href="https://cyrilarlaud.com/projets/hora-essence/" />
+    <link rel="alternate" hreflang="en" href="https://cyrilarlaud.com/en/projets/hora-essence/" />
+    <link rel="alternate" hreflang="x-default" href="https://cyrilarlaud.com/projets/hora-essence/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content="https://cyrilarlaud.com/projets/hora-essence/" />
+    <meta property="og:title" content="Hora Essence · Carrousel photo plein écran — Cyril Arlaud" />
+    <meta property="og:description" content="Un site photo bilingue dont le carrousel révèle chaque image avec React et GSAP." />
+    <meta property="og:image" content="https://cyrilarlaud.com/screens/hora-essence.jpg" />
+    <meta property="og:image:alt" content="Le carrousel photo plein écran de Hora Essence sur ordinateur" />
+    <title>Hora Essence · Carrousel photo plein écran — Cyril Arlaud</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../../case-study.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"CreativeWork","name":"Hora Essence · Carrousel photo plein écran","url":"https://cyrilarlaud.com/projets/hora-essence/","inLanguage":"fr","author":{"@type":"Person","name":"Cyril Arlaud","url":"https://cyrilarlaud.com/"},"description":"Un site photo bilingue dont le carrousel révèle chaque image avec React et GSAP."}
+    </script>
+  </head>
+  <body>
+    <div class="case-shell">
+      <nav class="case-nav" aria-label="Navigation de l’étude de cas">
+        <a href="/#work">← Cyril Arlaud</a>
+        <a href="/en/projets/hora-essence/" lang="en" hreflang="en">English</a>
+      </nav>
+      <main>
+        <header class="case-hero">
+          <p class="case-kicker">Étude de cas · Développement front-end</p>
+          <h1>Hora Essence</h1>
+          <p class="case-intro">Un site photo bilingue dont le carrousel plein écran ouvre la visite.</p>
+          <div class="case-actions">
+            <a class="case-button case-button--primary" href="https://www.horaessence.com/" target="_blank" rel="noopener noreferrer">Explorer Hora Essence ↗</a>
+          </div>
+        </header>
+        <figure class="case-visual">
+          <picture>
+            <source media="(max-width: 520px)" srcset="../../screens/hora-essence-mobile.jpg" width="432" height="850" />
+            <img src="../../screens/hora-essence.jpg" width="1440" height="900" alt="Le carrousel d’accueil affiche la série Cascade, à Bali, avec le nom Hora Essence superposé et une flèche de navigation de chaque côté." />
+          </picture>
+        </figure>
+        <section class="case-content">
+          <h2>Une photo à la fois</h2>
+          <div>
+            <p>J’ai développé le carrousel d’accueil en React et animé les changements de photo avec GSAP. React suit la photo active pour synchroniser sa légende et la navigation du carrousel.</p>
+            <p>Pendant la transition, la photo en cours reste visible sous la suivante. GSAP déplace un masque elliptique sur l’image entrante pour la dévoiler progressivement et conserver un cadre plein écran. Quand la préférence de mouvement réduit est activée, le changement de photo est immédiat.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Comment j’ai conçu et développé le backend PHP/Symfony d’authentification forte pour les cartes prépayées PCS." />
+    <link rel="canonical" href="https://cyrilarlaud.com/projets/pcs/" />
+    <link rel="alternate" hreflang="fr" href="https://cyrilarlaud.com/projets/pcs/" />
+    <link rel="alternate" hreflang="en" href="https://cyrilarlaud.com/en/projets/pcs/" />
+    <link rel="alternate" hreflang="x-default" href="https://cyrilarlaud.com/projets/pcs/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content="https://cyrilarlaud.com/projets/pcs/" />
+    <meta property="og:title" content="PCS · Authentification forte — Cyril Arlaud" />
+    <meta property="og:description" content="Conception et développement d’un backend PHP/Symfony qui vérifie les confirmations depuis un appareil de confiance." />
+    <meta property="og:image" content="https://cyrilarlaud.com/og.jpg" />
+    <title>PCS · Authentification forte — Cyril Arlaud</title>
+    <link rel="stylesheet" href="../../case-study.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"CreativeWork","name":"PCS · Authentification forte","url":"https://cyrilarlaud.com/projets/pcs/","inLanguage":"fr","author":{"@type":"Person","name":"Cyril Arlaud","url":"https://cyrilarlaud.com/"},"description":"Étude de cas sur la conception et le développement du backend PHP/Symfony d’authentification forte pour les cartes prépayées PCS."}
+    </script>
+  </head>
+  <body>
+    <div class="case-shell">
+      <nav class="case-nav" aria-label="Navigation de l’étude de cas">
+        <a href="/#work">← Réalisations</a>
+        <a href="/en/projets/pcs/" lang="en" hreflang="en">English</a>
+      </nav>
+      <main>
+        <header class="case-hero">
+          <p class="case-kicker">Étude de cas · Backend</p>
+          <h1>PCS</h1>
+          <p class="case-intro">Un service d’authentification forte qui permet aux titulaires de cartes prépayées PCS de confirmer une opération sensible depuis leur téléphone de confiance.</p>
+        </header>
+        <section class="case-content">
+          <h2>Le besoin</h2>
+          <div>
+            <p>Pour les opérations nécessitant une authentification forte dans le cadre de la DSP2, PCS devait pouvoir vérifier que le titulaire avait bien confirmé l’action demandée.</p>
+            <p>J’ai conçu et développé le backend PHP/Symfony, de l’API d’enregistrement des appareils à la vérification des confirmations. J’ai séparé les règles de validation du stockage et de l’envoi des notifications pour pouvoir les tester indépendamment.</p>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Confirmer un paiement</h2>
+          <div>
+            <p>Prenons un paiement à confirmer. L’application présente le montant et le commerçant. Après confirmation biométrique du titulaire, le téléphone enregistré signe une demande à durée limitée, appelée <em>challenge</em>, liée à ce paiement. Le service vérifie la signature avec la clé publique enregistrée et renvoie le résultat à PCS.</p>
+            <p>J’ai choisi la signature par appareil pour lier la confirmation au téléphone de confiance et au paiement présenté. La clé privée reste sur le téléphone et l’usage unique du challenge empêche de réutiliser la même preuve.</p>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Tests et statut</h2>
+          <div>
+            <p>Les tests automatisés du backend couvrent l’acceptation d’une signature valide ainsi que le rejet d’une signature invalide, d’un challenge expiré ou d’une preuve déjà utilisée.</p>
+            <p>Le backend a été déployé en production sur Google Cloud. Les contrôles documentés en novembre 2026 ont confirmé que l’API répondait et que le worker était actif.</p>
+            <p>La validation de bout en bout sur téléphone restait à confirmer lors de ce suivi.</p>
+            <div class="case-actions">
+              <a class="case-button" href="/#work">← Retour aux réalisations</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
