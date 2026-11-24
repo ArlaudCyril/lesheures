@@ -125,28 +125,28 @@
     </nav>
 
     <nav class="toc" data-i18n-aria-label="nav.contents" aria-label="Sommaire / Contents">
-      <a class="toc__item" href="#about" data-target="#about"><span class="toc__label" data-i18n="nav.about">Origines</span><span class="toc__tick" aria-hidden="true"></span></a>
-      <a class="toc__item" href="#stack" data-target="#stack"><span class="toc__label" data-i18n="nav.stack">Stack</span><span class="toc__tick" aria-hidden="true"></span></a>
-      <a class="toc__item" href="#work" data-target="#work"><span class="toc__label" data-i18n="nav.work">Projets</span><span class="toc__tick" aria-hidden="true"></span></a>
-      <a class="toc__item" href="#craft" data-target="#craft"><span class="toc__label" data-i18n="nav.craft">Savoir-faire</span><span class="toc__tick" aria-hidden="true"></span></a>
-      <a class="toc__item" href="#contact" data-target="#contact"><span class="toc__label" data-i18n="nav.contact">Contact</span><span class="toc__tick" aria-hidden="true"></span></a>
+      <a class="toc__item" href="#work"><span class="toc__label" data-i18n="nav.work">Réalisations</span><span class="toc__tick" aria-hidden="true"></span></a>
+      <a class="toc__item" href="#about"><span class="toc__label" data-i18n="nav.about">Origines</span><span class="toc__tick" aria-hidden="true"></span></a>
+      <a class="toc__item" href="#stack"><span class="toc__label" data-i18n="nav.stack">Stack</span><span class="toc__tick" aria-hidden="true"></span></a>
+      <a class="toc__item" href="#craft"><span class="toc__label" data-i18n="nav.craft">Savoir-faire</span><span class="toc__tick" aria-hidden="true"></span></a>
+      <a class="toc__item" href="#contact"><span class="toc__label" data-i18n="nav.contact">Contact</span><span class="toc__tick" aria-hidden="true"></span></a>
     </nav>
 
     <!-- navigation mobile : chapitre courant + overlay sommaire -->
     <button class="mnav" type="button" data-i18n-aria-label="nav.open" aria-expanded="false" aria-controls="mnav-overlay" aria-label="Ouvrir le sommaire / Open contents">
       <span class="mnav__num">01</span>
       <!-- libellé recopié du sommaire par story.js (suit langue + chapitre) -->
-      <span class="mnav__label">Origines</span>
+      <span class="mnav__label" data-i18n="nav.work">Réalisations</span>
       <span class="mnav__icon" aria-hidden="true"></span>
     </button>
     <div class="mnav-overlay" id="mnav-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="mnav-title">
       <p class="mnav-overlay__title" id="mnav-title" data-i18n="nav.title">Sommaire</p>
       <nav class="mnav-overlay__list" data-i18n-aria-label="nav.chapters" aria-label="Chapitres / Chapters">
-        <a class="mnav-overlay__item" href="#about" data-target="#about"><span class="mnav-overlay__idx">01</span><span data-i18n="nav.about">Origines</span></a>
-        <a class="mnav-overlay__item" href="#stack" data-target="#stack"><span class="mnav-overlay__idx">02</span><span data-i18n="nav.stack">Stack</span></a>
-        <a class="mnav-overlay__item" href="#work" data-target="#work"><span class="mnav-overlay__idx">03</span><span data-i18n="nav.work">Projets</span></a>
-        <a class="mnav-overlay__item" href="#craft" data-target="#craft"><span class="mnav-overlay__idx">04</span><span data-i18n="nav.craft">Savoir-faire</span></a>
-        <a class="mnav-overlay__item" href="#contact" data-target="#contact"><span class="mnav-overlay__idx">05</span><span data-i18n="nav.contact">Contact</span></a>
+        <a class="mnav-overlay__item" href="#work"><span class="mnav-overlay__idx">01</span><span data-i18n="nav.work">Réalisations</span></a>
+        <a class="mnav-overlay__item" href="#about"><span class="mnav-overlay__idx">02</span><span data-i18n="nav.about">Origines</span></a>
+        <a class="mnav-overlay__item" href="#stack"><span class="mnav-overlay__idx">03</span><span data-i18n="nav.stack">Stack</span></a>
+        <a class="mnav-overlay__item" href="#craft"><span class="mnav-overlay__idx">04</span><span data-i18n="nav.craft">Savoir-faire</span></a>
+        <a class="mnav-overlay__item" href="#contact"><span class="mnav-overlay__idx">05</span><span data-i18n="nav.contact">Contact</span></a>
       </nav>
       <a class="mnav-overlay__notes" href="/notes/" data-i18n="nav.notes">Notes</a>
       <button class="mnav-overlay__close" type="button" data-i18n-aria-label="nav.close" aria-label="Fermer / Close">✕</button>
@@ -159,7 +159,7 @@
     </button>
     <aside class="mo-hud" hidden></aside>
     <div class="mo-notes" hidden aria-hidden="true">
-      <span class="mo-note mo-note--progress" data-i18n="mo.note1">La barre mesure le récit — c'est elle qui pilote les couleurs du shader.</span>
+      <span class="mo-note mo-note--progress" data-i18n="mo.note1">La barre suit le défilement. Les couleurs du ciel se fondent d’un chapitre au suivant.</span>
       <span class="mo-note mo-note--toc" data-i18n="mo.note2">Sommaire : Lenis scrollTo + GSAP ScrollTrigger — titres découpés mot à mot.</span>
       <span class="mo-note mo-note--canvas" data-i18n="mo.note3">Le fond entier est un seul quad WebGL : fbm domain-warpé, déformé par la souris.</span>
     </div>
@@ -183,7 +183,7 @@
           <p class="hero__sub" data-i18n="hero.sub">Je conçois et développe des produits web de bout en bout — de la première maquette à l'infrastructure en production. Faites défiler : une journée dans ma façon de construire.</p>
           <p class="hero__meta" data-i18n="hero.meta">Marseille · Télétravail · Ouvert à un poste full-stack</p>
           <div class="hero__actions" data-i18n-aria-label="hero.actions" aria-label="Actions principales / Main actions">
-            <a class="hero__action hero__action--primary" href="#work" data-cursor data-i18n="hero.ctaWork">Voir les projets</a>
+            <a class="hero__action hero__action--primary" href="#work" data-cursor data-i18n="hero.ctaWork">Voir les réalisations</a>
             <a class="hero__action" href="#contact" data-cursor data-i18n="hero.ctaContact">Me contacter</a>
           </div>
           <!-- rempli par hours.js : « Il est 23h04 — bonsoir. » -->
@@ -195,24 +195,71 @@
         </div>
       </section>
 
-      <!-- 01 — L'AUBE · Origines -->
-      <section class="chapter chapter--left" id="about" data-screen-label="01 · Origines">
-        <div class="chap__num">01</div>
+      <!-- 01 — L'AUBE · Réalisations -->
+      <section class="chapter chapter--left" id="work" tabindex="-1" aria-labelledby="work-title" data-screen-label="01 · Réalisations">
+        <div class="chap__num" aria-hidden="true">01</div>
         <div class="chapter__inner chap__inner">
-          <p class="chap__kicker" data-i18n="c1.kicker">Première lueur — origines</p>
-          <h2 class="chap__lead" data-i18n="c1.lead">Tout commence par un rêve d'enfant — et le long détour qui m'y a ramené.</h2>
-          <p class="chap__body" data-i18n="c1.body">Enfant, c'était déjà le plan. J'ai d'abord pris le chemin des écoliers : les vignes et l'œnologie, les bars, une boutique à gérer, deux ans en Australie puis deux au Canada. Un soir, un bot pour Dofus — écrit seul, socket par socket — a rallumé la première lueur. Passé par la Web Academy d'Epitech, je construis depuis quatre ans des produits entiers en freelance — SaaS, fintech, mobile — pour le studio Ennea et Nova Strategies.</p>
-          <p class="chap__pull" data-i18n="c1.pull">« Le bon chemin n'était pas le plus court. »</p>
+          <p class="chap__kicker" data-i18n="work.kicker">Première lueur</p>
+          <h2 class="chap__lead" id="work-title" data-i18n="nav.work">Réalisations</h2>
+          <div class="work">
+            <a class="work__item work__item--featured" href="/projets/pcs/" aria-labelledby="work-pcs" data-cursor>
+              <p class="work__category" data-i18n="work.pcs.category">Backend · Fintech</p>
+              <h3 class="work__name" id="work-pcs">PCS · SCA</h3>
+              <p class="work__desc" data-i18n="work.pcs.desc">Un service d’authentification forte qui vérifie la confirmation d’une opération sensible depuis un appareil de confiance.</p>
+              <span class="work__arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="work__item work__item--featured" href="/projets/letmebet-support/" aria-labelledby="work-support" data-cursor>
+              <p class="work__category" data-i18n="work.support.category">IA agentique</p>
+              <h3 class="work__name" id="work-support" data-i18n="work.support.name">LetMeBet · Agent de support</h3>
+              <p class="work__desc" data-i18n="work.support.desc">Un agent qui prépare des réponses à partir de la base de connaissances et signale les dossiers à reprendre par l’équipe.</p>
+              <span class="work__arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="work__item" href="/projets/yoor/" aria-labelledby="work-yoor" data-cursor>
+              <p class="work__category" data-i18n="work.yoor.category">Mobile</p>
+              <h3 class="work__name" id="work-yoor">Yoor</h3>
+              <p class="work__desc" data-i18n="work.yoor.desc">Une application React Native pour gérer des cartes prépayées et effectuer des virements SEPA.</p>
+              <span class="work__arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="work__item" href="/projets/orion/" aria-labelledby="work-orion" data-cursor>
+              <p class="work__category" data-i18n="work.orion.category">SaaS</p>
+              <h3 class="work__name" id="work-orion">Orion</h3>
+              <p class="work__desc" data-i18n="work.orion.desc">Un CRM multitenant pour automatiser les campagnes et intégrer plusieurs prestataires de paiement.</p>
+              <span class="work__arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="work__item" href="/projets/bemore-fans/" aria-labelledby="work-bemore" data-cursor>
+              <p class="work__category" data-i18n="work.bemore.category">Full-stack · En production</p>
+              <h3 class="work__name" id="work-bemore">BeMoreFans</h3>
+              <p class="work__desc" data-i18n="work.bemore.desc">Une plateforme d’abonnements avec paiements récurrents, vérification d’identité et médias protégés.</p>
+              <span class="work__arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="work__item" href="/projets/hora-essence/" aria-labelledby="work-hora" data-cursor>
+              <p class="work__category" data-i18n="work.hora.category">Front-end</p>
+              <h3 class="work__name" id="work-hora">Hora Essence</h3>
+              <p class="work__desc" data-i18n="work.hora.desc">Un site photo bilingue avec un carrousel plein écran et des transitions GSAP.</p>
+              <span class="work__arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
       </section>
 
-      <!-- 02 — LE ZÉNITH · Stack & expertise -->
-      <section class="chapter chapter--right" id="stack" data-screen-label="02 · Stack">
+      <!-- 02 — LE ZÉNITH · Origines -->
+      <section class="chapter chapter--left" id="about" tabindex="-1" data-screen-label="02 · Origines">
         <div class="chap__num">02</div>
         <div class="chapter__inner chap__inner">
-          <p class="chap__kicker" data-i18n="c2.kicker">Plein jour — stack & expertise</p>
-          <h2 class="chap__lead" data-i18n="c2.lead">À pleine puissance : les outils que je maîtrise pour aller vite, proprement.</h2>
-          <p class="chap__body" data-i18n="c2.body">Du front réactif au back robuste, je couvre toute la chaîne. TypeScript de bout en bout, React et Next.js sur l'interface, Node.js côté serveur, et tout l'outillage SaaS pour passer de l'idée à la facturation.</p>
+          <p class="chap__kicker" data-i18n="c2.kicker">Plein jour — origines</p>
+          <h2 class="chap__lead" data-i18n="c2.lead">Tout commence par un rêve d'enfant — et le long détour qui m'y a ramené.</h2>
+          <p class="chap__body" data-i18n="c2.body">Enfant, c'était déjà le plan. J'ai d'abord pris le chemin des écoliers : les vignes et l'œnologie, les bars, une boutique à gérer, deux ans en Australie puis deux au Canada. Un soir, un bot pour Dofus — écrit seul, socket par socket — a rallumé la première lueur. Passé par la Web Academy d'Epitech, je construis depuis quatre ans des produits entiers en freelance — SaaS, fintech, mobile — pour le studio Ennea et Nova Strategies.</p>
+          <p class="chap__pull" data-i18n="c2.pull">« Le bon chemin n'était pas le plus court. »</p>
+        </div>
+      </section>
+
+      <!-- 03 — LE CRÉPUSCULE · Stack & expertise -->
+      <section class="chapter chapter--right" id="stack" tabindex="-1" data-screen-label="03 · Stack">
+        <div class="chap__num">03</div>
+        <div class="chapter__inner chap__inner">
+          <p class="chap__kicker" data-i18n="c3.kicker">L'heure dorée — stack & expertise</p>
+          <h2 class="chap__lead" data-i18n="c3.lead">Les outils que je maîtrise pour construire de bout en bout.</h2>
+          <p class="chap__body" data-i18n="c3.body">Du front réactif au back robuste, je couvre toute la chaîne. TypeScript de bout en bout, React et Next.js sur l'interface, Node.js côté serveur, et tout l'outillage SaaS pour passer de l'idée à la facturation.</p>
           <!-- [À PERSONNALISER] adapte / complète les technologies ci-dessous -->
           <div class="chap__extra stack">
             <div class="stack-group">
@@ -249,89 +296,8 @@
         </div>
       </section>
 
-      <!-- 03 — LE CRÉPUSCULE · Projets -->
-      <section class="chapter chapter--left" id="work" data-screen-label="03 · Projets">
-        <div class="chap__num">03</div>
-        <div class="chapter__inner chap__inner">
-          <p class="chap__kicker" data-i18n="c3.kicker">L'heure dorée — projets</p>
-          <h2 class="chap__lead" data-i18n="c3.lead">Quelques pièces dont je suis fier.</h2>
-          <p class="chap__body" data-i18n="c3.body">Du jeu en temps réel à la fintech régulée et à la photographie, une sélection de plateformes, d’applications et de sites que j’ai contribué à construire.</p>
-          <div class="chap__extra work">
-            <article class="work__item work__item--featured" data-preview="screens/letmebet.jpg">
-              <span class="work__head">
-                <span class="work__index">01</span>
-                <span class="work__name">LetMeBet</span>
-                <span class="work__arrow" aria-hidden="true">↗</span>
-              </span>
-              <span class="work__desc" data-i18n="work.p1.desc">Challenges de paris sportifs à capital virtuel : cotes multi-sports en temps réel par WebSocket, KYC, paiements, système de jokers. Une centaine d'endpoints, 40 modèles de données, 250+ tests — en production : 150+ parieurs financés, 4,8/5 sur Trustpilot.</span>
-              <span class="work__tags">Next.js · TypeScript · Prisma · PostgreSQL · WebSocket</span>
-              <span class="work__links">
-                <a class="work__cta work__cta--link" href="/projets/letmebet/" data-cursor data-i18n="work.letmebet.platform">Plateforme web</a>
-                <a class="work__cta work__cta--link" href="/projets/letmebet-support/" data-cursor data-i18n="work.letmebet.support">Agent de support</a>
-                <a class="work__cta" href="https://letmebet.io" target="_blank" rel="noopener noreferrer" data-cursor data-i18n="work.visit">Visiter le produit ↗</a>
-              </span>
-            </article>
-            <article class="work__item work__item--featured" data-preview="screens/bemorefans.jpg">
-              <span class="work__head">
-                <span class="work__index">02</span>
-                <span class="work__name">bemore.fans</span>
-                <span class="work__arrow" aria-hidden="true">↗</span>
-              </span>
-              <span class="work__desc" data-i18n="work.p5.desc">Plateforme d'abonnements pour créateurs de contenu : paiements récurrents (PSP Epoch), KYC et contrôle d'âge Yoti, médias protégés par URLs signées (S3), messagerie modérée, programme d'affiliation, back-office complet. 54 modèles de données, 80+ écrans, 430+ tests — en production.</span>
-              <span class="work__tags">Next.js · TypeScript · Prisma · PostgreSQL · AWS S3</span>
-              <span class="work__links">
-                <a class="work__cta work__cta--link" href="/projets/bemore-fans/" data-cursor data-i18n="work.cta">Lire l’étude de cas</a>
-                <a class="work__cta" href="https://bemore.fans" target="_blank" rel="noopener noreferrer" data-cursor data-i18n="work.visit">Visiter le produit ↗</a>
-              </span>
-            </article>
-            <article class="work__item work__item--private">
-              <span class="work__head">
-                <span class="work__index">03</span>
-                <span class="work__name">Orion</span>
-              </span>
-              <span class="work__desc" data-i18n="work.p2.desc">CRM SaaS multitenant qui alimente LetMeBet : campagnes email et in-app, séquences automatisées, paiements multi-prestataires à livraison de webhooks fiabilisée. 80 modèles de données, 440+ tests, intégré aux apps clientes via un SDK TypeScript publié.</span>
-              <span class="work__tags">Next.js · Prisma · Stripe · Inngest · SDK TypeScript</span>
-              <span class="work__links">
-                <a class="work__cta work__cta--link" href="/projets/orion/" data-cursor data-i18n="work.orion.case">Lire l’étude de cas Orion</a>
-                <a class="work__cta work__cta--link" href="mailto:bonjour@cyrilarlaud.com?subject=Démo%20Orion" data-cursor data-i18n="work.cta2">Produit interne — démo sur demande</a>
-              </span>
-            </article>
-            <article class="work__item work__item--private">
-              <span class="work__head">
-                <span class="work__index">04</span>
-                <span class="work__name">Yoor</span>
-              </span>
-              <span class="work__desc" data-i18n="work.p3.desc">Application bancaire mobile (React Native) pour les cartes prépayées PCS : pilotage des cartes, virements SEPA, KYC et biométrie, plus un volet crypto — wallets Ethereum/Solana avec scoring AML. 60+ endpoints bancaires intégrés, 4 langues, backend serverless dédié.</span>
-              <span class="work__tags">React Native · Expo · TypeScript · Web3 · Vercel Functions</span>
-              <span class="work__links">
-                <a class="work__cta work__cta--link" href="/projets/yoor/" data-cursor data-i18n="work.yoor.case">Lire l’étude de cas Yoor</a>
-                <a class="work__cta work__cta--link" href="mailto:bonjour@cyrilarlaud.com?subject=Démo%20Yoor" data-cursor data-i18n="work.cta3">App mobile en bêta — démo sur demande</a>
-              </span>
-            </article>
-            <article class="work__item work__item--private">
-              <span class="work__head">
-                <span class="work__index">05</span>
-                <span class="work__name">PCS · SCA</span>
-              </span>
-              <span class="work__desc" data-i18n="work.p4.desc">Authentification forte pour les cartes prépayées PCS. Le service vérifie qu’une opération sensible a été confirmée depuis un appareil de confiance.</span>
-              <span class="work__tags">PHP 8.4 · Symfony · PostgreSQL · Redis · Terraform</span>
-              <a class="work__cta work__cta--link" href="/projets/pcs/" data-cursor data-i18n="work.cta">Lire l’étude de cas</a>
-            </article>
-            <article class="work__item">
-              <span class="work__head">
-                <span class="work__index">06</span>
-                <span class="work__name">Hora Essence</span>
-              </span>
-              <span class="work__desc" data-i18n="work.p6.desc">Site photo bilingue avec un carrousel plein écran et des transitions qui dévoilent chaque image.</span>
-              <span class="work__tags">React · GSAP</span>
-              <a class="work__cta work__cta--link" href="/projets/hora-essence/" data-cursor data-i18n="work.hora.case">Lire l’étude de cas Hora Essence</a>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <!-- 04 — LA NUIT · Savoir-faire -->
-      <section class="chapter chapter--center" id="craft" data-screen-label="04 · Savoir-faire">
+      <section class="chapter chapter--center" id="craft" tabindex="-1" data-screen-label="04 · Savoir-faire">
         <div class="chap__num">04</div>
         <div class="chapter__inner chap__inner">
           <p class="chap__kicker" data-i18n="c4.kicker">Heure bleue — savoir-faire</p>
@@ -342,7 +308,7 @@
       </section>
 
       <!-- 05 — L'AURORE · Et maintenant ? -->
-      <section class="chapter chapter--left" id="contact" data-screen-label="05 · Contact">
+      <section class="chapter chapter--left" id="contact" tabindex="-1" data-screen-label="05 · Contact">
         <div class="chap__num">05</div>
         <div class="chapter__inner chap__inner">
           <p class="chap__kicker" data-i18n="c5.kicker">Avant le jour — et maintenant ?</p>

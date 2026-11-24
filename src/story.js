@@ -5,7 +5,7 @@
    + curseur personnalisé, sommaire latéral, barre de progression.
 
    initStory(bg) reçoit l'API du fond (background.js) et renvoie un
-   contrôleur { scrollTo, rebuild }. rebuild() reconstruit les
+   contrôleur { scrollTo, rebuild, getStopPosition }. rebuild() reconstruit les
    révélations de texte — utilisé lors d'un changement de langue,
    une fois le contenu réécrit par i18n.js.
    ============================================================ */
@@ -23,9 +23,9 @@ import Lenis from "lenis";
 --------------------------------------------------------- */
 export const STOPS = [
   { a: "#1d1622", b: "#824150", c: "#13101a", elev: -0.12, az: 0.18, stars: 0.55 }, // 0 — Ouverture
-  { a: "#e0826b", b: "#f6cf93", c: "#b65a72", elev: 0.14, az: 0.22, stars: 0.05 }, // 1 — Origines (aube)
-  { a: "#e9c27a", b: "#f6eccf", c: "#d98a45", elev: 0.92, az: 0.5, stars: 0 }, // 2 — Stack (zénith)
-  { a: "#b23a6b", b: "#e87a4e", c: "#563a8c", elev: 0.11, az: 0.8, stars: 0.06 }, // 3 — Projets (crépuscule)
+  { a: "#e0826b", b: "#f6cf93", c: "#b65a72", elev: 0.14, az: 0.22, stars: 0.05 }, // 1 — Réalisations (aube)
+  { a: "#e9c27a", b: "#f6eccf", c: "#d98a45", elev: 0.92, az: 0.5, stars: 0 }, // 2 — Origines (zénith)
+  { a: "#b23a6b", b: "#e87a4e", c: "#563a8c", elev: 0.11, az: 0.8, stars: 0.06 }, // 3 — Stack (crépuscule)
   { a: "#161a38", b: "#2c3f7e", c: "#0a0c1e", elev: -0.45, az: 0.62, stars: 1 }, // 4 — Savoir-faire (nuit)
   { a: "#1f6b6b", b: "#6fd0c4", c: "#3a2f6e", elev: 0.02, az: 0.16, stars: 0.3 }, // 5 — Contact (aurore)
   { a: "#14121e", b: "#3a3550", c: "#0b0a10", elev: -0.18, az: 0.3, stars: 0.7 }, // 6 — Clôture
@@ -60,11 +60,12 @@ export function initStory(bg, opts = {}) {
   // douce laisserait le fond ~1 s dans les couleurs du mauvais chapitre :
   // on accélère temporairement la convergence.
   let boostUntil = 0;
+  let stopPosition = 0;
 
-  function updateBackgroundColors(progress) {
+  function updateBackgroundColors() {
     if (!bg) return;
     const n = stopColors.length - 1;
-    const x = Math.max(0, Math.min(1, progress)) * n;
+    const x = Math.max(0, Math.min(n, stopPosition));
     let i = Math.floor(x);
     if (i >= n) i = n - 1;
     const t = x - i;
@@ -101,16 +102,23 @@ export function initStory(bg, opts = {}) {
     });
   }
 
-  function scrollTo(target) {
+  function scrollTo(target, { addHistoryEntry = false } = {}) {
     const tgt =
       typeof target === "string" ? document.querySelector(target) : target;
     if (!tgt) return;
-    if (typeof target === "string" && target.startsWith("#")) {
-      window.history.replaceState(null, "", target);
+    if (typeof target === "string" && target.startsWith("#") && target !== window.location.hash) {
+      if (addHistoryEntry) window.history.pushState(null, "", target);
+      else window.history.replaceState(null, "", target);
     }
+    tgt.focus({ preventScroll: true });
     boostUntil = performance.now() + 2400; // durée du voyage + marge
-    if (lenis) lenis.scrollTo(tgt, { duration: 1.8 });
-    else window.scrollTo({ top: tgt.offsetTop, behavior: "smooth" });
+    if (lenis) {
+      // Resynchronise Lenis si le navigateur vient de restaurer le scroll.
+      lenis.resize();
+      lenis.scrollTo(tgt, { duration: 1.8 });
+    } else {
+      window.scrollTo({ top: tgt.offsetTop, behavior: "auto" });
+    }
   }
 
   /* -------------------------------------------------------
@@ -121,6 +129,11 @@ export function initStory(bg, opts = {}) {
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
+    window.addEventListener("popstate", () => {
+      if (lenis.isScrolling !== "smooth") return;
+      lenis.stop();
+      lenis.start();
+    });
   }
 
   /* -------------------------------------------------------
@@ -338,18 +351,21 @@ export function initStory(bg, opts = {}) {
   ------------------------------------------------------- */
   function initChrome() {
     const bar = document.querySelector(".progress__bar");
+    /** @type {HTMLAnchorElement[]} */
     const navItems = Array.from(document.querySelectorAll(".toc__item"));
-    const sections = navItems
-      .map((it) => document.querySelector(it.dataset.target))
-      .filter(Boolean);
+    /** @type {NodeListOf<HTMLElement>} */
+    const sections = document.querySelectorAll("main > .chapter");
+    /** @type {NodeListOf<HTMLAnchorElement>} */
+    const chapterLinks = document.querySelectorAll(".toc__item, .hero__action");
 
     const mnavNum = document.querySelector(".mnav__num");
     const mnavLabel = document.querySelector(".mnav__label");
 
-    navItems.forEach((it) => {
-      it.addEventListener("click", (event) => {
+    chapterLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
-        scrollTo(it.dataset.target);
+        scrollTo(link.hash, { addHistoryEntry: link.classList.contains("hero__action") });
       });
     });
 
@@ -361,24 +377,34 @@ export function initStory(bg, opts = {}) {
       const progress = scrollTop / limit;
 
       if (bar) bar.style.transform = `scaleX(${progress})`;
-      updateBackgroundColors(progress);
 
-      // section active
+      // Le ciel suit les débuts de chapitres, même si leur hauteur varie.
       let activeIdx = 0;
+      let skyStop = 0;
+      let skyStart = 0;
+      let skyEnd = limit;
       const mid = scrollTop + window.innerHeight * 0.5;
       sections.forEach((sec, i) => {
-        if (sec.offsetTop <= mid) activeIdx = i;
+        const top = sec.offsetTop;
+        if (top <= mid) activeIdx = i;
+        if (top <= scrollTop) {
+          skyStop = i + 1;
+          skyStart = top;
+        } else {
+          skyEnd = Math.min(skyEnd, top);
+        }
       });
-      navItems.forEach((it, i) =>
-        it.classList.toggle("is-active", i === activeIdx)
-      );
+      stopPosition = skyStop + (scrollTop - skyStart) / Math.max(1, skyEnd - skyStart);
+      updateBackgroundColors();
+      const activeTarget = `#${sections[activeIdx]?.id}`;
+      const activeItem = navItems.find((it) => it.hash === activeTarget);
+      navItems.forEach((it) => it.classList.toggle("is-active", it === activeItem));
 
       // reflet du chapitre actif dans la navigation mobile
       // (recopié depuis le sommaire : suit aussi les changements de langue)
-      if (mnavNum && mnavLabel && navItems[activeIdx]) {
+      if (mnavNum && mnavLabel && activeItem) {
         const num = String(activeIdx + 1).padStart(2, "0");
-        const label =
-          navItems[activeIdx].querySelector(".toc__label").textContent;
+        const label = activeItem.querySelector(".toc__label").textContent;
         if (mnavNum.textContent !== num) mnavNum.textContent = num;
         if (mnavLabel.textContent !== label) mnavLabel.textContent = label;
       }
@@ -396,12 +422,15 @@ export function initStory(bg, opts = {}) {
      du sommaire latéral sous 1100px / sur écran tactile.
   ------------------------------------------------------- */
   function initMobileNav() {
+    /** @type {HTMLButtonElement | null} */
     const btn = document.querySelector(".mnav");
     const overlay = document.querySelector(".mnav-overlay");
     if (!btn || !overlay) return;
 
+    /** @type {HTMLButtonElement | null} */
     const closeBtn = overlay.querySelector(".mnav-overlay__close");
-    const items = Array.from(overlay.querySelectorAll(".mnav-overlay__item"));
+    /** @type {NodeListOf<HTMLAnchorElement>} */
+    const items = overlay.querySelectorAll(".mnav-overlay__item");
     const notesItem = overlay.querySelector(".mnav-overlay__notes");
     const inertCandidates = Array.from(
       document.querySelectorAll(
@@ -426,10 +455,9 @@ export function initStory(bg, opts = {}) {
       });
       if (lenis) open ? lenis.stop() : lenis.start();
       if (open) {
-        // après application de la visibilité, sinon focus() échoue
-        requestAnimationFrame(() => (items[0] || closeBtn).focus());
+        (items[0] || closeBtn)?.focus({ preventScroll: true });
       } else {
-        restoreFocus?.focus();
+        restoreFocus.focus({ preventScroll: true });
       }
     }
 
@@ -467,114 +495,7 @@ export function initStory(bg, opts = {}) {
       it.addEventListener("click", (event) => {
         event.preventDefault();
         setOpen(false);
-        scrollTo(it.dataset.target);
-      });
-    });
-  }
-
-  /* -------------------------------------------------------
-     Aperçus visuels des projets — chaque .work__item doté
-     d'un data-preview reçoit une vignette inline (montrée par
-     le CSS en tactile/écran étroit) ; sur desktop, un aperçu
-     flottant suit le curseur au survol de l'item.
-  ------------------------------------------------------- */
-  function initWorkPreviews() {
-    const items = Array.from(
-      document.querySelectorAll(".work__item[data-preview]")
-    );
-    if (!items.length) return;
-
-    // vignette inline (tactile / étroit)
-    items.forEach((item) => {
-      const img = document.createElement("img");
-      img.className = "work__thumb";
-      img.src = item.dataset.preview;
-      // alt = nom du projet (neutre vis-à-vis de la langue)
-      const name = item.querySelector(".work__name")?.textContent || "";
-      img.alt = document.documentElement.lang === "en"
-        ? `Preview of ${name}`
-        : `Aperçu de ${name}`;
-      img.loading = "lazy";
-      img.decoding = "async";
-      const head = item.querySelector(".work__head");
-      if (head) head.insertAdjacentElement("afterend", img);
-      else item.prepend(img);
-    });
-
-    // aperçu flottant : pointeur fin uniquement
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-
-    const float = document.createElement("div");
-    float.className = "work-float";
-    float.setAttribute("aria-hidden", "true");
-    const floatImg = document.createElement("img");
-    floatImg.alt = "";
-    float.appendChild(floatImg);
-    document.body.appendChild(float);
-
-    // préchargement : peu d'images, on s'épargne le pop-in au survol
-    items.forEach((it) => {
-      const i = new Image();
-      i.src = it.dataset.preview;
-    });
-
-    let mx = 0,
-      my = 0; // cible (curseur)
-    let fx = 0,
-      fy = 0; // position lissée
-    let visible = false;
-    let lastHide = 0;
-    let raf = null;
-
-    function place(clientX, clientY) {
-      const w = float.offsetWidth || 360;
-      const h = float.offsetHeight || 225;
-      // à droite du curseur, bascule à gauche près du bord
-      mx = clientX + 28 + w > window.innerWidth ? clientX - 28 - w : clientX + 28;
-      my = Math.max(
-        12,
-        Math.min(clientY - h / 2, window.innerHeight - h - 12)
-      );
-    }
-
-    function loop() {
-      const k = prefersReduced ? 1 : 0.14;
-      fx += (mx - fx) * k;
-      fy += (my - fy) * k;
-      const rot = prefersReduced ? 0 : (mx - fx) * 0.012;
-      float.style.transform = `translate(${fx}px, ${fy}px) rotate(${rot}deg)`;
-      if (visible || Math.abs(mx - fx) + Math.abs(my - fy) > 0.5) {
-        raf = requestAnimationFrame(loop);
-      } else {
-        raf = null;
-      }
-    }
-    const startLoop = () => {
-      if (raf === null) raf = requestAnimationFrame(loop);
-    };
-
-    window.addEventListener("mousemove", (e) => {
-      place(e.clientX, e.clientY);
-      if (visible) startLoop();
-    });
-
-    items.forEach((item) => {
-      item.addEventListener("mouseenter", () => {
-        floatImg.src = item.dataset.preview;
-        // si l'aperçu était éteint depuis un moment, on apparaît
-        // sur place plutôt que de glisser depuis l'ancien survol
-        if (performance.now() - lastHide > 400) {
-          fx = mx;
-          fy = my;
-        }
-        float.classList.add("is-visible");
-        visible = true;
-        startLoop();
-      });
-      item.addEventListener("mouseleave", () => {
-        float.classList.remove("is-visible");
-        visible = false;
-        lastHide = performance.now();
+        scrollTo(it.hash);
       });
     });
   }
@@ -625,10 +546,9 @@ export function initStory(bg, opts = {}) {
   buildReveals();
   initChrome();
   initMobileNav();
-  initWorkPreviews();
   initCursor();
   window.addEventListener("load", () => ScrollTrigger.refresh());
   setTimeout(() => ScrollTrigger.refresh(), 600);
 
-  return { scrollTo, rebuild };
+  return { scrollTo, rebuild, getStopPosition: () => stopPosition };
 }

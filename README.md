@@ -3,7 +3,7 @@
 Portfolio de développeur web full-stack & SaaS, conçu comme une expérience de
 _scrollytelling_ : un fond peint en WebGL dont les couleurs sont pilotées par le
 défilement, et un parcours en « heures » (de l'aube à l'aurore) où chaque étape
-raconte une facette du métier — origines, stack, projets, savoir-faire, contact.
+raconte une facette du métier — réalisations, origines, stack, savoir-faire, contact.
 Bilingue **FR / EN**.
 
 ## Stack
@@ -34,7 +34,7 @@ src/
   main.js           Entrée : polices + styles, langue initiale, câblage des modules
   i18n.js            Contenu bilingue FR/EN + applyLang() — SOURCE DES TEXTES
   background.js      initBackground(canvas) -> { setColors, blendColors, setDebug, getInfo, ... }
-  story.js           initStory(bg, opts) -> { scrollTo, rebuild } — GSAP, Lenis, sommaire, curseur
+  story.js           initStory(bg, opts) -> { scrollTo, rebuild, getStopPosition } — animations et navigation
   hours.js           L'heure réelle du visiteur : palette d'ouverture + « Il est 23h04 — bonsoir. »
   makingof.js        Mode « sous le capot » : shader déconstruit, HUD live, annotations
   sound.js           Drone génératif WebAudio piloté par la progression du récit
@@ -75,9 +75,9 @@ Le contenu est volontairement composé d'**exemples à remplacer**. Tout se modi
 - **Stack** → [`index.html`](index.html), bloc `.stack` : ajoute/retire des
   `<span class="stack-tag">`. Les intitulés de groupe se traduisent via les clés
   `stack.front` / `stack.back` / `stack.saas`.
-- **Projets** → [`index.html`](index.html), bloc `.work` : pour chaque
-  `.work__item`, change le nom (`.work__name`), les technos (`.work__tags`) et
-  l'URL (`href`). Les descriptions se traduisent via `work.p1.desc` … dans i18n.
+- **Réalisations** → [`index.html`](index.html), bloc `.work`. Chaque carte
+  ouvre sa fiche via son `href`. Les clés `work.*` d’i18n traduisent les
+  catégories et les descriptions.
 - **Contact** → [`index.html`](index.html), bloc `.contact` : ton email (`mailto:`)
   et tes liens GitHub / LinkedIn (`href`).
 

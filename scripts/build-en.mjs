@@ -133,7 +133,6 @@ html = html
 /* ---- chemins relatifs : la page vit un niveau plus bas ---- */
 html = html
   .replaceAll('"./', '"../')
-  .replaceAll('data-preview="screens/', 'data-preview="../screens/')
   .replaceAll('href="/projets/letmebet/"', 'href="/en/projets/letmebet/"')
   .replaceAll('href="/projets/letmebet-support/"', 'href="/en/projets/letmebet-support/"')
   .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"')
