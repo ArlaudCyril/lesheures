@@ -63,6 +63,8 @@ export const translations = {
     "c3.body":
       "Du jeu temps réel à la fintech régulée, cinq produits construits de bout en bout : plateformes grand public, CRM SaaS et son SDK, app bancaire mobile, et module d'authentification forte DSP2.",
     "work.cta": "Lire l’étude de cas",
+    "work.letmebet.platform": "Plateforme web",
+    "work.letmebet.support": "Agent de support",
     "work.visit": "Visiter le produit ↗",
     "work.cta2": "Produit interne — démo sur demande",
     "work.cta3": "App mobile en bêta — démo sur demande",
@@ -163,6 +165,8 @@ export const translations = {
     "c3.body":
       "From real-time gaming to regulated fintech, five products built end to end: consumer platforms, a SaaS CRM with its SDK, a mobile banking app, and a PSD2 strong-authentication module.",
     "work.cta": "Read the case study",
+    "work.letmebet.platform": "Web platform",
+    "work.letmebet.support": "Support agent",
     "work.visit": "Visit the product ↗",
     "work.cta2": "Internal product — demo on request",
     "work.cta3": "Mobile app in beta — demo on request",

@@ -135,6 +135,7 @@ html = html
   .replaceAll('"./', '"../')
   .replaceAll('data-preview="screens/', 'data-preview="../screens/')
   .replaceAll('href="/projets/letmebet/"', 'href="/en/projets/letmebet/"')
+  .replaceAll('href="/projets/letmebet-support/"', 'href="/en/projets/letmebet-support/"')
   .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"')
   .replaceAll('href="/projets/pcs/"', 'href="/en/projets/pcs/"');
 
@@ -191,6 +192,14 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <url>
     <loc>${SITE}/en/projets/letmebet/</loc>
     ${alternates(`${SITE}/projets/letmebet/`, `${SITE}/en/projets/letmebet/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/letmebet-support/</loc>
+    ${alternates(`${SITE}/projets/letmebet-support/`, `${SITE}/en/projets/letmebet-support/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/letmebet-support/</loc>
+    ${alternates(`${SITE}/projets/letmebet-support/`, `${SITE}/en/projets/letmebet-support/`)}
   </url>
   <url>
     <loc>${SITE}/projets/bemore-fans/</loc>
