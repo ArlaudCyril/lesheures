@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="How I designed and built the PHP/Symfony backend for strong customer authentication on PCS prepaid cards." />
+    <link rel="canonical" href="https://cyrilarlaud.com/en/projets/pcs/" />
+    <link rel="alternate" hreflang="fr" href="https://cyrilarlaud.com/projets/pcs/" />
+    <link rel="alternate" hreflang="en" href="https://cyrilarlaud.com/en/projets/pcs/" />
+    <link rel="alternate" hreflang="x-default" href="https://cyrilarlaud.com/projets/pcs/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://cyrilarlaud.com/en/projets/pcs/" />
+    <meta property="og:title" content="PCS · Strong customer authentication — Cyril Arlaud" />
+    <meta property="og:description" content="Designing and building a PHP/Symfony backend that verifies confirmations from trusted devices." />
+    <meta property="og:image" content="https://cyrilarlaud.com/og.jpg" />
+    <title>PCS · Strong customer authentication — Cyril Arlaud</title>
+    <link rel="stylesheet" href="../../../case-study.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"CreativeWork","name":"PCS · Strong customer authentication","url":"https://cyrilarlaud.com/en/projets/pcs/","inLanguage":"en","author":{"@type":"Person","name":"Cyril Arlaud","url":"https://cyrilarlaud.com/"},"description":"A case study on designing and building the PHP/Symfony backend for strong customer authentication on PCS prepaid cards."}
+    </script>
+  </head>
+  <body>
+    <div class="case-shell">
+      <nav class="case-nav" aria-label="Case study navigation">
+        <a href="/en/#work">← Projects</a>
+        <a href="/projets/pcs/" lang="fr" hreflang="fr">Français</a>
+      </nav>
+      <main>
+        <header class="case-hero">
+          <p class="case-kicker">Case study · Backend</p>
+          <h1>PCS</h1>
+          <p class="case-intro">A strong customer authentication service that lets PCS prepaid cardholders confirm sensitive operations on a trusted phone.</p>
+        </header>
+        <section class="case-content">
+          <h2>The problem</h2>
+          <div>
+            <p>For operations that require strong customer authentication under PSD2, PCS needed to verify that the cardholder had confirmed the requested action.</p>
+            <p>I designed and built the PHP/Symfony backend, from the device registration API to verification of confirmations. I kept the validation rules separate from storage and notification delivery so I could test them independently.</p>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Confirming a payment</h2>
+          <div>
+            <p>Take a payment that needs confirmation. The app shows the amount and merchant. Once the cardholder confirms with biometrics, the registered phone signs a short-lived challenge tied to the payment. The service verifies the signature using the registered public key and returns the result to PCS.</p>
+            <p>I chose device signing to tie the confirmation to the trusted phone and the payment shown to the cardholder. The private key stays on the phone, and each challenge can be used only once, preventing the same proof from being replayed.</p>
+          </div>
+        </section>
+        <section class="case-content">
+          <h2>Tests and status</h2>
+          <div>
+            <p>Automated backend tests cover acceptance of a valid signature and rejection of an invalid signature, an expired challenge, or a previously used proof.</p>
+            <p>The backend was deployed to production on Google Cloud. Checks documented in November 2026 confirmed that the API responded and the background worker was running. End-to-end validation on a phone was still pending at the time of those checks.</p>
+            <div class="case-actions">
+              <a class="case-button" href="/en/#work">← Back to projects</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

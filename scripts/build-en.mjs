@@ -135,7 +135,8 @@ html = html
   .replaceAll('"./', '"../')
   .replaceAll('data-preview="screens/', 'data-preview="../screens/')
   .replaceAll('href="/projets/letmebet/"', 'href="/en/projets/letmebet/"')
-  .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"');
+  .replaceAll('href="/projets/bemore-fans/"', 'href="/en/projets/bemore-fans/"')
+  .replaceAll('href="/projets/pcs/"', 'href="/en/projets/pcs/"');
 
 /* Les notes restent françaises tant qu'aucune traduction relue n'existe. */
 if (!html.includes('href="/notes/"') || html.includes('href="/en/notes/"')) {
@@ -198,6 +199,14 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <url>
     <loc>${SITE}/en/projets/bemore-fans/</loc>
     ${alternates(`${SITE}/projets/bemore-fans/`, `${SITE}/en/projets/bemore-fans/`)}
+  </url>
+  <url>
+    <loc>${SITE}/projets/pcs/</loc>
+    ${alternates(`${SITE}/projets/pcs/`, `${SITE}/en/projets/pcs/`)}
+  </url>
+  <url>
+    <loc>${SITE}/en/projets/pcs/</loc>
+    ${alternates(`${SITE}/projets/pcs/`, `${SITE}/en/projets/pcs/`)}
   </url>${noteEntries ? `\n${noteEntries}` : ""}
 </urlset>
 `;

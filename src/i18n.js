@@ -66,7 +66,6 @@ export const translations = {
     "work.visit": "Visiter le produit ↗",
     "work.cta2": "Produit interne — démo sur demande",
     "work.cta3": "App mobile en bêta — démo sur demande",
-    "work.cta4": "Module backend — détails sur demande",
     "contact.email": "Écrire à Cyril",
     "contact.details": "Coordonnées",
     "work.p1.desc":
@@ -76,7 +75,7 @@ export const translations = {
     "work.p3.desc":
       "Application bancaire mobile (React Native) pour les cartes prépayées PCS : pilotage des cartes, virements SEPA, KYC et biométrie, plus un volet crypto — wallets Ethereum/Solana avec scoring AML. 60+ endpoints bancaires intégrés, 4 langues, backend serverless dédié.",
     "work.p4.desc":
-      "Brique d'authentification forte (DSP2) pour l'écosystème PCS : challenges signés ECDSA P-256 par appareil de confiance, biométrie, anti-rejeu, audit immuable. Architecture hexagonale — 8 ports, adapters PostgreSQL/Redis — pyramide de tests, infra Terraform sur GCP.",
+      "Authentification forte pour les cartes prépayées PCS. Le service vérifie qu’une opération sensible a été confirmée depuis un appareil de confiance.",
     "work.p5.desc":
       "Plateforme d'abonnements pour créateurs de contenu : paiements récurrents (PSP Epoch), KYC et contrôle d'âge Yoti, médias protégés par URLs signées (S3), messagerie modérée, programme d'affiliation, back-office complet. 54 modèles de données, 80+ écrans, 430+ tests — en production.",
 
@@ -167,7 +166,6 @@ export const translations = {
     "work.visit": "Visit the product ↗",
     "work.cta2": "Internal product — demo on request",
     "work.cta3": "Mobile app in beta — demo on request",
-    "work.cta4": "Backend module — details on request",
     "contact.email": "Email Cyril",
     "contact.details": "Contact details",
     "work.p1.desc":
@@ -177,7 +175,7 @@ export const translations = {
     "work.p3.desc":
       "Mobile banking app (React Native) for PCS prepaid cards: card controls, SEPA transfers, KYC and biometrics, plus a crypto layer — Ethereum/Solana wallets with AML scoring. 60+ banking endpoints integrated, 4 languages, dedicated serverless backend.",
     "work.p4.desc":
-      "Strong Customer Authentication (PSD2) building block for the PCS ecosystem: ECDSA P-256 signed challenges from trusted devices, biometrics, anti-replay, immutable audit trail. Hexagonal architecture — 8 ports, PostgreSQL/Redis adapters — full test pyramid, Terraform infra on GCP.",
+      "Strong customer authentication for PCS prepaid cards. The service verifies that a sensitive operation was confirmed on a trusted device.",
     "work.p5.desc":
       "Subscription platform for content creators: recurring payments (Epoch PSP), Yoti KYC and age verification, signed-URL protected media (S3), moderated messaging, affiliate program, full back-office. 54 data models, 80+ screens, 430+ tests — live in production.",
 
